@@ -38,4 +38,12 @@ Delivery which will allow Peerless-AV to define the sales regions by state and z
 
 Liz delivered an update due to an issue reported by Luke in the UK.  The issue was preventing Luke from processing containers.
 
+#### CBIZRadleyMerge[003] -- Replacing CBIZRadleyMerge[002]
+
+Fixed Confirm Shipment action error when process from Process Shipments screen.
+
+#### CBIZ.ShippingInst[007] -- Replacing CBIZ.ShippingInst[006]
+
+ixed Shipment Date doesnt change issue if the shipment is confirmed from Process Shipments screen.
+
 ### End August 2024 List
