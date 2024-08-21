@@ -68,9 +68,23 @@ ixed Shipment Date doesnt change issue if the shipment is confirmed from Process
 
 8-15-2024 - Started new deployment group.  This group will include updating documentation on new folders for delivered GI's, Import / Export Scenarios and report updates.  Buidling folder structure for these objects based on production tenants.
 
+8-20-2024 -- Rebuilt packages in DEV environment after a refresh of Peerless-AV - TEST.  The rebuild required a reboot of the server.
+
 #### CBIZ.PL.OBSReport[002]
 
 Initial delivery of the OBS report requested by Stephen K.  8/15/2024, this packaged failed deployment in previous group due
 to compatibility issue with AIS cost package.  
+
+#### TSSOProfitMarginCalculation[006]
+
+Update to resolve an issue with calculating margin in the UK with different warehouses
+
+#### CBIZ.PL.AccountCompareBudget
+
+Functionality added to show budget on account summary page.  Kris is asking for additional drill downs.  Prior to sending to CBIZ, DZ confirming okay to deploy as is, and work on drill down in second phase.
+
+#### AISCostOverheadAllocation[001]
+
+Updated from origial version, showing package and code in visual studio, and correcting the calculate button to include multiple overhead values.
 
 ### End Aug-2024-Package-A
