@@ -47,3 +47,10 @@ Fixed Confirm Shipment action error when process from Process Shipments screen.
 ixed Shipment Date doesnt change issue if the shipment is confirmed from Process Shipments screen.
 
 ### End August 2024 List
+
+### Aug-2024-HotFix-QCRecord Delete
+
+8-26-2024:  Eworkplace apps delivered a hotfix to delete production entries in the QC module, so we can process records and move forward with
+building the system.
+
+### End Aug-2024-HotFix-QCRecord Delete
