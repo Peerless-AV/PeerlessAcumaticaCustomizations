@@ -14,6 +14,26 @@ The _Dev folder will contain only those packages that are new, deployed to the D
 Dev is used to ensure anything delivered to Peerless-AV does not compramize, or break any 
 functionality.  Once released to Live, the file will be moved from _Dev to _Released.
 
+### _Reports Folder
+
+Updated report designer reports will be kept here.  Versions of these reports are also deployed
+in acumatica.  Not all reports are deployed to all production tenants, so the folders are organized by
+tenants.  Peerless-AV, Peerless-AV MX and Peerless-AV LTD tenants are documented, respective TEST tenants are NOT.
+
+### _Export_Scenarios Folder
+### _Import_Scenarios Folder
+
+Export and import scenarios in Acumatica can be saved as XML format and imported into alternat tenants.  There are a few
+scenarios used by Peerless-AV by departmental users.  These are documented and should go through change control, to keep
+users informed of any differences.  Not all scenarios are deployed to all production tenants, so the folders are organized by
+tenants.  Peerless-AV, Peerless-AV MX and Peerless-AV LTD tenants are documented, respective TEST tenants are NOT.
+
+### _Generic_Inquieries
+
+GI's are used in all departments, to analize data and create excel documents.  major changes to GI's should be kept here, and 
+popular ones used in work instructions should go through change control.  Not all GI's are deployed to all production tenants, so the folders are organized by
+tenants.  Peerless-AV, Peerless-AV MX and Peerless-AV LTD tenants are documented, respective TEST tenants are NOT.
+
 ## Package Documentation Section
 
 ### Aug 2024 Package Deployment
@@ -24,11 +44,7 @@ Fix / correction to the logic that calculates the margin on a sales order.  Fixe
 
 #### CBIZ.PL.LocationSort.zip
 
-This customization sets the default sort order on the look up screens for location numbers, sorting by qty avaialble decending on all screens.
-
-#### CBIZ.PL.OBSReport[002]
-
-Initial delivery of the OBS report requested by Stephen K.  
+This customization sets the default sort order on the look up screens for location numbers, sorting by qty avaialble decending on all screens.  
 
 #### CBIZ.PL.SalesRegion.zip
 
@@ -54,3 +70,59 @@ ixed Shipment Date doesnt change issue if the shipment is confirmed from Process
 building the system.
 
 ### End Aug-2024-HotFix-QCRecord Delete
+
+
+### Aug-2024-Package-A Deployment
+
+8-15-2024 - Started new deployment group.  This group will include updating documentation on new folders for delivered GI's, Import / Export Scenarios and report updates.  Buidling folder structure for these objects based on production tenants.
+
+8-20-2024 -- Rebuilt packages in DEV environment after a refresh of Peerless-AV - TEST.  The rebuild required a reboot of the server.
+
+#### CBIZ.PL.OBSReport[002]
+
+Initial delivery of the OBS report requested by Stephen K.  8/15/2024, this packaged failed deployment in previous group due
+to compatibility issue with AIS cost package.  
+
+#### TSSOProfitMarginCalculation[006]
+
+Update to resolve an issue with calculating margin in the UK with different warehouses
+
+#### AISCostOverheadAllocation[001]
+
+Updated from origial version, showing package and code in visual studio, and correcting the calculate button to include multiple overhead values.
+
+### End Aug-2024-Package-A
+
+### Sep-2024 Release-A
+
+8-26-2024: Updated this package, moving the budget actual package here as it is not approved for production release.  This package will remain in DEV
+
+#### CBIZ.PL.AccountCompareBudget
+
+Functionality added to show budget on account summary page.  Kris is asking for additional drill downs.  Prior to sending to CBIZ, DZ confirming okay to deploy as is, and work on drill down in second phase.
+
+8-26-2024: Updated this package, moving to future because the current build is not approved for production release.  This package will remain in DEV
+
+### End Sep-2024 Release-A
+
+### Future Known Packages
+
+#### TBD - MRP ORder Check Box
+
+Requested from PCIC, we are waiting for a check box to be placed on the order type screen which will tell MRP if any orders for that order type
+should be ignored from MRP, regardless of the part's setup.
+
+#### TBD - Change for item statuses
+
+The Item Status No Purchase should include a requirement that NO production orders can be created for a part in this status.  Additionally,
+the status No Request should be setup the exact same way.
+
+#### TBD - Adding Sales Order Status to Allocation Details
+
+on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+
+#### TBD - Amazon Pallet ASN and Label
+
+The Pallet SSCC barcode should be included for amazon orders, as a new requirement from Amazon.
+
+### End -- Future Known Packages
