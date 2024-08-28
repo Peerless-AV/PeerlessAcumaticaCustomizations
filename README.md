@@ -64,6 +64,14 @@ ixed Shipment Date doesnt change issue if the shipment is confirmed from Process
 
 ### End August 2024 List
 
+### Aug-2024-HotFix-QCRecord Delete
+
+8-26-2024:  Eworkplace apps delivered a hotfix to delete production entries in the QC module, so we can process records and move forward with
+building the system.
+
+### End Aug-2024-HotFix-QCRecord Delete
+
+
 ### Aug-2024-Package-A Deployment
 
 8-15-2024 - Started new deployment group.  This group will include updating documentation on new folders for delivered GI's, Import / Export Scenarios and report updates.  Buidling folder structure for these objects based on production tenants.
