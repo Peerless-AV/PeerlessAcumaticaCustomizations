@@ -79,12 +79,42 @@ to compatibility issue with AIS cost package.
 
 Update to resolve an issue with calculating margin in the UK with different warehouses
 
-#### CBIZ.PL.AccountCompareBudget
-
-Functionality added to show budget on account summary page.  Kris is asking for additional drill downs.  Prior to sending to CBIZ, DZ confirming okay to deploy as is, and work on drill down in second phase.
-
 #### AISCostOverheadAllocation[001]
 
 Updated from origial version, showing package and code in visual studio, and correcting the calculate button to include multiple overhead values.
 
 ### End Aug-2024-Package-A
+
+### Sep-2024 Release-A
+
+8-26-2024: Updated this package, moving the budget actual package here as it is not approved for production release.  This package will remain in DEV
+
+#### CBIZ.PL.AccountCompareBudget
+
+Functionality added to show budget on account summary page.  Kris is asking for additional drill downs.  Prior to sending to CBIZ, DZ confirming okay to deploy as is, and work on drill down in second phase.
+
+8-26-2024: Updated this package, moving to future because the current build is not approved for production release.  This package will remain in DEV
+
+### End Sep-2024 Release-A
+
+### Future Known Packages
+
+#### TBD - MRP ORder Check Box
+
+Requested from PCIC, we are waiting for a check box to be placed on the order type screen which will tell MRP if any orders for that order type
+should be ignored from MRP, regardless of the part's setup.
+
+#### TBD - Change for item statuses
+
+The Item Status No Purchase should include a requirement that NO production orders can be created for a part in this status.  Additionally,
+the status No Request should be setup the exact same way.
+
+#### TBD - Adding Sales Order Status to Allocation Details
+
+on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+
+#### TBD - Amazon Pallet ASN and Label
+
+The Pallet SSCC barcode should be included for amazon orders, as a new requirement from Amazon.
+
+### End -- Future Known Packages
