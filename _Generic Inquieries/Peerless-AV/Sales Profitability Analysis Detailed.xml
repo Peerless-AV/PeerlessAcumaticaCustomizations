@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<data-set>
+  <relations format-version="3" relations-version="20220627" main-table="GIDesign" stable-sharing="True" file-name="(Name)">
+    <link from="GIFilter (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIGroupBy (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIMassAction (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIMassUpdateField (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GINavigationScreen (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GINavigationParameter (DesignID, NavigationScreenLineNbr)" to="GINavigationScreen (DesignID, LineNbr)" />
+    <link from="GINavigationCondition (DesignID, NavigationScreenLineNbr)" to="GINavigationScreen (DesignID, LineNbr)" />
+    <link from="GIOn (DesignID, RelationNbr)" to="GIRelation (DesignID, LineNbr)" />
+    <link from="GIRecordDefault (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIRelation (DesignID, ParentTable)" to="GITable (DesignID, Alias)" />
+    <link from="GIRelation (DesignID, ChildTable)" to="GITable (DesignID, Alias)" />
+    <link from="GIResult (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIResult (ObjectName, DesignID)" to="GITable (Alias, DesignID)" />
+    <link from="GISort (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GITable (DesignID)" to="GIDesign (DesignID)" />
+    <link from="GIWhere (DesignID)" to="GIDesign (DesignID)" />
+    <link from="SiteMap (Url)" to="GIDesign (DesignID)" type="WeakByUrl" linkname="toDesignById" baseurl="~/GenericInquiry/GenericInquiry.aspx" paramnames="id" />
+    <link from="SiteMap (Url)" to="GIDesign (Name)" type="WeakByUrl" linkname="toDesignByName" baseurl="~/GenericInquiry/GenericInquiry.aspx" />
+    <link from="ListEntryPoint (ListScreenID)" to="SiteMap (ScreenID)" />
+    <link from="SiteMap (ScreenID)" to="GIDesign (PrimaryScreenIDNew)" linkname="to1Screen" />
+    <link from="FilterHeader (ScreenID)" to="SiteMap (ScreenID)" />
+    <link from="FilterRow (FilterID)" to="FilterHeader (FilterID)" />
+    <link from="PivotTable (NoteID)" to="FilterHeader (RefNoteID)" />
+    <link from="PivotField (ScreenID, PivotTableID)" to="PivotTable (ScreenID, PivotTableID)" />
+    <link from="MUIScreen (NodeID)" to="SiteMap (NodeID)" />
+    <link from="MUIWorkspace (WorkspaceID)" to="MUIScreen (WorkspaceID)" type="FromMaster" linkname="workspaceToScreen" split-location="yes" updateable="True" />
+    <link from="MUISubcategory (SubcategoryID)" to="MUIScreen (SubcategoryID)" type="FromMaster" updateable="True" />
+    <link from="MUITile (ScreenID)" to="SiteMap (ScreenID)" />
+    <link from="MUIWorkspace (WorkspaceID)" to="MUITile (WorkspaceID)" type="FromMaster" linkname="workspaceToTile" split-location="yes" updateable="True" />
+    <link from="MUIArea (AreaID)" to="MUIWorkspace (AreaID)" type="FromMaster" updateable="True" />
+    <link from="MUIPinnedScreen (NodeID, WorkspaceID)" to="MUIScreen (NodeID, WorkspaceID)" type="WeakIfEmpty" isEmpty="Username" />
+    <link from="MUIFavoriteWorkspace (WorkspaceID)" to="MUIWorkspace (WorkspaceID)" type="WeakIfEmpty" isEmpty="Username" />
+    <link from="GIDesign (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIFilter (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIFilter (NoteID)" to="GIFilterKvExt (RecordID)" type="RowKvExt" />
+    <link from="GIGroupBy (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIOn (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIRelation (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIResult (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIResult (NoteID)" to="GIResultKvExt (RecordID)" type="RowKvExt" />
+    <link from="GISort (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GITable (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="GIWhere (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="FilterHeader (NoteID)" to="Note (NoteID)" type="Note" />
+    <link from="FilterHeader (NoteID)" to="FilterHeaderKvExt (RecordID)" type="RowKvExt" />
+  </relations>
+  <layout>
+    <table name="GIDesign">
+      <table name="GIFilter" uplink="(DesignID) = (DesignID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+        <table name="GIFilterKvExt" uplink="(NoteID) = (RecordID)" />
+      </table>
+      <table name="GIGroupBy" uplink="(DesignID) = (DesignID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="GIMassAction" uplink="(DesignID) = (DesignID)" />
+      <table name="GIMassUpdateField" uplink="(DesignID) = (DesignID)" />
+      <table name="GINavigationScreen" uplink="(DesignID) = (DesignID)">
+        <table name="GINavigationParameter" uplink="(DesignID, LineNbr) = (DesignID, NavigationScreenLineNbr)" />
+        <table name="GINavigationCondition" uplink="(DesignID, LineNbr) = (DesignID, NavigationScreenLineNbr)" />
+      </table>
+      <table name="GIRecordDefault" uplink="(DesignID) = (DesignID)" />
+      <table name="GISort" uplink="(DesignID) = (DesignID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="GITable" uplink="(DesignID) = (DesignID)">
+        <table name="GIRelation" uplink="(DesignID, Alias) = (DesignID, ParentTable)">
+          <table name="GIOn" uplink="(DesignID, LineNbr) = (DesignID, RelationNbr)">
+            <table name="Note" uplink="(NoteID) = (NoteID)" />
+          </table>
+          <table name="Note" uplink="(NoteID) = (NoteID)" />
+        </table>
+        <table name="GIResult" uplink="(Alias, DesignID) = (ObjectName, DesignID)">
+          <table name="Note" uplink="(NoteID) = (NoteID)" />
+          <table name="GIResultKvExt" uplink="(NoteID) = (RecordID)" />
+        </table>
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="GIWhere" uplink="(DesignID) = (DesignID)">
+        <table name="Note" uplink="(NoteID) = (NoteID)" />
+      </table>
+      <table name="SiteMap" uplink="(DesignID) = (Url)" linkname="toDesignById">
+        <table name="ListEntryPoint" uplink="(ScreenID) = (ListScreenID)" />
+        <table name="FilterHeader" uplink="(ScreenID) = (ScreenID)">
+          <table name="FilterRow" uplink="(FilterID) = (FilterID)" />
+          <table name="PivotTable" uplink="(RefNoteID) = (NoteID)">
+            <table name="PivotField" uplink="(ScreenID, PivotTableID) = (ScreenID, PivotTableID)" />
+          </table>
+          <table name="Note" uplink="(NoteID) = (NoteID)" />
+          <table name="FilterHeaderKvExt" uplink="(NoteID) = (RecordID)" />
+        </table>
+        <table name="MUIScreen" uplink="(NodeID) = (NodeID)">
+          <table name="MUIPinnedScreen" uplink="(NodeID, WorkspaceID) = (NodeID, WorkspaceID)" />
+        </table>
+        <table name="MUITile" uplink="(ScreenID) = (ScreenID)" />
+      </table>
+      <table name="SiteMap" uplink="(Name) = (Url)" linkname="toDesignByName">
+        <table name="ListEntryPoint" uplink="(ScreenID) = (ListScreenID)" />
+        <table name="FilterHeader" uplink="(ScreenID) = (ScreenID)">
+          <table name="FilterRow" uplink="(FilterID) = (FilterID)" />
+          <table name="PivotTable" uplink="(RefNoteID) = (NoteID)">
+            <table name="PivotField" uplink="(ScreenID, PivotTableID) = (ScreenID, PivotTableID)" />
+          </table>
+          <table name="Note" uplink="(NoteID) = (NoteID)" />
+          <table name="FilterHeaderKvExt" uplink="(NoteID) = (RecordID)" />
+        </table>
+        <table name="MUIScreen" uplink="(NodeID) = (NodeID)">
+          <table name="MUIPinnedScreen" uplink="(NodeID, WorkspaceID) = (NodeID, WorkspaceID)" />
+        </table>
+        <table name="MUITile" uplink="(ScreenID) = (ScreenID)" />
+      </table>
+      <table name="SiteMap" uplink="(PrimaryScreenIDNew) = (ScreenID)" linkname="to1Screen">
+        <table name="ListEntryPoint" uplink="(ScreenID) = (ListScreenID)" />
+        <table name="FilterHeader" uplink="(ScreenID) = (ScreenID)">
+          <table name="FilterRow" uplink="(FilterID) = (FilterID)" />
+          <table name="PivotTable" uplink="(RefNoteID) = (NoteID)">
+            <table name="PivotField" uplink="(ScreenID, PivotTableID) = (ScreenID, PivotTableID)" />
+          </table>
+          <table name="Note" uplink="(NoteID) = (NoteID)" />
+          <table name="FilterHeaderKvExt" uplink="(NoteID) = (RecordID)" />
+        </table>
+        <table name="MUIScreen" uplink="(NodeID) = (NodeID)">
+          <table name="MUIPinnedScreen" uplink="(NodeID, WorkspaceID) = (NodeID, WorkspaceID)" />
+        </table>
+        <table name="MUITile" uplink="(ScreenID) = (ScreenID)" />
+      </table>
+      <table name="Note" uplink="(NoteID) = (NoteID)" />
+    </table>
+    <table name="MUIWorkspace">
+      <table name="MUIFavoriteWorkspace" uplink="(WorkspaceID) = (WorkspaceID)" />
+    </table>
+    <table name="MUISubcategory" />
+    <table name="MUIArea" />
+  </layout>
+  <data>
+    <GIDesign>
+      <row DesignID="39c6ecc1-48bd-4471-b32b-4929a7290f8b" Name="Sales Profitability Analysis Detailed" FilterColCount="3" PageSize="0" NewRecordCreationEnabled="0" MassDeleteEnabled="0" AutoConfirmDelete="0" MassRecordsUpdateEnabled="0" MassActionsOnRecordsEnabled="0" ExposeViaOData="0" ExposeViaMobile="0" RowStyleFormula="=Switch([ARTran.MarginPercent]=100, 'default'  ,[ARTran.MarginPercent]&lt;0, 'red60', [ARTran.MarginPercent]&lt;15, 'red20', [ARTran.MarginPercent]&lt;25, 'orange20', [ARTran.MarginPercent]&lt;50, 'green20', [ARTran.MarginPercent]&lt;80, 'green40', [ARTran.MarginPercent]&gt;=80, 'green60')" ShowDeletedRecords="0" ShowArchivedRecords="0">
+        <GIFilter LineNbr="9" IsActive="1" Name="Released" FieldName="ARTran.released" DataType="string" DisplayName="Released transactions only" IsExpression="0" DefaultValue="1" ColSpan="1" Required="0" Hidden="1" />
+        <GIFilter LineNbr="8" IsActive="1" Name="Customer" FieldName="ARTran.customerID" DataType="string" DisplayName="Customer" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="7" IsActive="1" Name="CustomerClass" FieldName="Customer.customerClassID" DataType="string" DisplayName="Customer Class" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="6" IsActive="1" Name="Item" FieldName="InventoryItem.inventoryCD" DataType="string" DisplayName="Item" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="5" IsActive="1" Name="ItemClass" FieldName="InventoryItem.itemClassID" DataType="string" DisplayName="Item Class" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="4" IsActive="1" Name="SalesPerson" FieldName="ARTran.SalesPersonID" DataType="string" DisplayName="Sales Person" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="3" IsActive="1" Name="CostFinal" FieldName="ARTran.isTranCostFinal" DataType="string" DisplayName="Completed transactions only" IsExpression="0" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="2" IsActive="1" Name="DateTo" FieldName="ARTran.date" DataType="string" DisplayName="Date To" IsExpression="1" DefaultValue="@MonthEnd" ColSpan="1" Required="0" />
+        <GIFilter LineNbr="1" IsActive="1" Name="DateFrom" FieldName="ARTran.date" DataType="string" DisplayName="Date From" IsExpression="1" DefaultValue="@MonthStart-2" ColSpan="1" Required="0" />
+        <GISort LineNbr="1" IsActive="1" DataFieldName="ARTran.TranDate" SortOrder="A" />
+        <GITable Alias="ItemClass" Name="PX.Objects.IN.INItemClass" />
+        <GITable Alias="InventoryItem" Name="PX.Objects.IN.InventoryItem">
+          <GIRelation LineNbr="3" ChildTable="ItemClass" IsActive="1" JoinType="I">
+            <GIOn LineNbr="3" ParentField="itemClassID" Condition="E" ChildField="itemClassID" Operation="A" />
+          </GIRelation>
+          <GIResult LineNbr="25" SortOrder="25" IsActive="1" Field="PRODCODE_Attributes" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="1e056b4e-f1e2-495d-b5e5-45b36fda859b" />
+          <GIResult LineNbr="24" SortOrder="24" IsActive="1" Field="ACCTGROUP_Attributes" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="4f18421e-5aa1-48af-88dc-7850679737f0" />
+          <GIResult LineNbr="15" SortOrder="15" IsActive="1" Field="descr" Caption="Inventory Description" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9876bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="13" SortOrder="13" IsActive="1" Field="itemClassID_description" Caption="Item Class" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9776bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="12" SortOrder="12" IsActive="1" Field="itemClassID" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="b076bd8a-578f-e711-944a-12d4d93f21e4" />
+        </GITable>
+        <GITable Alias="Customer" Name="PX.Objects.AR.Customer">
+          <GIResult LineNbr="18" SortOrder="18" IsActive="1" Field="customerClassID_description" Caption="Customer Class" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9676bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="17" SortOrder="17" IsActive="1" Field="customerClassID" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="af76bd8a-578f-e711-944a-12d4d93f21e4" />
+        </GITable>
+        <GITable Alias="ARTran" Name="PX.Objects.AR.ARTran">
+          <GIRelation LineNbr="2" ChildTable="InventoryItem" IsActive="1" JoinType="I">
+            <GIOn LineNbr="2" ParentField="inventoryID" Condition="E" ChildField="inventoryID" Operation="A" />
+          </GIRelation>
+          <GIRelation LineNbr="1" ChildTable="Customer" IsActive="1" JoinType="I">
+            <GIOn LineNbr="1" ParentField="customerID" Condition="E" ChildField="bAccountID" Operation="A" />
+          </GIRelation>
+          <GIResult LineNbr="30" SortOrder="29" IsActive="1" Field="subID" Caption="SubAccount" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="e1198e85-b6a3-40be-8395-4f2ea593f15e" />
+          <GIResult LineNbr="28" SortOrder="28" IsActive="1" Field="refNbr" Caption="Invoice Number" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="07f165dd-b39e-413e-bdb5-6537fd70bb87" />
+          <GIResult LineNbr="27" SortOrder="27" IsActive="1" Field="accountID_description" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3b4b8c49-981f-463a-94d5-22f5eafa16aa" />
+          <GIResult LineNbr="26" SortOrder="26" IsActive="1" Field="accountID" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="1ddcf292-1e7b-4b02-b908-eb9c7b1a9f48" />
+          <GIResult LineNbr="23" SortOrder="23" IsActive="1" Field="qty" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="e2968bca-f604-494b-ad9e-c932113031d8" />
+          <GIResult LineNbr="22" SortOrder="22" IsActive="1" Field="released" Caption="Released" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9576bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="21" SortOrder="21" IsActive="1" Field="salesPersonID_description" Caption="Sales Pers." IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9476bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="20" SortOrder="20" IsActive="1" Field="salesPersonID" Width="100" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="ae76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="19" SortOrder="19" IsActive="1" Field="customerID_description" Caption="Customer" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9376bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="16" SortOrder="16" IsActive="1" Field="customerID" Width="100" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="ad76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="14" SortOrder="14" IsActive="1" Field="inventoryID" Width="100" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="ac76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="11" SortOrder="11" IsActive="1" Field="tranType" Caption="Type" Width="50" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9276bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="10" SortOrder="10" IsActive="1" Field="sOOrderType" Caption="SO Type" StyleFormula="=Switch(IsNull([ARTran.SOOrderNbr], 'X')='X', 'neutral')" Width="50" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="8f76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="9" SortOrder="9" IsActive="1" Field="sOOrderNbr" Caption="SO Nbr" StyleFormula="=Switch(IsNull([ARTran.SOOrderNbr], 'X')='X', 'neutral')" Width="90" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="8e76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="8" SortOrder="8" IsActive="1" Field="IsTranCostFinal" Caption="Completed" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="9176bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="7" SortOrder="7" IsActive="1" Field="=(((IIf( [ARTran.DrCr]='D', -1, 1 )*[ARTran.GrossSalesAmount])-[ARTran.Cost]) / ([ARTran.GrossSalesAmount]+.0001))*100" SchemaField="ARTran.MarginPercent" Caption="Margin %" Width="70" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="8d76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="6" SortOrder="6" IsActive="1" Field="=(IIf( [ARTran.DrCr]='D', -1, 1 )*[ARTran.GrossSalesAmount])-[ARTran.Cost]" SchemaField="ARTran.CuryTranAmt" Caption="Margin" Width="100" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="8c76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="5" SortOrder="5" IsActive="1" Field="cost" Caption="Cost" Width="100" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="8b76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="4" SortOrder="4" IsActive="1" Field="=IIf( [ARTran.DrCr]='D', -1, 1 )*[ARTran.GrossSalesAmount]" SchemaField="ARTran.CuryTranAmt" Caption="Gross Sale" Width="100" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="8a76bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="3" SortOrder="3" IsActive="1" Field="tranDate" Caption="Date" Width="70" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="9076bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="2" SortOrder="2" IsActive="1" Field="branchID_description" Caption="Branch" Width="130" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="8976bd8a-578f-e711-944a-12d4d93f21e4" />
+          <GIResult LineNbr="1" SortOrder="1" IsActive="1" Field="branchID" IsVisible="0" DefaultNav="1" QuickFilter="0" FastFilter="1" RowID="ab76bd8a-578f-e711-944a-12d4d93f21e4" />
+        </GITable>
+        <GIWhere LineNbr="14" IsActive="1" DataFieldName="[ItemClass]" Condition="NU" IsExpression="0" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="13" IsActive="1" OpenBrackets="(" DataFieldName="InventoryItem.itemClassID" Condition="E" IsExpression="0" Value1="[ItemClass]" Operation="O" />
+        <GIWhere LineNbr="12" IsActive="1" DataFieldName="[CustomerClass]" Condition="NU" IsExpression="0" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="11" IsActive="1" OpenBrackets="(" DataFieldName="Customer.customerClassID" Condition="E" IsExpression="0" Value1="[CustomerClass]" Operation="O" />
+        <GIWhere LineNbr="10" IsActive="1" DataFieldName="[Item]" Condition="NU" IsExpression="0" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="9" IsActive="1" OpenBrackets="(" DataFieldName="InventoryItem.inventoryCD" Condition="E" IsExpression="0" Value1="[Item]" Operation="O" />
+        <GIWhere LineNbr="8" IsActive="1" DataFieldName="[SalesPerson]" Condition="NU" IsExpression="0" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="7" IsActive="1" OpenBrackets="(" DataFieldName="ARTran.salesPersonID" Condition="E" IsExpression="0" Value1="[SalesPerson]" Operation="O" />
+        <GIWhere LineNbr="6" IsActive="1" DataFieldName="[Customer]" Condition="NU" IsExpression="0" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="5" IsActive="1" OpenBrackets="(" DataFieldName="ARTran.customerID" Condition="E" IsExpression="0" Value1="[Customer]" Operation="O" />
+        <GIWhere LineNbr="4" IsActive="1" DataFieldName="ARTran.isTranCostFinal" Condition="GE" IsExpression="0" Value1="[CostFinal]" Operation="A" />
+        <GIWhere LineNbr="3" IsActive="1" DataFieldName="ARTran.released" Condition="GE" IsExpression="0" Value1="[Released]" Operation="A" />
+        <GIWhere LineNbr="2" IsActive="1" OpenBrackets="(" DataFieldName="ARTran.tranDate" Condition="LE" IsExpression="0" Value1="[DateTo]" CloseBrackets=")" Operation="A" />
+        <GIWhere LineNbr="1" IsActive="1" OpenBrackets="(" DataFieldName="ARTran.tranDate" Condition="GE" IsExpression="0" Value1="[DateFrom]" CloseBrackets=")" Operation="A" />
+        <SiteMap linkname="toDesignById">
+          <row Position="620" Title="Sales Profitability Analysis" Url="~/GenericInquiry/GenericInquiry.aspx?ID=39c6ecc1-48bd-4471-b32b-4929a7290f8b" ScreenID="AR601000" NodeID="39c6ecc1-48bd-4471-b32b-4929a7290f8b" ParentID="f154a348-b40c-4b77-9459-ab147a44da98">
+            <MUIScreen IsPortal="0" WorkspaceID="d5cbc4c3-5f8b-40da-80c9-49897f1f74b8" Order="265" SubcategoryID="0b491e12-c58d-4e47-8a0d-96dd3a8ab395">
+              <MUIPinnedScreen IsPortal="0" Username="" IsPinned="1" />
+            </MUIScreen>
+          </row>
+        </SiteMap>
+      </row>
+    </GIDesign>
+    <MUIWorkspace>
+      <row IsPortal="0" WorkspaceID="d5cbc4c3-5f8b-40da-80c9-49897f1f74b8" Order="41" Title="Receivables" Icon="add_circle" AreaID="338edf81-5456-4735-8601-b213458e93fe" ScreenID="WSAR0000" IsSystem="0">
+        <MUIFavoriteWorkspace IsPortal="0" Username="" IsFavorite="1" />
+      </row>
+    </MUIWorkspace>
+    <MUISubcategory>
+      <row IsPortal="0" SubcategoryID="0b491e12-c58d-4e47-8a0d-96dd3a8ab395" Order="1024" Name="Reports" Icon="" IsSystem="0" />
+    </MUISubcategory>
+    <MUIArea>
+      <row IsPortal="0" AreaID="338edf81-5456-4735-8601-b213458e93fe" Order="10" Name="Financials" />
+    </MUIArea>
+  </data>
+</data-set>
