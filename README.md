@@ -103,6 +103,25 @@ Functionality added to show budget on account summary page.  Kris is asking for 
 
 8-26-2024: Updated this package, moving to future because the current build is not approved for production release.  This package will remain in DEV
 
+#### EWPAQMS[23.106.0050][23.147.74][01]
+
+New Quality module to correct the issue with raising purchase requisitions -- and generating quality alerts from the purchase requisitions.  
+
+#### InterastarDD 
+#### CloudInfoFEMT 
+    Update to CloudInfoFEMT -- June has corrected one of the variables used in the APX code to keep compatiblity with the QMS package -9-5-2028
+
+Two packages for the MX Customization delivered by Alma to update the functionality in MX
+
+#### CBIZ.PL.MRPCalculation
+
+Update to MRP logic, allowing for a check box to remove order types from the calculation MRP uses.  Peerless-AV's example would be to remove Volta
+orders from MRP so they are calculated manually.
+
+#### CBIZ.PL.OBSReport[003]
+
+Fixed report so parameters in the report will not affect live settings in the system.
+
 ### End Sep-2024 Release-A
 
 ### Future Known Packages
