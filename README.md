@@ -122,23 +122,33 @@ orders from MRP so they are calculated manually.
 
 Fixed report so parameters in the report will not affect live settings in the system.
 
+#### CBIZ.PL.InvAllocationDetail - Adding Sales Order Status to Allocation Details
+
+on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+
 ### End Sep-2024 Release-A
 
-### Future Known Packages
+### Sep-18-2024B Release 
+Scheduled for 9/18/2024
 
-#### TBD - MRP ORder Check Box
-
-Requested from PCIC, we are waiting for a check box to be placed on the order type screen which will tell MRP if any orders for that order type
-should be ignored from MRP, regardless of the part's setup.
-
-#### TBD - Change for item statuses
+#### CBIZ.PL.ItemStatus - Change for item statuses
 
 The Item Status No Purchase should include a requirement that NO production orders can be created for a part in this status.  Additionally,
 the status No Request should be setup the exact same way.
 
-#### TBD - Adding Sales Order Status to Allocation Details
+#### SOAttributesCBIZ[004] - Update for Tier Fucntionality on cusotmer orders
 
-on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+The tier of the customer was not coping down to the orders properly. 
+
+### Future Known Packages
+
+#### AISCostOverheadAllocation[002]
+
+Correcting the spelling of Tariff.
+
+#### InterastarDD && CloudInfoFEMT
+
+Pending testing, update for MX to be scheduled.
 
 #### TBD - Amazon Pallet ASN and Label
 
