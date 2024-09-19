@@ -103,23 +103,53 @@ Functionality added to show budget on account summary page.  Kris is asking for 
 
 8-26-2024: Updated this package, moving to future because the current build is not approved for production release.  This package will remain in DEV
 
+#### EWPAQMS[23.106.0050][23.147.74][01]
+
+New Quality module to correct the issue with raising purchase requisitions -- and generating quality alerts from the purchase requisitions.  
+
+#### InterastarDD 
+#### CloudInfoFEMT 
+    Update to CloudInfoFEMT -- June has corrected one of the variables used in the APX code to keep compatiblity with the QMS package -9-5-2028
+
+Two packages for the MX Customization delivered by Alma to update the functionality in MX
+
+#### CBIZ.PL.MRPCalculation
+
+Update to MRP logic, allowing for a check box to remove order types from the calculation MRP uses.  Peerless-AV's example would be to remove Volta
+orders from MRP so they are calculated manually.
+
+#### CBIZ.PL.OBSReport[003]
+
+Fixed report so parameters in the report will not affect live settings in the system.
+
+#### CBIZ.PL.InvAllocationDetail - Adding Sales Order Status to Allocation Details
+
+on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+
 ### End Sep-2024 Release-A
 
-### Future Known Packages
+### Sep-18-2024B Release 
+Scheduled for 9/18/2024
 
-#### TBD - MRP ORder Check Box
-
-Requested from PCIC, we are waiting for a check box to be placed on the order type screen which will tell MRP if any orders for that order type
-should be ignored from MRP, regardless of the part's setup.
-
-#### TBD - Change for item statuses
+#### CBIZ.PL.ItemStatus - Change for item statuses
 
 The Item Status No Purchase should include a requirement that NO production orders can be created for a part in this status.  Additionally,
 the status No Request should be setup the exact same way.
 
-#### TBD - Adding Sales Order Status to Allocation Details
+#### SOAttributesCBIZ[004] - Update for Tier Fucntionality on cusotmer orders
 
-on the Allocation Details screen, a column for sales order status should be added, displaying the status of any sales order
+The tier of the customer was not coping down to the orders properly. 
+
+#### InterastarDD && CloudInfoFEMT && InterastarCEMT
+
+Correcting issues with the creation and transmission of the XML stamp to the government.
+
+#### AISCostOverheadAllocation[002]
+
+Correcting the spelling of Tariff.
+
+### Future Known Packages
+
 
 #### TBD - Amazon Pallet ASN and Label
 
