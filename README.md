@@ -140,15 +140,16 @@ the status No Request should be setup the exact same way.
 
 The tier of the customer was not coping down to the orders properly. 
 
-### Future Known Packages
+#### InterastarDD && CloudInfoFEMT && InterastarCEMT
+
+Correcting issues with the creation and transmission of the XML stamp to the government.
 
 #### AISCostOverheadAllocation[002]
 
 Correcting the spelling of Tariff.
 
-#### InterastarDD && CloudInfoFEMT
+### Future Known Packages
 
-Pending testing, update for MX to be scheduled.
 
 #### TBD - Amazon Pallet ASN and Label
 
