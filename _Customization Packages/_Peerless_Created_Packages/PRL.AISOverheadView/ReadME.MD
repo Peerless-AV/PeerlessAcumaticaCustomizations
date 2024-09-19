@@ -6,6 +6,8 @@ in a way to provide friendly reporting.  This package creates several SQL views 
 
 Initial release.  Deploying 4 SQL views to enhance the ability to create GI's for the purpose of using the calculated overhead value from the original package.
 
+Updated Release, combined the SQL script, from 4 into 1 in order to function properly within the deployment scneario.
+
 #### Dependancies:
 
 AISCostOverheadAllocation[002] -- Provided by CBIZ.  Version deployed 9-18-2024.  
