@@ -148,6 +148,26 @@ Correcting issues with the creation and transmission of the XML stamp to the gov
 
 Correcting the spelling of Tariff.
 
+### End Sep-18-2024B
+
+### Oct-2024A
+
+#### PRL.AISOverheadView
+
+Package created by Peerless (DANZ50OF), to deploy SQL views and a GI to view the base information for the MDO customization
+
+#### PRL.AMBOMCost_Single_Entry
+
+Package created by Peerless (DANZ50OF), to deploy SQL view limiting the result set of AMBOMCost to a single entry per bomID / Revision.
+
+#### CBIZRadleyMerge[004]
+
+Update required for amazon label specifications
+
+#### CBIZ.PL.AccountDetail
+
+Update to account detail screen, adding project information
+
 ### Future Known Packages
 
 

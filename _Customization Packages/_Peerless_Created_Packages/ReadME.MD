@@ -15,3 +15,7 @@ containing more detailed documention of the packages usage, dependancies, reques
 #### PRL.AISOverheadView
 
 9-19-2024: DAZ -- Created to provide better reporting from the AIS cost Customization
+
+#### PRL.AMBOMCost_Single_Entry
+
+9-20-2024: DAZ -- Created SQL View to limit the results of AMBOM table to one entry, eliminating duplicates.
