@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<data-set>
+  <relations format-version="3" relations-version="20220214" main-table="Dashboard">
+    <link from="DashboardParameter (DashboardID)" to="Dashboard (DashboardID)" />
+    <link from="DashboardParameter (NoteID)" to="DashboardParameterKvExt (RecordID)" type="RowKvExt" />
+    <link from="Widget (DashboardID)" to="Dashboard (DashboardID)" type="WeakIfEmpty" isEmpty="OwnerName" />
+    <link from="Widget (NoteID)" to="WidgetKvExt (RecordID)" type="RowKvExt" />
+    <link from="SiteMap (ScreenID)" to="Dashboard (ScreenID)" />
+    <link from="MUIScreen (NodeID)" to="SiteMap (NodeID)" />
+    <link from="MUIWorkspace (WorkspaceID)" to="MUIScreen (WorkspaceID)" type="FromMaster" linkname="workspaceToScreen" split-location="yes" updateable="True" />
+    <link from="MUISubcategory (SubcategoryID)" to="MUIScreen (SubcategoryID)" type="FromMaster" updateable="True" />
+    <link from="MUITile (ScreenID)" to="SiteMap (ScreenID)" />
+    <link from="MUIWorkspace (WorkspaceID)" to="MUITile (WorkspaceID)" type="FromMaster" linkname="workspaceToTile" split-location="yes" updateable="True" />
+    <link from="MUIArea (AreaID)" to="MUIWorkspace (AreaID)" type="FromMaster" updateable="True" />
+    <link from="MUIPinnedScreen (NodeID, WorkspaceID)" to="MUIScreen (NodeID, WorkspaceID)" type="WeakIfEmpty" isEmpty="Username" />
+    <link from="MUIFavoriteWorkspace (WorkspaceID)" to="MUIWorkspace (WorkspaceID)" type="WeakIfEmpty" isEmpty="Username" />
+  </relations>
+  <layout>
+    <table name="Dashboard">
+      <table name="DashboardParameter" uplink="(DashboardID) = (DashboardID)">
+        <table name="DashboardParameterKvExt" uplink="(NoteID) = (RecordID)" />
+      </table>
+      <table name="Widget" uplink="(DashboardID) = (DashboardID)">
+        <table name="WidgetKvExt" uplink="(NoteID) = (RecordID)" />
+      </table>
+      <table name="SiteMap" uplink="(ScreenID) = (ScreenID)">
+        <table name="MUIScreen" uplink="(NodeID) = (NodeID)">
+          <table name="MUIPinnedScreen" uplink="(NodeID, WorkspaceID) = (NodeID, WorkspaceID)" />
+        </table>
+        <table name="MUITile" uplink="(ScreenID) = (ScreenID)" />
+      </table>
+    </table>
+    <table name="MUIWorkspace">
+      <table name="MUIFavoriteWorkspace" uplink="(WorkspaceID) = (WorkspaceID)" />
+    </table>
+    <table name="MUISubcategory" />
+    <table name="MUIArea" />
+  </layout>
+  <data>
+    <Dashboard>
+      <row DashboardID="56" Name="Management" DefaultOwnerRole="DashboardDesigner" ScreenID="DB000028" AllowCopy="0" Workspace1Size="6" Workspace2Size="6" IsPortal="0" ExposeViaMobile="0" NoteID="d0e39332-d3dd-ec11-818c-0aee8cfbde7f">
+        <Widget WidgetID="1000958" Caption="Profit Trend" Column="0" Row="0" Workspace="0" Width="4" Height="114" Type="PX.Dashboards.Widgets.PXTrendcardWidget" NoteID="9992bfbc-cd91-e711-944a-12d4d93f21e4">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<TrendcardSettings version="20220215">
+  <InquiryScreenID>AR601000</InquiryScreenID>
+  <RefreshData>30</RefreshData>
+  <AggregateField>ARTran_marginPercent</AggregateField>
+  <AggregateFunction>AVG</AggregateFunction>
+  <NormalColor>Blue</NormalColor>
+  <WarningColor>Yellow</WarningColor>
+  <ErrorColor>Red</ErrorColor>
+  <TimelineField>ARTran_tranDate</TimelineField>
+  <Period>PX.Dashboards.Widgets.TrendPeriodLastMonth</Period>
+  <InquiryParameters>
+    <InqFieldWithValue>
+      <Name>CostFinal</Name>
+      <Value>False</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>Customer</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>CustomerClass</Name>
+      <Value>LOCAL</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>DateFrom</Name>
+      <Value>01/01/2017 00:00:00</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>DateTo</Name>
+      <Value>09/04/2017 00:00:00</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>Item</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>ItemClass</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>Released</Name>
+      <Value>True</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>SalesPerson</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+  </InquiryParameters>
+</TrendcardSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="1000957" Caption="Deal Size Trend" Column="1" Row="0" Workspace="0" Width="4" Height="114" Type="PX.Dashboards.Widgets.PXTrendcardWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;TrendcardSettings version=&quot;20220215&quot;&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI000018&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;RefreshData&gt;30&lt;/RefreshData&gt;&#xD;&#xA;  &lt;AggregateField&gt;SOOrder_controlTotal&lt;/AggregateField&gt;&#xD;&#xA;  &lt;AggregateFunction&gt;AVG&lt;/AggregateFunction&gt;&#xD;&#xA;  &lt;NormalColor&gt;Blue&lt;/NormalColor&gt;&#xD;&#xA;  &lt;WarningColor&gt;Yellow&lt;/WarningColor&gt;&#xD;&#xA;  &lt;ErrorColor&gt;Red&lt;/ErrorColor&gt;&#xD;&#xA;  &lt;TimelineField&gt;SOOrder_orderDate&lt;/TimelineField&gt;&#xD;&#xA;  &lt;Period&gt;PX.Dashboards.Widgets.TrendPeriodLastQuarter&lt;/Period&gt;&#xD;&#xA;&lt;/TrendcardSettings&gt;" NoteID="ed9a71eb-cd91-e711-944a-12d4d93f21e4" />
+        <Widget WidgetID="1000955" Caption="Sales by Period and Person" Column="0" Row="0" Workspace="1" Width="12" Height="350" Type="PX.Dashboards.Widgets.PXChartWidget" NoteID="5f5a323b-ce91-e711-944a-12d4d93f21e4">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<ChartSettings>
+  <InquiryScreenID>GI000003</InquiryScreenID>
+  <RefreshData>30</RefreshData>
+  <ChartType>3</ChartType>
+  <LegendPosition>5</LegendPosition>
+  <CategoryField>ARTran_tranDate</CategoryField>
+  <CategorySortType>0</CategorySortType>
+  <CategorySortOrder>0</CategorySortOrder>
+  <CategoryTotalAfter>12</CategoryTotalAfter>
+  <CategoryShowTotal>false</CategoryShowTotal>
+  <CategoryDateRounding>4</CategoryDateRounding>
+  <CategoryFormat>yyyy - MMM</CategoryFormat>
+  <SeriesField>SalesPerson_descr</SeriesField>
+  <SeriesSortType>1</SeriesSortType>
+  <SeriesSortOrder>1</SeriesSortOrder>
+  <SeriesTotalAfter>10</SeriesTotalAfter>
+  <SeriesDateRounding>0</SeriesDateRounding>
+  <SeriesShowTotal>false</SeriesShowTotal>
+  <ValueField>ARTran_tranAmt</ValueField>
+  <ValueAggregate>SUM</ValueAggregate>
+  <InquiryParameters>
+    <InqFieldWithValue>
+      <Name>EndDate</Name>
+      <Value>09/30/2017 00:00:00</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>SalespersonID</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+    <InqFieldWithValue>
+      <Name>StartDate</Name>
+      <Value>09/01/2016 00:00:00</Value>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+  </InquiryParameters>
+</ChartSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="1000954" Caption="Actual vs Budget - Income" Column="0" Row="1" Workspace="1" Width="6" Height="270" Type="PX.Dashboards.Widgets.PXChartWidget" NoteID="2207c1f1-ce91-e711-944a-12d4d93f21e4">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<ChartSettings version="20220215">
+  <InquiryScreenID>GI000060</InquiryScreenID>
+  <FilterID>00000c25-0000-0000-0000-000000000000</FilterID>
+  <RefreshData>30</RefreshData>
+  <ChartType>2</ChartType>
+  <LegendPosition>5</LegendPosition>
+  <CategoryField>FinPeriod_finDate</CategoryField>
+  <CategorySortType>0</CategorySortType>
+  <CategorySortOrder>1</CategorySortOrder>
+  <CategoryTotalAfter>6</CategoryTotalAfter>
+  <CategoryShowTotal>false</CategoryShowTotal>
+  <CategoryDateRounding>5</CategoryDateRounding>
+  <CategoryFormat>yyyy Q</CategoryFormat>
+  <SeriesField>GLHistory_balanceType</SeriesField>
+  <SeriesSortType>1</SeriesSortType>
+  <SeriesSortOrder>0</SeriesSortOrder>
+  <SeriesTotalAfter>10</SeriesTotalAfter>
+  <SeriesShowTotal>false</SeriesShowTotal>
+  <ValueField>GLHistory_Formula6debfecbce91e711944a12d4d93f21e4</ValueField>
+  <ValueAggregate>SUM</ValueAggregate>
+  <FilterRows>
+    <WidgetFilterRow>
+      <LineNbr>1</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>Account_type</DataField>
+      <Condition>0</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>I</Value1>
+      <Value2></Value2>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>2</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>FinPeriod_finDate</DataField>
+      <Condition>5</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>04/01/2020 00:00:00</Value1>
+      <Value2></Value2>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+  </FilterRows>
+</ChartSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="1000953" Caption="Actual vs Budget - Expense" Column="1" Row="1" Workspace="1" Width="6" Height="270" Type="PX.Dashboards.Widgets.PXChartWidget" NoteID="47ac2f1c-cf91-e711-944a-12d4d93f21e4">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<ChartSettings version="20220215">
+  <InquiryScreenID>GI000060</InquiryScreenID>
+  <FilterID>00000c26-0000-0000-0000-000000000000</FilterID>
+  <RefreshData>30</RefreshData>
+  <ChartType>2</ChartType>
+  <LegendPosition>5</LegendPosition>
+  <CategoryField>FinPeriod_finDate</CategoryField>
+  <CategorySortType>0</CategorySortType>
+  <CategorySortOrder>1</CategorySortOrder>
+  <CategoryTotalAfter>6</CategoryTotalAfter>
+  <CategoryShowTotal>false</CategoryShowTotal>
+  <CategoryDateRounding>5</CategoryDateRounding>
+  <CategoryFormat>yyyy Q</CategoryFormat>
+  <SeriesField>GLHistory_balanceType</SeriesField>
+  <SeriesSortType>1</SeriesSortType>
+  <SeriesSortOrder>0</SeriesSortOrder>
+  <SeriesTotalAfter>10</SeriesTotalAfter>
+  <SeriesShowTotal>false</SeriesShowTotal>
+  <ValueField>GLHistory_Formula6debfecbce91e711944a12d4d93f21e4</ValueField>
+  <ValueAggregate>SUM</ValueAggregate>
+  <FilterRows>
+    <WidgetFilterRow>
+      <LineNbr>1</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>Account_type</DataField>
+      <Condition>0</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>E</Value1>
+      <Value2></Value2>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>2</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>FinPeriod_finDate</DataField>
+      <Condition>5</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>04/01/2020 00:00:00</Value1>
+      <Value2></Value2>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+  </FilterRows>
+</ChartSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="6411" Caption="Total Value in £ Shipped this month" Column="2" Row="1" Workspace="0" Width="4" Height="250" Type="PX.Dashboards.Widgets.KPIScoreWidget" NoteID="125d1368-5f56-ef11-835c-0a498adf8847">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<KPIScoreSettings>
+  <InquiryScreenID>GI000008</InquiryScreenID>
+  <RefreshData>5</RefreshData>
+  <AggregateField>ARTran_tranCost</AggregateField>
+  <AggregateFunction>SUM</AggregateFunction>
+  <NormalColor>Teal</NormalColor>
+  <WarningColor>Yellow</WarningColor>
+  <ErrorColor>Pink</ErrorColor>
+  <NormalLevelType>#fix</NormalLevelType>
+  <NormalLevel>0</NormalLevel>
+  <ErrorLevelType>#fix</ErrorLevelType>
+  <ErrorLevel>0</ErrorLevel>
+  <VisualizationType>card</VisualizationType>
+  <InquiryParameters>
+    <InqFieldWithValue>
+      <Name>InventoryID</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+  </InquiryParameters>
+  <FilterRows>
+    <WidgetFilterRow>
+      <LineNbr>-2147483647</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>1</OpenBrackets>
+      <DataField>ARTran_tranDate</DataField>
+      <Condition>3</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthStart</Value1>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>-2147483646</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>ARTran_tranDate</DataField>
+      <Condition>5</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthEnd</Value1>
+      <CloseBrackets>1</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+  </FilterRows>
+</KPIScoreSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="6410" Caption="Low Margin" Column="0" Row="4" Workspace="0" Width="12" Height="600" Type="PX.Dashboards.Widgets.PXTableWidget" NoteID="de6cd886-5d56-ef11-835c-0a498adf8847">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<TableSettings>
+  <InquiryScreenID>GI640097</InquiryScreenID>
+  <RefreshData>0</RefreshData>
+  <AutoHeight>false</AutoHeight>
+  <FilterRows>
+    <WidgetFilterRow>
+      <LineNbr>-2147483647</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>1</OpenBrackets>
+      <DataField>SOOrder_orderDate</DataField>
+      <Condition>3</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthStart</Value1>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>-2147483646</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>SOOrder_orderDate</DataField>
+      <Condition>4</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthEnd+1</Value1>
+      <CloseBrackets>1</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>-2147483645</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>SOLine_usrMargin</DataField>
+      <Condition>4</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>25</Value1>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+  </FilterRows>
+  <Columns>
+    <TableColumn>
+      <DataField>SOOrder_OrderNbr</DataField>
+      <Visible>true</Visible>
+      <Position>0</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_customerID_description</DataField>
+      <Visible>true</Visible>
+      <Position>1</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_InventoryID</DataField>
+      <Visible>true</Visible>
+      <Position>2</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_orderQty</DataField>
+      <Visible>true</Visible>
+      <Position>3</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_usrMargin</DataField>
+      <Visible>true</Visible>
+      <Position>4</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>INSiteStatus_qtyHardAvail</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>INSiteStatus_qtySOShipping</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_inventoryID_description</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_openQty</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_requestDate</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_shipDate</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_shippedQty</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_unitPrice</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_uOM</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_curyID</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_customerID</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_customerOrderNbr</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_customerRefNbr</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_orderDate</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_orderDesc</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_shipDate</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_status</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+  </Columns>
+</TableSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="6407" Caption="Price Overwrites" Column="0" Row="3" Workspace="1" Width="12" Height="450" Type="PX.Dashboards.Widgets.PXTableWidget" NoteID="23a3c8ce-5b56-ef11-835c-0a498adf8847">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<TableSettings>
+  <InquiryScreenID>GI907791</InquiryScreenID>
+  <RefreshData>0</RefreshData>
+  <AutoHeight>false</AutoHeight>
+  <Columns>
+    <TableColumn>
+      <DataField>SOOrder_orderDate</DataField>
+      <Width>159</Width>
+      <Visible>true</Visible>
+      <Position>0</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOOrder_customerID</DataField>
+      <Width>131</Width>
+      <Visible>true</Visible>
+      <Position>1</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_inventoryID</DataField>
+      <Width>218</Width>
+      <Visible>true</Visible>
+      <Position>2</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_orderQty</DataField>
+      <Width>95</Width>
+      <Visible>true</Visible>
+      <Position>3</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_unitPrice</DataField>
+      <Width>172</Width>
+      <Visible>true</Visible>
+      <Position>4</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_usrMargin</DataField>
+      <Width>111</Width>
+      <Visible>true</Visible>
+      <Position>5</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_Formula61795f2b8c134fbb959d450e67891c4d</DataField>
+      <Width>190</Width>
+      <Visible>true</Visible>
+      <Position>6</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>SOLine_manualPrice</DataField>
+      <Width>74</Width>
+      <Visible>false</Visible>
+    </TableColumn>
+  </Columns>
+</TableSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="6216" Caption="Sales this Month" Column="2" Row="0" Workspace="0" Width="4" Height="114" Type="PX.Dashboards.Widgets.KPIScoreWidget" NoteID="be57de8d-1150-ef11-835c-0a498adf8847">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<KPIScoreSettings>
+  <InquiryScreenID>GI000008</InquiryScreenID>
+  <RefreshData>5</RefreshData>
+  <AggregateField>ARTran_netSalesAmount</AggregateField>
+  <AggregateFunction>SUM</AggregateFunction>
+  <NormalColor>Teal</NormalColor>
+  <WarningColor>Yellow</WarningColor>
+  <ErrorColor>Pink</ErrorColor>
+  <NormalLevelType>#fix</NormalLevelType>
+  <NormalLevel>0</NormalLevel>
+  <ErrorLevelType>#fix</ErrorLevelType>
+  <ErrorLevel>0</ErrorLevel>
+  <Icon>attach_money</Icon>
+  <VisualizationType>card</VisualizationType>
+  <InquiryParameters>
+    <InqFieldWithValue>
+      <Name>InventoryID</Name>
+      <UseDefault>true</UseDefault>
+    </InqFieldWithValue>
+  </InquiryParameters>
+  <FilterRows>
+    <WidgetFilterRow>
+      <LineNbr>-2147483647</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>1</OpenBrackets>
+      <DataField>ARTran_tranDate</DataField>
+      <Condition>3</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthStart</Value1>
+      <CloseBrackets>0</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+    <WidgetFilterRow>
+      <LineNbr>-2147483646</LineNbr>
+      <IsActive>true</IsActive>
+      <OpenBrackets>0</OpenBrackets>
+      <DataField>ARTran_tranDate</DataField>
+      <Condition>5</Condition>
+      <IsParameter>false</IsParameter>
+      <Value1>@MonthEnd</Value1>
+      <CloseBrackets>1</CloseBrackets>
+      <Operation>A</Operation>
+    </WidgetFilterRow>
+  </FilterRows>
+</KPIScoreSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="5719" Caption="Orders Shipping Next Month" Column="1" Row="2" Workspace="0" Width="6" Height="200" Type="PX.Dashboards.Widgets.PXPivotTableWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;PivotTableSettings&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI907743&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;FilterID&gt;00000000-0000-0000-0000-000000000000&lt;/FilterID&gt;&#xD;&#xA;  &lt;RefreshData&gt;30&lt;/RefreshData&gt;&#xD;&#xA;  &lt;PivotTableID&gt;1000174&lt;/PivotTableID&gt;&#xD;&#xA;&lt;/PivotTableSettings&gt;" NoteID="9d52cbc3-e803-ef11-8359-0a498adf8847" />
+        <Widget WidgetID="5718" Caption="Orders Shipping Current Month" Column="0" Row="2" Workspace="0" Width="6" Height="200" Type="PX.Dashboards.Widgets.PXPivotTableWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;PivotTableSettings&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI907742&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;FilterID&gt;00000000-0000-0000-0000-000000000000&lt;/FilterID&gt;&#xD;&#xA;  &lt;RefreshData&gt;30&lt;/RefreshData&gt;&#xD;&#xA;  &lt;PivotTableID&gt;1000173&lt;/PivotTableID&gt;&#xD;&#xA;&lt;/PivotTableSettings&gt;" NoteID="f40c2e74-e703-ef11-8359-0a498adf8847" />
+        <Widget WidgetID="5404" Caption="Next 5 Containers Due" Column="0" Row="3" Workspace="0" Width="12" Height="204" Type="PX.Dashboards.Widgets.PXTableWidget" NoteID="e464db9d-6a90-ee11-8354-0a498adf8847">
+          <column name="Settings"><![CDATA[<?xml version="1.0" encoding="utf-16"?>
+<TableSettings>
+  <InquiryScreenID>GI907745</InquiryScreenID>
+  <RefreshData>0</RefreshData>
+  <AutoHeight>true</AutoHeight>
+  <RecordsLimit>5</RecordsLimit>
+  <Columns>
+    <TableColumn>
+      <DataField>IGCMPOLandedCostLine_siteID</DataField>
+      <Width>85</Width>
+      <Visible>true</Visible>
+      <Position>0</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_LandedCostNbr</DataField>
+      <Width>88</Width>
+      <Visible>true</Visible>
+      <Position>1</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_landedCostDate</DataField>
+      <Width>85</Width>
+      <Visible>true</Visible>
+      <Position>2</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_status</DataField>
+      <Width>77</Width>
+      <Visible>true</Visible>
+      <Position>3</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_containerNbr</DataField>
+      <Width>109</Width>
+      <Visible>true</Visible>
+      <Position>4</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_containerStatusID</DataField>
+      <Width>76</Width>
+      <Visible>true</Visible>
+      <Position>5</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_expectedArrivalDate</DataField>
+      <Width>70</Width>
+      <Visible>true</Visible>
+      <Position>6</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_totalAmount</DataField>
+      <Width>78</Width>
+      <Visible>true</Visible>
+      <Position>7</Position>
+    </TableColumn>
+    <TableColumn>
+      <DataField>Containers_countryCode</DataField>
+      <Visible>false</Visible>
+    </TableColumn>
+  </Columns>
+</TableSettings>]]></column>
+        </Widget>
+        <Widget WidgetID="5401" Caption="Total Inventory by Warehouse" Column="0" Row="2" Workspace="1" Width="12" Height="190" Type="PX.Dashboards.Widgets.PXTableWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;TableSettings&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI907740&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;RefreshData&gt;0&lt;/RefreshData&gt;&#xD;&#xA;  &lt;AutoHeight&gt;false&lt;/AutoHeight&gt;&#xD;&#xA;  &lt;Columns&gt;&#xD;&#xA;    &lt;TableColumn&gt;&#xD;&#xA;      &lt;DataField&gt;INSiteStatus_SiteID&lt;/DataField&gt;&#xD;&#xA;      &lt;Width&gt;138&lt;/Width&gt;&#xD;&#xA;      &lt;Visible&gt;true&lt;/Visible&gt;&#xD;&#xA;      &lt;Position&gt;0&lt;/Position&gt;&#xD;&#xA;    &lt;/TableColumn&gt;&#xD;&#xA;    &lt;TableColumn&gt;&#xD;&#xA;      &lt;DataField&gt;INSiteStatus_siteID_description&lt;/DataField&gt;&#xD;&#xA;      &lt;Width&gt;280&lt;/Width&gt;&#xD;&#xA;      &lt;Visible&gt;true&lt;/Visible&gt;&#xD;&#xA;      &lt;Position&gt;1&lt;/Position&gt;&#xD;&#xA;    &lt;/TableColumn&gt;&#xD;&#xA;    &lt;TableColumn&gt;&#xD;&#xA;      &lt;DataField&gt;INSiteStatus_qtyOnHand&lt;/DataField&gt;&#xD;&#xA;      &lt;Width&gt;106&lt;/Width&gt;&#xD;&#xA;      &lt;Visible&gt;true&lt;/Visible&gt;&#xD;&#xA;      &lt;Position&gt;2&lt;/Position&gt;&#xD;&#xA;    &lt;/TableColumn&gt;&#xD;&#xA;    &lt;TableColumn&gt;&#xD;&#xA;      &lt;DataField&gt;INSiteCostStatus_totalCost&lt;/DataField&gt;&#xD;&#xA;      &lt;Width&gt;302&lt;/Width&gt;&#xD;&#xA;      &lt;Visible&gt;true&lt;/Visible&gt;&#xD;&#xA;      &lt;Position&gt;3&lt;/Position&gt;&#xD;&#xA;    &lt;/TableColumn&gt;&#xD;&#xA;  &lt;/Columns&gt;&#xD;&#xA;&lt;/TableSettings&gt;" NoteID="4c6435a0-6890-ee11-8354-0a498adf8847" />
+        <Widget WidgetID="5399" Caption="PO container date passed, no receipt." Column="1" Row="1" Workspace="0" Width="4" Height="114" Type="PX.Dashboards.Widgets.KPIScoreWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;KPIScoreSettings&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI907744&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;RefreshData&gt;5&lt;/RefreshData&gt;&#xD;&#xA;  &lt;AggregateField&gt;Containers_totalAmount&lt;/AggregateField&gt;&#xD;&#xA;  &lt;AggregateFunction&gt;COUNT&lt;/AggregateFunction&gt;&#xD;&#xA;  &lt;NormalColor&gt;Teal&lt;/NormalColor&gt;&#xD;&#xA;  &lt;WarningColor&gt;Yellow&lt;/WarningColor&gt;&#xD;&#xA;  &lt;ErrorColor&gt;Yellow&lt;/ErrorColor&gt;&#xD;&#xA;  &lt;NormalLevelType&gt;#fix&lt;/NormalLevelType&gt;&#xD;&#xA;  &lt;NormalLevel&gt;0&lt;/NormalLevel&gt;&#xD;&#xA;  &lt;ErrorLevelType&gt;#fix&lt;/ErrorLevelType&gt;&#xD;&#xA;  &lt;ErrorLevel&gt;0&lt;/ErrorLevel&gt;&#xD;&#xA;  &lt;Icon&gt;add_shopping_cart&lt;/Icon&gt;&#xD;&#xA;  &lt;VisualizationType&gt;card&lt;/VisualizationType&gt;&#xD;&#xA;&lt;/KPIScoreSettings&gt;" NoteID="0bde8504-858f-ee11-8354-0a498adf8847" />
+        <Widget WidgetID="5388" Caption="Late orders, sales order past and no shipment" Column="0" Row="1" Workspace="0" Width="4" Height="114" Type="PX.Dashboards.Widgets.KPIScoreWidget" Settings="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&#xD;&#xA;&lt;KPIScoreSettings&gt;&#xD;&#xA;  &lt;InquiryScreenID&gt;GI907741&lt;/InquiryScreenID&gt;&#xD;&#xA;  &lt;RefreshData&gt;5&lt;/RefreshData&gt;&#xD;&#xA;  &lt;AggregateField&gt;SOOrder_Formulaa53edfce5ab143258cea9750b27df6e5&lt;/AggregateField&gt;&#xD;&#xA;  &lt;AggregateFunction&gt;COUNT&lt;/AggregateFunction&gt;&#xD;&#xA;  &lt;NormalColor&gt;Teal&lt;/NormalColor&gt;&#xD;&#xA;  &lt;WarningColor&gt;Yellow&lt;/WarningColor&gt;&#xD;&#xA;  &lt;ErrorColor&gt;Green&lt;/ErrorColor&gt;&#xD;&#xA;  &lt;NormalLevelType&gt;#fix&lt;/NormalLevelType&gt;&#xD;&#xA;  &lt;NormalLevel&gt;0&lt;/NormalLevel&gt;&#xD;&#xA;  &lt;ErrorLevelType&gt;#fix&lt;/ErrorLevelType&gt;&#xD;&#xA;  &lt;ErrorLevel&gt;0&lt;/ErrorLevel&gt;&#xD;&#xA;  &lt;Icon&gt;add_shopping_cart&lt;/Icon&gt;&#xD;&#xA;  &lt;VisualizationType&gt;card&lt;/VisualizationType&gt;&#xD;&#xA;&lt;/KPIScoreSettings&gt;" NoteID="facf6382-e98e-ee11-8354-0a498adf8847" />
+        <SiteMap Position="3" Title="Management" Url="~/frames/default.aspx?scrid=db000028" NodeID="a83d90c1-8f6a-4c09-8d24-125a24003323" ParentID="2bd5b977-2454-4378-b0f4-846e554d2123">
+          <MUIScreen IsPortal="0" WorkspaceID="a66d7837-0bae-42a9-a338-ca40a71556b5" Order="10" SubcategoryID="67ac2367-ec74-44c4-8218-d3e45ed1ffde">
+            <MUIPinnedScreen IsPortal="0" Username="" IsPinned="1" />
+          </MUIScreen>
+        </SiteMap>
+      </row>
+    </Dashboard>
+    <MUIWorkspace>
+      <row IsPortal="0" WorkspaceID="a66d7837-0bae-42a9-a338-ca40a71556b5" Order="16" Title="Dashboards" Icon="dashboard" IsSystem="0" />
+    </MUIWorkspace>
+    <MUISubcategory>
+      <row IsPortal="0" SubcategoryID="67ac2367-ec74-44c4-8218-d3e45ed1ffde" Order="1474" Name="Dashboard: Management" Icon="" IsSystem="0" />
+    </MUISubcategory>
+  </data>
+</data-set>
