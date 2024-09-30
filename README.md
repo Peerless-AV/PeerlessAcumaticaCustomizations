@@ -168,6 +168,14 @@ Update required for amazon label specifications
 
 Update to account detail screen, adding project information
 
+### End Oct-2024A
+
+### Oct-2024B
+
+#### IIGCONTAINERMGMT[R60]
+
+Fix to add warehouse on the GI's as part of the container management module.
+
 ### Future Known Packages
 
 
