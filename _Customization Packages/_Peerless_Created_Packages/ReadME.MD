@@ -19,3 +19,7 @@ containing more detailed documention of the packages usage, dependancies, reques
 #### PRL.AMBOMCost_Single_Entry
 
 9-20-2024: DAZ -- Created SQL View to limit the results of AMBOM table to one entry, eliminating duplicates.
+
+#### PRLEDIEndPointDeployment
+
+10-22-2024: DAZ -- Created a package so we can deploy the Peerless custom edi end point to all tenants.
