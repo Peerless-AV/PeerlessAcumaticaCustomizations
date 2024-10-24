@@ -168,6 +168,40 @@ Update required for amazon label specifications
 
 Update to account detail screen, adding project information
 
+### End Oct-2024A
+
+### Oct-2024B
+
+#### IIGCONTAINERMGMT[R60]
+
+Fix to add warehouse on the GI's as part of the container management module.
+
+#### CBIZ.ShippingInst[009]
+
+<laura, do you know what this update to shipping instructions included?>
+
+#### CBIZ.PL.SAR[002]
+
+Sales requested functionality which will allow Peerless to import historical sales data
+and process information regarding monthly sales within Acumatica for accurate reporting purposes
+
+#### IIGCONTAINERMGMT [60]
+
+Update to container management package allowing UK to process information correctly as requested.
+
+#### CloudInfoFEMT Update
+
+Updated functionality from cloud info to correct processing in MX
+
+#### PRLEDIEndpointDeployment
+
+Upon noticing the EDI endpoint is not available in all tenants, this package has been created by peerless
+and will be carried forward.
+
+#### This one is a hotfix IIGChangeContainerStatusToClose1
+
+This will update a containter that needs to be closed in the UK tenant.
+
 ### Future Known Packages
 
 
