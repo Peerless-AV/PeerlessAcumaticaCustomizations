@@ -202,6 +202,20 @@ and will be carried forward.
 
 This will update a containter that needs to be closed in the UK tenant.
 
+### END Oct-2024B
+
+### Oct-25-2024
+
+The following two packages will need to be deployed 10/25 in the evening
+
+#### PRL.AISOverheadView
+
+Adding index field tot he main view for material overhead report export
+
+#### CBIZ.PL.SaleaReportDataView[005]
+
+Adding logic for including the assigned sales region in each line of sales. 
+
 ### Future Known Packages
 
 
