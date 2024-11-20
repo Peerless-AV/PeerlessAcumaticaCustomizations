@@ -8,6 +8,10 @@ Initial release.  Deploying 4 SQL views to enhance the ability to create GI's fo
 
 Updated Release, combined the SQL script, from 4 into 1 in order to function properly within the deployment scneario.
 
+### 11-19-2024:
+
+Within the code section of the customization project, added references to make the decmal positions 4 didgets.  
+
 #### Dependancies:
 
 AISCostOverheadAllocation[002] -- Provided by CBIZ.  Version deployed 9-18-2024.  
