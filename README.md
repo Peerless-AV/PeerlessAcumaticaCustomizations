@@ -214,13 +214,63 @@ Adding index field tot he main view for material overhead report export
 
 #### CBIZ.PL.SaleaReportDataView[005]
 
-Adding logic for including the assigned sales region in each line of sales. 
+Adding logic for including the assigned sales region in each line of sales.
+
+### End Oct-25-2024
+
+### 11-14-2024
+
+Note:  Levels of MX packages changed:  No files to import, only data changes on the customization
+       project levels:
+
+       CloudInfoFEMT moved to 20000
+       InterastarDD moved to 20010
+       InterastarCEMT moved to 20020
+       InterastarDIOT moved to 20030
+
+#### CBIZRadleyMerge[006]
+
+Need update for packages description
+
+#### CBIZ.PL.SAR[003]
+
+Added functionality to allow posting to all dates regardless of period closure, and allow for
+additional field and drop down columns to sort out goal information.
+
+### End 11-14-2024
+
+### 2-3-2025
+
+#### CBIZ.PL.APInvoiceDiff.zip
+
+Delivery of package to supply a difference column on the AP invoice screen, as requested by
+accounting.
+
+#### CBIZ.PL.SaleaReportDataView[008].zip
+
+Update to views for calculating the SAR and SAR detail reports
+
+#### Interastar_Vista_Previa_Facture.zip
+
+Logic includes preview of invoices with XML stame for Mexico tenants
+
+#### InterastarCEMT.zip
+
+Requiered update for stamping to work as requested by MX office
+
+#### PXLotSerialNbrAttributeExtPkgCBIZ.zip
+
+Update to include pedimento numbers in the XML stamping.
+
+#### CBIZ.EDISoLineCustomFields[004].zip
+
+Required to add the new preview button deployed in vista previa package above.
+
+### End 2-3-2025
+
+
 
 ### Future Known Packages
 
-
-#### TBD - Amazon Pallet ASN and Label
-
-The Pallet SSCC barcode should be included for amazon orders, as a new requirement from Amazon.
 
 ### End -- Future Known Packages
