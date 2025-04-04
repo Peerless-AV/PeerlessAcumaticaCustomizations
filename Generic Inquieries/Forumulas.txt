@@ -1,0 +1,22 @@
+=IIf([SalesData.TranType]='CRM', [SalesData.CuryTranAmt]*-1, [SalesData.CuryTranAmt])
+
+
+=IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)
+
+
+      =IIF((IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)),0.00,(IIF([SalesData.AccountCD] = '5040',[SalesData.Qty],0) / IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)))
+
+
+
+
+
+      (IIF([SalesData.AccountCD] = '5040',[SalesData.Qty],0) / IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0))
+
+
+
+
+
+
+
+
+      =IIF((IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)),0,(IIF([SalesData.AccountCD] = '5040',[SalesData.Qty],0) / IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)))
