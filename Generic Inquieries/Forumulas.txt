@@ -20,3 +20,10 @@
 
 
       =IIF((IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)),0,(IIF([SalesData.AccountCD] = '5040',[SalesData.Qty],0) / IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)))
+
+
+
+
+
+
+      =IIF([SalesData.AccountCD] = '5040',[SalesData.Qty],0) / (IIF([SalesData.AccountCD] = '5000',[SalesData.Qty],0)+.00001)
