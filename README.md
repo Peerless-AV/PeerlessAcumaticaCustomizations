@@ -268,7 +268,15 @@ Required to add the new preview button deployed in vista previa package above.
 
 ### End 2-3-2025
 
+### 03-05-2025  
 
+#### CBIZ.PL.EPR 
+
+New customization package to deploy fields required for the EPR initative.  This
+package will allow weights to be entered, in LBS for each of the fields that make
+up the EPR reporting initative.
+
+### End 03-05-2025
 
 ### Future Known Packages
 
