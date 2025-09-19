@@ -1,0 +1,2 @@
+select InvoiceDate, CustomerCD, CustomerName, InventoryCD, Qty, CuryTranAmt, null, Concat(InvoiceDate,vwSalesReportData.CustomerCD,vwSalesReportData.InventoryCD) as Unique_Key, Customer.usr from dbo.vwSalesReportData, dbo.inventoryItem, 
+where vwSalesReportData.CustomerCD = dbo.Customer.ARAcctID
