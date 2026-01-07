@@ -1,6 +1,6 @@
 # 📦 Package Release Document (PRD #1)
 **Date Created:** 2026-01-06  
-**Last Updated:** 2026-01-06 18:08 CST  
+**Last Updated:** 2026-01-07 13:22 CST  
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -18,12 +18,13 @@
 ## 🧱 2. Included Packages
 *(Each package must be deployed to Local, DEV, and PROD. Track status per environment.)*
 
-| # | Package Name                           | Notes | Local | DEV | PROD |
-|---|----------------------------------------|-------|-------|-----|------|
-| 1 | RadleyWebServiceEndPoint2024R2[003]    |       | [ ]   | [ ] | [ ]  |
-| 2 | CBIZ.PL.EPR                            |       | [ ]   | [ ] | [ ]  |
-| 3 | PRLPOSSales                            |       | [ ]   | [ ] | [ ]  |
-| 4 | PRLUpdateReportMenu                    |       | [ ]   | [ ] | [ ]  |
+| # | Package Name                           | Notes                                                         | Local | DEV | PROD |
+|---|----------------------------------------|---------------------------------------------------------------|-------|-----|------|
+| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | [ ]   | [ ] | [ ]  |
+| 2 | CBIZ.PL.EPR                            |                                                               | [ ]   | [ ] | [ ]  |
+| 3 | PRLPOSSales                            |                                                               | [ ]   | [ ] | [ ]  |
+| 4 | PRLUpdateReportMenu                    |                                                               | [ ]   | [ ] | [ ]  |
+| 5 | fayeEndPoint                           | Created in DEV – Peerless-AV and copied to BTG Management     | [ ]   | [ ] | [ ]  |
 
 ---
 
@@ -73,10 +74,10 @@
 -  
 
 ### 6.2 Technical Validation
--  
+- **2026-01-07 13:21 CST** — **DZ Reminder:** Double check new field from Laura under Radley API.
 
 ### 6.3 Data Validation
--  
+- **2026-01-07 12:37 CST** — For the FayeWebEndPoint, I have confirmed in DEV (Peerless‑AV) that the endpoint is returning the field `usrStockLevel`. I also confirmed that in my Local environment, the field was not present prior to deployment of the package. After deploying the package locally as planned, the field appeared as expected.
 
 ---
 
@@ -96,7 +97,8 @@
 
 ## 🧠 9. Notes for Next Release
 
-- **2026-01-06 18:08 CST** — GIT repo created, and packages collected for deployment. Next steps: deploy to a clean Local environment.
+- **2026-01-06 18:08 CST** — GIT repo created, and packages collected for deployment. Next steps: deploy to a clean Local environment.  
+- **2026-01-07 12:24 CST** — Added FayeEndPoint package, refreshing the endpoint from DEV to pass StockLevel field.
 
 ---
 
