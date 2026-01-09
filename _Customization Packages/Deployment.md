@@ -1,6 +1,6 @@
 # 📦 Package Release Document (PRD #1)
 **Date Created:** 2026-01-06  
-**Last Updated:** 2026-01-07 13:22 CST  
+**Last Updated:** 2026-01-09 10:12 CST  
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -31,16 +31,19 @@
 ## 🔄 3. Changes in This Release
 
 ### 3.1 Functional Changes
--  
+- **3.1.1** — New POS Record Updating  
+- **3.1.2** — Adding logic for EPR data requirements to Stock Item  
 
 ### 3.2 Technical Changes
--  
+- **3.2.1** — New Field on Faye End Point  
+- **3.2.2** — New Field on Radley End Point  
 
 ### 3.3 Database / DAC Changes
--  
+- **3.3.1** — New DAC for POS functionality support records and standard Acumatica functionality  
 
 ### 3.4 UI / Screen Changes
--  
+- **3.4.1** — New screen for POS Record Updating  
+- **3.4.2** — New tab on Stock Item for EPR functionality  
 
 ### 3.5 Integration Changes
 -  
@@ -98,7 +101,9 @@
 ## 🧠 9. Notes for Next Release
 
 - **2026-01-06 18:08 CST** — GIT repo created, and packages collected for deployment. Next steps: deploy to a clean Local environment.  
-- **2026-01-07 12:24 CST** — Added FayeEndPoint package, refreshing the endpoint from DEV to pass StockLevel field.
+- **2026-01-07 12:24 CST** — Added FayeEndPoint package, refreshing the endpoint from DEV to pass StockLevel field.  
+- **2026-01-09 10:07 CST** — Freshworks documentation updated. Release created for packages, available at:  
+  https://peerless-av.freshservice.com/a/releases/9?current_tab=details
 
 ---
 
