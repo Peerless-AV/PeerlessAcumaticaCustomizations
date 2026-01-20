@@ -1,6 +1,6 @@
 # 📦 Package Release Document (PRD #1)
 **Date Created:** 2026-01-06  
-**Last Updated:** 2026-01-09 10:12 CST  
+**Last Updated:** 2026-01-20 12:45 CST  
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -15,16 +15,17 @@
 
 ---
 
-## 🧱 2. Included Packages
-*(Each package must be deployed to Local, DEV, and PROD. Track status per environment.)*
+## 🧱 2. Included Packages  
+*(Each package must be deployed to DZ Personal, TestBTG, QA, and PROD. Track status per environment.)*
 
-| # | Package Name                           | Notes                                                         | Local | DEV | PROD |
-|---|----------------------------------------|---------------------------------------------------------------|-------|-----|------|
-| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | [ ]   | [ ] | [ ]  |
-| 2 | CBIZ.PL.EPR                            |                                                               | [ ]   | [ ] | [ ]  |
-| 3 | PRLPOSSales                            |                                                               | [ ]   | [ ] | [ ]  |
-| 4 | PRLUpdateReportMenu                    |                                                               | [ ]   | [ ] | [ ]  |
-| 5 | fayeEndPoint                           | Created in DEV – Peerless-AV and copied to BTG Management     | [ ]   | [ ] | [ ]  |
+| # | Package Name                           | Notes                                                         | DZ Personal | TestBTG | QA | PROD |
+|---|----------------------------------------|---------------------------------------------------------------|-------------|---------|----|------|
+| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | [ ]         | [ ]     | [ ] | [ ]  |
+| 2 | CBIZ.PL.EPR                            |                                                               | [ ]         | [ ]     | [ ] | [ ]  |
+| 3 | PRLPOSSales                            |                                                               | [ ]         | [ ]     | [ ] | [ ]  |
+| 4 | PRLUpdateReportMenu                    |                                                               | [ ]         | [ ]     | [ ] | [ ]  |
+| 5 | fayeEndPoint                           | Created in DEV – Peerless‑AV and copied to BTG Management     | [ ]         | [ ]     | [ ] | [ ]  |
+| 6 | CBIZ.UpdateItemAttributesTab[001]      | Fixes a bug introduced by a recent upgrade in Edge            | [ ]         | [ ]     | [ ] | [ ]  |
 
 ---
 
@@ -80,7 +81,7 @@
 - **2026-01-07 13:21 CST** — **DZ Reminder:** Double check new field from Laura under Radley API.
 
 ### 6.3 Data Validation
-- **2026-01-07 12:37 CST** — For the FayeWebEndPoint, I have confirmed in DEV (Peerless‑AV) that the endpoint is returning the field `usrStockLevel`. I also confirmed that in my Local environment, the field was not present prior to deployment of the package. After deploying the package locally as planned, the field appeared as expected.
+- **2026-01-07 12:37 CST** — For the FayeWebEndPoint, confirmed in DEV (Peerless‑AV) that the endpoint returns `usrStockLevel`. Local environment did not contain the field prior to deployment; after deploying the package locally, the field appeared as expected.
 
 ---
 
@@ -100,10 +101,13 @@
 
 ## 🧠 9. Notes for Next Release
 
-- **2026-01-06 18:08 CST** — GIT repo created, and packages collected for deployment. Next steps: deploy to a clean Local environment.  
-- **2026-01-07 12:24 CST** — Added FayeEndPoint package, refreshing the endpoint from DEV to pass StockLevel field.  
-- **2026-01-09 10:07 CST** — Freshworks documentation updated. Release created for packages, available at:  
-  https://peerless-av.freshservice.com/a/releases/9?current_tab=details
+- **2026‑01‑06 18:08 CST** — GIT repo created, and packages collected for deployment. Next steps: deploy to a clean Local environment.  
+- **2026‑01‑07 12:24 CST** — Added FayeEndPoint package, refreshing the endpoint from DEV to pass StockLevel field.  
+- **2026‑01‑09 10:07 CST** — Freshworks documentation updated. Release created for packages.  
+- **2026‑01‑16 21:27 CST** — Installed baseline setup on DZ laptop for Local DEV. First restore using the backup provided by Acumatica.  
+- **2026‑01‑17 16:27 CST** — DZ Personal environment loaded using backup provided by Acumatica. Light baseline testing completed. TESTBTG machine prepared with backup and prerequisites.  
+- **2026‑01‑18 09:12 CST** — Built SQL database on TESTBTG machine. Local machine build completed. ARM64 compile takes longer, but overall speed appears improved. Continued testing will confirm. ETA for TESTBTG readiness is Monday.  
+- **2026‑01‑20 12:43 CST** — Built **2024R2TESTBTG** environment and deployed current production packages for baseline testing. Turning over to team for review.
 
 ---
 
