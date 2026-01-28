@@ -1,17 +1,17 @@
-Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, including:
+Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, incorporating every change you’ve made so far, including:
 
-- Your latest deployment step for **InterestarCEMT**  
-- Updated package table  
-- All DZ Personal deployments marked complete  
+- All packages deployed to **DZ Personal** and **TestBTG**  
+- The new **InterestarCEMT** package  
+- Your latest deployment step in Section 5  
+- Screenshot reference in Section 10  
 - All Notes for Next Release  
-- All prior changes, validations, and artifacts  
 - Clean, consistent Markdown formatting  
 
 ---
 
 # 📦 **Package Release Document (PRD #1)**  
 **Date Created:** 2026‑01‑06  
-**Last Updated:** 2026‑01‑28 17:03 CST  
+**Last Updated:** 2026‑01‑28 17:06 CST  
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -30,13 +30,13 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 
 | # | Package Name                           | Notes                                                         | DZ Personal | TestBTG | QA | PROD |
 |---|----------------------------------------|---------------------------------------------------------------|-------------|---------|----|------|
-| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | ✔️          | [ ]     | [ ] | [ ]  |
-| 2 | CBIZ.PL.EPR                            |                                                               | ✔️          | [ ]     | [ ] | [ ]  |
-| 3 | PRLPOSSales                            |                                                               | ✔️          | [ ]     | [ ] | [ ]  |
-| 4 | PRLUpdateReportMenu                    |                                                               | ✔️          | [ ]     | [ ] | [ ]  |
-| 5 | fayeEndPoint                           | Created in DEV – Peerless‑AV and copied to BTG Management     | ✔️          | [ ]     | [ ] | [ ]  |
-| 6 | CBIZ.UpdateItemAttributesTab[001]      | Fixes a bug introduced by a recent upgrade in Edge            | ✔️          | [ ]     | [ ] | [ ]  |
-| 7 | **InterestarCEMT**                     | **Replacing version which is not working**                    | [ ]         | [ ]     | [ ] | [ ]  |
+| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
+| 2 | CBIZ.PL.EPR                            |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
+| 3 | PRLPOSSales                            |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
+| 4 | PRLUpdateReportMenu                    |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
+| 5 | fayeEndPoint                           | Created in DEV – Peerless‑AV and copied to BTG Management     | ✔️          | ✔️      | [ ] | [ ]  |
+| 6 | CBIZ.UpdateItemAttributesTab[001]      | Fixes a bug introduced by a recent upgrade in Edge            | ✔️          | ✔️      | [ ] | [ ]  |
+| 7 | **InterestarCEMT**                     | **Replacing version which is not working**                    | [ ]         | ✔️      | [ ] | [ ]  |
 
 ---
 
@@ -143,4 +143,4 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 
 ---
 
-If you want the **dashboard refreshed**, just say the command and I’ll generate it immediately.
+If you want the **dashboard refreshed**, just say the command and I’ll generate it.
