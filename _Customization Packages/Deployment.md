@@ -1,17 +1,6 @@
-Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, incorporating every change you’ve made so far, including:
-
-- All packages deployed to **DZ Personal** and **TestBTG**  
-- The new **InterestarCEMT** package  
-- Your latest deployment step in Section 5  
-- Screenshot reference in Section 10  
-- All Notes for Next Release  
-- Clean, consistent Markdown formatting  
-
----
-
 # 📦 **Package Release Document (PRD #1)**  
 **Date Created:** 2026‑01‑06  
-**Last Updated:** 2026‑01‑28 17:06 CST  
+**Last Updated:** 2026‑02‑11 09:08 CST**  
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -26,17 +15,18 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 
 ---
 
-## 🧱 2. Included Packages
+## 🧱 2. Included Packages  
+*(Updated — all packages now marked as deployed in QA)*
 
 | # | Package Name                           | Notes                                                         | DZ Personal | TestBTG | QA | PROD |
 |---|----------------------------------------|---------------------------------------------------------------|-------------|---------|----|------|
-| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
-| 2 | CBIZ.PL.EPR                            |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
-| 3 | PRLPOSSales                            |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
-| 4 | PRLUpdateReportMenu                    |                                                               | ✔️          | ✔️      | [ ] | [ ]  |
-| 5 | fayeEndPoint                           | Created in DEV – Peerless‑AV and copied to BTG Management     | ✔️          | ✔️      | [ ] | [ ]  |
-| 6 | CBIZ.UpdateItemAttributesTab[001]      | Fixes a bug introduced by a recent upgrade in Edge            | ✔️          | ✔️      | [ ] | [ ]  |
-| 7 | **InterestarCEMT**                     | **Replacing version which is not working**                    | [ ]         | ✔️      | [ ] | [ ]  |
+| 1 | RadleyWebServiceEndPoint2024R2[003]    |                                                               | ✔️          | ✔️      | ✔️  | [ ]  |
+| 2 | CBIZ.PL.EPR                            |                                                               | ✔️          | ✔️      | ✔️  | [ ]  |
+| 3 | PRLPOSSales                            |                                                               | ✔️          | ✔️      | ✔️  | [ ]  |
+| 4 | PRLUpdateReportMenu                    |                                                               | ✔️          | ✔️      | ✔️  | [ ]  |
+| 5 | fayeEndPoint                           | Created in DEV – Peerless‑AV and copied to BTG Management     | ✔️          | ✔️      | ✔️  | [ ]  |
+| 6 | CBIZ.UpdateItemAttributesTab[001]      | Fixes a bug introduced by a recent upgrade in Edge            | ✔️          | ✔️      | ✔️  | [ ]  |
+| 7 | **InterestarCEMT**                     | **Replacing version which is not working**                    | ✔️          | ✔️      | ✔️  | [ ]  |
 
 ---
 
@@ -103,6 +93,7 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 | # | Issue / Observation | Impact | Resolution / Next Steps |
 |---|---------------------|--------|--------------------------|
 | 1 |                     |        |                          |
+| 2 | **CloudInfoFE level** | N/A | Discuss with Interestar and Jun why CloudInfoFE would not be leveled before all other MX packages |
 
 ---
 
@@ -121,6 +112,12 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 - **2026‑01‑17 16:27 CST** — DZ Personal environment loaded; baseline testing completed.  
 - **2026‑01‑18 09:12 CST** — SQL DB built on TESTBTG; ARM64 compile slower but stable.  
 - **2026‑01‑20 12:43 CST** — Built 2024R2TESTBTG environment; deployed production packages; turned over to team.  
+- **2026‑01‑28 17:39 CST** — Deployment of the new InterestarCEMT package failed with an error. Log in email.  
+- **2026‑02‑05 08:14 CST** — Deployed InterestarCEMT to DZ Personal; deployment halts at “Starting website,” consistent with MX patch behavior. Will repeat in TESTBTG and loop Jun in.  
+- **2026‑02‑06 06:37 CST** — MX packages presenting the same error, halting at “Starting website.” Confirmed with Jun. Beginning to build MX packages into Release 1 one at a time; first pass required deploying InterestarCEMT and CloudInfoFE together. Deployment passed fully.  
+- **2026‑02‑06 07:30 CST** — During installation of **InterastarVistaPreviaFactura**, the “Starting website” halt presented again.  
+- **2026‑02‑06 07:42 CST** — Uploaded packages to **2024R2DEV** and will begin deploying non‑MX packages first.  
+- **2026‑02‑06 10:50 CST** — In TESTBTG, the following Interestar packages are not deployed due to halting at “Starting website”: **InterastarDD1**, **InterastarDIOT**, **InterastarVistaPreviaFactura**.
 
 ---
 
@@ -141,6 +138,3 @@ Absolutely, Dan — here is the **fully regenerated, up‑to‑date PRD #1**, in
 ### 🔍 Before/After Comparisons
 -  
 
----
-
-If you want the **dashboard refreshed**, just say the command and I’ll generate it.
