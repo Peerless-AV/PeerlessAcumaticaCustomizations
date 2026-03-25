@@ -1,6 +1,6 @@
 # 📦 **Package Release Document (PRD #2)**  
 **Date Created:** 2026‑03‑26  
-**Last Updated:** 2026‑03‑26 **  
+**Last Updated:** 2026‑03‑26**
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -8,7 +8,7 @@
 
 ## 🧭 1. Release Overview
 - **Release Version Targeted:** Acumatica 2024 R2 (24.210.0019)  
-- **Build Number:**   
+- **Build Number:** **3‑26‑2026**  
 - **Deployment Date:**   
 - **Deployed By:**   
 - **Related Work Items / Tickets:**   
@@ -18,14 +18,14 @@
 ## 🧱 2. Included Packages  
 *(All packages now marked deployed in PROD)*
 
-| # | Package Name | Notes | DZ Personal | TestBTG | QA | PROD |
-|---|--------------|--------|-------------|---------|----|------|
-| 1 |              |        |             |         |    |      |
-| 2 |              |        |             |         |    |      |
-| 3 |              |        |             |         |    |      |
-| 4 |              |        |             |         |    |      |
-| 5 |              |        |             |         |    |      |
-| 6 |              |        |             |         |    |      |
+| # | Package Name            | Notes                                           | DZ Personal | TestBTG | QA | PROD |
+|---|-------------------------|-------------------------------------------------|-------------|---------|----|------|
+| 1 | CBIZ.ShippingInst[011]  |                                                 |             |         |    |      |
+| 2 | InterastarDD            | Received from Interastar to correct reports     |             |         |    |      |
+| 3 | CloudInfoFE             | New version of Cloud Info                       |             |         |    |      |
+| 4 |                         |                                                 |             |         |    |      |
+| 5 |                         |                                                 |             |         |    |      |
+| 6 |                         |                                                 |             |         |    |      |
 
 ---
 
@@ -104,7 +104,7 @@
 
 ## 🧠 9. Notes for Next Release
 
--   
+- **2026‑03‑26 20:27 CDT** — PRD2 created, GitHub branch **3‑26‑2026** created, and packages moved to **DEV** folder for processing. Updating **TESTBTG**. TESTBTG to be reviewed the morning of **3‑27** and install to move forward.
 
 ---
 
@@ -124,5 +124,3 @@
 
 ### Before/After Comparisons
 -   
-
----
