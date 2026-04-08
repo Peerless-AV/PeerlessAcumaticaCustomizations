@@ -95,7 +95,8 @@ CustomerBalanceCTE AS (
     SELECT
         cb.CompanyID,
         cb.CustomerID,                      -- FK join key → Customer.AcctCD
-        NULL AS BalanceRemainingCreditLimit  -- Remaining Credit → Remaining_Credit__c (stubbed)
+        cb.CurrentBal,
+        null AS BalanceRemainingCreditLimit  -- Remaining Credit → Remaining_Credit__c (stubbed)
     FROM [dbo].[ARBalances] cb
 ),
 
@@ -221,7 +222,7 @@ SELECT
     --   Source: Customer.RemainingCreditLimit (currently NULL/stubbed)
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
-    CAST(c.RemainingCreditLimit AS DECIMAL(16, 2))   AS ACU_CREDIT_REMAIN__c,
+    CAST(c.CreditLimit - cb.CurrentBal AS DECIMAL(16, 2))            AS ACU_CREDIT_REMAIN__c,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Acu_Customer_Credit_Rule__c
