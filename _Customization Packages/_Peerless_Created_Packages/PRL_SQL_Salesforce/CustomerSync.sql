@@ -51,25 +51,29 @@ Tenants AS (
 -- ----------------------------------------------------------------
 CustomerBase AS (
     SELECT
-        c.CompanyID,
-        c.AcctCD,                         -- IFS / ACU Account Number  → Account_Number__c
-        c.AcctName,                       -- Account Name              → Name
-        c.CustomerClassID,                -- ACU Customer Class        → ACU_CUSTOMER_CLASS__c
-        c.CreditLimit,                    -- ACU Customer Credit Limit → ACU_CREDIT_LIMIT__c
-        c.RemainingCreditLimit,           -- ACU Credit Available      → ACU_CREDIT_REMAIN__c
-        c.CreditRule,                     -- ACU Customer Credit Rule  → Acu_Customer_Credit_Rule__c
-        c.TermsID,                        -- ACU Customer Credit Terms → ACU_CREDIT_TERMS__c
-        c.Status,                         -- ACU Customer Status       → ACU_CUSTOMER_STATUS__c
-        c.usrTier,                        -- ACU Customer Tier         → ACU_TIER__c
-        -- Billing Address (composite)     → BillingAddress in SFDC
-        c.BillingAddressLine1,
-        c.BillingAddressLine2,
-        c.BillingCity,
-        c.BillingState,
-        c.BillingPostalCode,
-        c.BillingCountry
-    FROM [dbo].[Customer] c
-    WHERE c.DeletedDatabaseRecord = 0     -- exclude soft-deleted records
+            c.CompanyID,
+            ba.AcctCD,                         -- IFS / ACU Account Number  → Account_Number__c
+            ba.AcctName,                       -- Account Name              → Name
+            c.CustomerClassID,                -- ACU Customer Class        → ACU_CUSTOMER_CLASS__c
+            c.CreditLimit,                    -- ACU Customer Credit Limit → ACU_CREDIT_LIMIT__c
+            null as "RemainingCreditLimit", --c.RemainingCreditLimit,           -- ACU Credit Available      → ACU_CREDIT_REMAIN__c
+            c.CreditRule,                     -- ACU Customer Credit Rule  → Acu_Customer_Credit_Rule__c
+            c.TermsID,                        -- ACU Customer Credit Terms → ACU_CREDIT_TERMS__c
+            ba.Status,                         -- ACU Customer Status       → ACU_CUSTOMER_STATUS__c
+            c.usrTier,                        -- ACU Customer Tier         → ACU_TIER__c
+            -- Billing Address (composite)     → BillingAddress in SFDC
+            Adr.AddressLine1,
+            Adr.AddressLine2,
+            Adr.City,
+            Adr.State,
+            Adr.PostalCode,
+            Adr.CountryID
+        FROM [dbo].[Customer] c, [dbo].[BAccount] ba, [dbo].[Address] Adr
+        WHERE c.DeletedDatabaseRecord = 0     -- exclude soft-deleted records
+        AND c.BAccountID = ba.BAccountID
+        AND c.CompanyID = ba.CompanyID
+        AND c.CompanyID = Adr.CompanyID
+        AND c.DefBillAddressID = Adr.AddressID
 ),
  
 -- ----------------------------------------------------------------
@@ -80,9 +84,9 @@ CustomerBalanceCTE AS (
     SELECT
         cb.CompanyID,
         cb.CustomerID,                    -- FK to Customer.AcctCD
-        cb.RemainingCreditLimit AS BalanceRemainingCreditLimit
-    FROM [dbo].[CustomerBalance] cb
-    WHERE cb.DeletedDatabaseRecord = 0
+        null AS BalanceRemainingCreditLimit
+    FROM [dbo].[ARBalances] cb
+    --WHERE cb.DeletedDatabaseRecord = 0
 ),
  
 -- ----------------------------------------------------------------
@@ -101,19 +105,12 @@ CustomerBalanceCTE AS (
 SalespersonRoles AS (
     SELECT
         sg.CompanyID,
-        sg.CustomerID,
-        MAX(CASE WHEN sg.SalespersonRole = 'Account Owner'        THEN sg.SalespersonName END) AS AccountOwner,
-        MAX(CASE WHEN sg.SalespersonRole = 'Commission Receiver'  THEN sg.SalespersonName END) AS CommissionReceiver,
-        MAX(CASE WHEN sg.SalespersonRole = 'Coordinator'          THEN sg.SalespersonName END) AS Coordinator,
-        MAX(CASE WHEN sg.SalespersonRole = 'Inside Sales'         THEN sg.SalespersonName END) AS InsideSales,
-        MAX(CASE WHEN sg.SalespersonRole = 'Key Director'         THEN sg.SalespersonName END) AS KeyDirector,
-        MAX(CASE WHEN sg.SalespersonRole = 'Key Manager'          THEN sg.SalespersonName END) AS KeyManager,
-        MAX(CASE WHEN sg.SalespersonRole = 'Sales Operations'     THEN sg.SalespersonName END) AS SalesOperations
-    FROM [dbo].[SalesPersonGroup] sg
-    WHERE sg.DeletedDatabaseRecord = 0
+        sg.SalespersonCD,
+        sg.Descr as "Name"
+    FROM [dbo].[SalesPerson] sg
     GROUP BY
         sg.CompanyID,
-        sg.CustomerID
+        sg.SalespersonCD
 ),
  
 -- ----------------------------------------------------------------
@@ -129,17 +126,16 @@ SalespersonRoles AS (
 CustomerAttributes AS (
     SELECT
         ca.CompanyID,
-        ca.EntityCD,                      -- FK to Customer.AcctCD
+        ca.RefNoteID,                      -- FK to Customer.AcctCD
         MAX(CASE WHEN ca.AttributeID = 'PROGROUP'   THEN ca.Value END) AS AttributePROGROUP,
         MAX(CASE WHEN ca.AttributeID = 'BILLING'    THEN ca.Value END) AS AttributeBILLING,
         MAX(CASE WHEN ca.AttributeID = 'SOREPFIRM'  THEN ca.Value END) AS AttributeSOREPFIRM,
         MAX(CASE WHEN ca.AttributeID = 'AREXPDATE'  THEN TRY_CAST(ca.Value AS DATE) END) AS AttributeARExPDATE
     FROM [dbo].[CSAnswers] ca
-    WHERE ca.DeletedDatabaseRecord = 0
-      AND ca.AttributeID IN ('PROGROUP', 'BILLING', 'SOREPFIRM', 'AREXPDATE')
+    WHERE ca.AttributeID IN ('PROGROUP', 'BILLING', 'SOREPFIRM', 'AREXPDATE')
     GROUP BY
         ca.CompanyID,
-        ca.EntityCD
+        ca.RefNoteID
 )
  
 -- ================================================================
