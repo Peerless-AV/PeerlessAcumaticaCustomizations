@@ -9,7 +9,8 @@
 --   Customer           - Core customer master (one row per customer per company)
 --   ARBalances         - Credit balance data (one row per customer per company)
 --   CSAnswers          - Attribute values (PROGROUP, BILLING, SOREPFIRM, AREXPDATE)
---   SalesPerson        - Salesperson reference table (SalespersonCD, Descr)
+--   CustSalesPeople    - Salesperson role assignments (multi-row per customer)
+--   SalesPerson        - Salesperson reference table (SalespersonID → Descr)
 --
 -- COMPOSITE KEY STRATEGY:
 --   ExternalKey = CompanyID + '|' + AcctCD
@@ -20,14 +21,13 @@
 --   - Single database deployment: all table references use [dbo].[TableName] only.
 --   - Acumatica isolates tenants via CompanyID on every table; the [dbo].[Company]
 --     table is the tenant catalog. All CTEs carry CompanyID throughout.
---   - SalespersonRoles CTE lists salesperson reference data only (SalespersonCD,
---     Descr). Salesperson role pivot logic must be handled in the integration/ETL
---     layer or a separate CTE (see USAGE NOTE 6 below).
---   - ARBalances may have multiple rows per customer; BalanceRemainingCreditLimit
---     is currently stubbed as NULL pending balance source confirmation.
+--   - SalespersonRoles pivots CustSalesPeople into one row per BAccountID,
+--     resolving SalesPersonID to display name via SalesPerson.Descr.
+--   - ARBalances BalanceRemainingCreditLimit is currently stubbed as NULL
+--     pending balance source confirmation.
 --   - Attribute fields (PROGROUP, BILLING, SOREPFIRM, AREXPDATE) are pulled
 --     from CSAnswers; adjust AttributeID values to match your Acumatica setup.
---   - BillingAddress columns are sourced from Adr.AddressLine1/2, City, State,
+--   - BillingAddress columns sourced from Adr.AddressLine1/2, City, State,
 --     PostalCode, CountryID as exposed by the CustomerBase CTE.
 -- ============================================================
 
@@ -55,12 +55,15 @@ Tenants AS (
 --          address columns use raw Acumatica field names from
 --          [dbo].[Address] (AddressLine1/2, City, State,
 --          PostalCode, CountryID).
+--    BAccountID is carried through to support the SalespersonRoles join.
 -- ----------------------------------------------------------------
 CustomerBase AS (
     SELECT
         c.CompanyID,
+        ba.BAccountID,                      -- FK → CustSalesPeople.BAccountID
         ba.AcctCD,                          -- IFS / ACU Account Number  → Account_Number__c
         ba.AcctName,                        -- Account Name              → Name
+        ba.NoteID,                          -- FK → CSAnswers.RefNoteID
         c.CustomerClassID,                  -- ACU Customer Class        → ACU_CUSTOMER_CLASS__c
         c.CreditLimit,                      -- ACU Customer Credit Limit → ACU_CREDIT_LIMIT__c
         NULL AS RemainingCreditLimit,       -- ACU Credit Available      → ACU_CREDIT_REMAIN__c (stubbed)
@@ -97,13 +100,19 @@ CustomerBalanceCTE AS (
 ),
 
 -- ----------------------------------------------------------------
--- 4. Salesperson reference lookup.
---    This CTE exposes the SalesPerson catalogue (SalespersonCD +
---    display name). Role-based pivot logic (Account Owner,
---    Commission Receiver, Coordinator, Inside Sales, Key Director,
---    Key Manager, Sales Operations) is handled downstream in the
---    integration/ETL layer via SalespersonGroup role assignments.
---    See USAGE NOTE 6 for pivot guidance.
+-- 4. Salesperson role pivot - one row per BAccountID per company.
+--    Joins CustSalesPeople → SalesPerson to resolve SalesPersonID
+--    to display name (Descr), then pivots usrSalesPersonGroup codes
+--    into individual role columns.
+--
+--    Role code mapping:
+--      AO = Account Owner
+--      CO = Coordinator
+--      KD = Key Director
+--      KM = Key Manager
+--      SO = Sales Operations
+--      IS = Inside Sales
+--      CR = Commission Receiver  ← confirm code against live data
 -- ----------------------------------------------------------------
 SalespersonRoles AS (
     SELECT
@@ -139,7 +148,7 @@ SalespersonRoles AS (
 CustomerAttributes AS (
     SELECT
         ca.CompanyID,
-        ca.RefNoteID,                       -- FK to Customer NoteID
+        ca.RefNoteID,                       -- FK to BAccount.NoteID
         MAX(CASE WHEN ca.AttributeID = 'PROGROUP'  THEN ca.Value END)                    AS AttributePROGROUP,
         MAX(CASE WHEN ca.AttributeID = 'BILLING'   THEN ca.Value END)                    AS AttributeBILLING,
         MAX(CASE WHEN ca.AttributeID = 'SOREPFIRM' THEN ca.Value END)                    AS AttributeSOREPFIRM,
@@ -236,15 +245,19 @@ SELECT
     CAST(cb.BalanceRemainingCreditLimit AS DECIMAL(16, 2)) AS Remaining_Credit__c,
 
     -- ----------------------------------------------------------
-    -- SFDC SALESPERSON FIELDS
-    --   Source: SalespersonRoles (reference lookup only).
-    --   Role-based columns (Account Owner, Commission Receiver, etc.)
-    --   are resolved in the ETL/integration layer by joining
-    --   SalesPersonGroup on SalespersonCD + role name.
-    --   Exposed here for reference / downstream use.
+    -- SFDC SALESPERSON ROLE FIELDS
+    --   Source: SalespersonRoles (pivoted from CustSalesPeople
+    --           joined to SalesPerson for display name).
+    --   NOTE: Commission Receiver code 'CR' needs confirmation
+    --         against live CustSalesPeople data.
     -- ----------------------------------------------------------
-    sg.SalespersonCD                                 AS ACU_SalespersonCD,
-    sg.SalespersonName                               AS ACU_SalespersonName,
+    sg.AccountOwner                                  AS ACU_ACCOUNT_OWNER__c,
+    sg.Coordinator                                   AS Acu_Customer_Coordinator__c,
+    sg.KeyDirector                                   AS ACU_Customer_Key_Director__c,
+    sg.KeyManager                                    AS ACU_Customer_Key_Manager__c,
+    sg.SalesOperations                               AS Acu_Customer_Sales_Operations__c,
+    sg.InsideSales                                   AS ACU_Customer_Inside_Sales_Rep__c,
+    sg.CommissionReceiver                            AS Acu_Customer_Commission_Receiver__c,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CUSTOMER_POSTYPE__c  (DIST Account Type)
@@ -284,8 +297,6 @@ SELECT
     -- ----------------------------------------------------------
     -- SFDC FIELD: BillingAddress (compound address object)
     --   Source: Address table columns as aliased in CustomerBase.
-    --   Column names match Address table fields (AddressLine1/2,
-    --   City, State, PostalCode, CountryID).
     -- ----------------------------------------------------------
     c.AddressLine1                                   AS BillingStreet,
     c.AddressLine2                                   AS BillingStreet2,
@@ -305,25 +316,15 @@ LEFT JOIN CustomerBalanceCTE cb
     ON  cb.CompanyID  = c.CompanyID
     AND cb.CustomerID = c.AcctCD
 
--- LEFT JOIN Salesperson reference (ETL layer resolves role pivot)
+-- LEFT JOIN pivoted salesperson roles via BAccountID
 LEFT JOIN SalespersonRoles sg
-    ON  sg.CompanyID = c.CompanyID
-    -- NOTE: No direct customer→salesperson FK in this CTE.
-    -- Join condition to be finalised once SalesPersonGroup
-    -- table is confirmed (see USAGE NOTE 6).
-    -- Remove this JOIN or replace with a proper SalesPersonGroup
-    -- pivot CTE when the role assignment source is confirmed.
-    AND 1 = 0   -- placeholder: prevents accidental cross-join; remove when real join key is available
+    ON  sg.CompanyID   = c.CompanyID
+    AND sg.BAccountID  = c.BAccountID
 
--- LEFT JOIN custom attribute values (join on RefNoteID via BAccount.NoteID)
+-- LEFT JOIN custom attribute values via BAccount.NoteID
 LEFT JOIN CustomerAttributes ca
     ON  ca.CompanyID = c.CompanyID
-    AND ca.RefNoteID = (
-        SELECT ba2.NoteID
-        FROM   [dbo].[BAccount] ba2
-        WHERE  ba2.AcctCD    = c.AcctCD
-          AND  ba2.CompanyID = c.CompanyID
-    )
+    AND ca.RefNoteID = c.NoteID
 
 ;
 GO
@@ -346,11 +347,12 @@ GO
 --
 -- 3. ACCOUNT OWNER (OwnerId Lookup):
 --      The OwnerId field in SFDC is a Lookup(User). Your integration
---      layer must resolve SalespersonCD to a SFDC User ID via a
---      separate User lookup before populating OwnerId.
+--      layer must resolve ACU_ACCOUNT_OWNER__c (salesperson display
+--      name) to a SFDC User ID via a separate User lookup before
+--      populating OwnerId.
 --
 -- 4. REMAINING CREDIT (dual source - both currently NULL/stubbed):
---      Customer.RemainingCreditLimit  → ACU_CREDIT_REMAIN__c
+--      Customer.RemainingCreditLimit        → ACU_CREDIT_REMAIN__c
 --      ARBalances.BalanceRemainingCreditLimit → Remaining_Credit__c
 --      Confirm with business stakeholders which source is
 --      authoritative and replace the NULL stubs accordingly.
@@ -361,25 +363,14 @@ GO
 --        SELECT * FROM vw_SFDC_Account_Acumatica_AllTenants
 --        WHERE CompanyID = 6;
 --
--- 6. SALESPERSON ROLE PIVOT:
---      The SalespersonRoles CTE exposes the SalesPerson catalogue
---      only. To populate role-specific SFDC fields:
---        ACU_ACCOUNT_OWNER__c              (SalespersonGroup = 'Account Owner')
---        Acu_Customer_Commission_Receiver__c (SalespersonGroup = 'Commission Receiver')
---        Acu_Customer_Coordinator__c       (SalespersonGroup = 'Coordinator')
---        ACU_Customer_Inside_Sales_Rep__c  (SalespersonGroup = 'Inside Sales')
---        ACU_Customer_Key_Director__c      (SalespersonGroup = 'Key Director')
---        ACU_Customer_Key_Manager__c       (SalespersonGroup = 'Key Manager')
---        Acu_Customer_Sales_Operations__c  (SalespersonGroup = 'Sales Operations')
---      Add a SalesPersonGroupPivot CTE that joins [dbo].[SalesPersonGroup]
---      (or equivalent) on CompanyID + CustomerID and uses MAX(CASE WHEN
---      SalespersonRole = '...' THEN SalespersonCD END) to pivot each role
---      into its own column. Replace the current SalespersonRoles JOIN and
---      the AND 1=0 placeholder with that pivot CTE.
+-- 6. COMMISSION RECEIVER ROLE CODE:
+--      The 'CR' code used in the SalespersonRoles pivot for
+--      CommissionReceiver is a placeholder. Verify the actual
+--      usrSalesPersonGroup value in [dbo].[CustSalesPeople] and
+--      update the CASE expression accordingly.
 --
--- 7. CUSTOMERATTRIBUTES JOIN via NoteID:
---      CSAnswers.RefNoteID links to BAccount.NoteID, not AcctCD directly.
---      The correlated subquery in the final JOIN resolves this. If
---      performance is a concern, materialise BAccount.NoteID into
---      CustomerBase and join directly.
+-- 7. CUSTOMERATTRIBUTES JOIN:
+--      CSAnswers.RefNoteID links to BAccount.NoteID. BAccount.NoteID
+--      is now carried directly through CustomerBase, so the join
+--      is a clean direct equality — no correlated subquery needed.
 -- ============================================================
