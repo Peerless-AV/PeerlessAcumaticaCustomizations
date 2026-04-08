@@ -314,7 +314,7 @@ INNER JOIN Tenants t
 -- LEFT JOIN CustomerBalance (not all customers have a balance record)
 LEFT JOIN CustomerBalanceCTE cb
     ON  cb.CompanyID  = c.CompanyID
-    AND cb.CustomerID = c.AcctCD
+    AND cb.CustomerID = c.BAccountID
 
 -- LEFT JOIN pivoted salesperson roles via BAccountID
 LEFT JOIN SalespersonRoles sg
