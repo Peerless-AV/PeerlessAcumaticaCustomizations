@@ -1,0 +1,178 @@
+﻿<Graph ClassName="InventoryItemExtensions" Source="#CDATA" IsNew="True" FileType="NewFile">
+    <CDATA name="Source"><![CDATA[using PX.Data.BQL.Fluent;
+using PX.Data.BQL;
+using PX.Data.EP;
+using PX.Data.ReferentialIntegrity.Attributes;
+using PX.Data;
+using PX.Objects.Common.Extensions;
+using PX.Objects.Common;
+using PX.Objects.CR;
+using PX.Objects.CS;
+using PX.Objects.DR;
+using PX.Objects.EP;
+using PX.Objects.GL;
+using PX.Objects.IN.Matrix.Attributes;
+using PX.Objects.IN.Matrix.Graphs;
+using PX.Objects.IN;
+using PX.Objects.TX;
+using PX.Objects;
+using PX.TM;
+using SelectParentItemClass = PX.Data.BQL.Fluent.SelectFrom<PX.Objects.IN.INItemClass>.Where<PX.Objects.IN.INItemClass.itemClassID.IsEqual<PX.Objects.IN.InventoryItem.itemClassID.FromCurrent>>;
+using SelectParentPostClass = PX.Data.BQL.Fluent.SelectFrom<PX.Objects.IN.INPostClass>.Where<PX.Objects.IN.INPostClass.postClassID.IsEqual<PX.Objects.IN.InventoryItem.postClassID.FromCurrent>>;
+using System.Collections.Generic;
+using System;
+
+namespace PX.Objects.IN
+{
+  public class InventoryItemExtEPR : PXCacheExtension<PX.Objects.IN.InventoryItem>
+  {
+    #region UsrSteel
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="STEEL (Amount in eaches)")]
+
+    public virtual Decimal? UsrSteel { get; set; }
+    public abstract class usrSteel : PX.Data.BQL.BqlDecimal.Field<usrSteel> { }
+    #endregion
+
+    #region UsrLDPEWRAP
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEWRAP (Amount in eaches)")]
+
+    public virtual Decimal? UsrLDPEWRAP { get; set; }
+    public abstract class usrLDPEWRAP : PX.Data.BQL.BqlDecimal.Field<usrLDPEWRAP> { }
+    #endregion
+    #region UsrLDPEWRAPCnt
+    [PXDBInt]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEWRAP (Count)")]
+
+    public virtual Int32? UsrLDPEWRAPCnt { get; set; }
+    public abstract class usrLDPEWRAPCnt : PX.Data.BQL.BqlInt.Field<usrLDPEWRAPCnt> { }
+    #endregion
+
+    #region UsrLDPEBAG
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEBAG (Amount in eaches)")]
+
+    public virtual Decimal? UsrLDPEBAG { get; set; }
+    public abstract class usrLDPEBAG : PX.Data.BQL.BqlDecimal.Field<usrLDPEBAG> { }
+    #endregion
+    #region UsrLDPEBAGCnt
+    [PXDBInt]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEBAG (Count)")]
+
+    public virtual Int32? UsrLDPEBAGCnt { get; set; }
+    public abstract class usrLDPEBAGCnt : PX.Data.BQL.BqlInt.Field<usrLDPEBAGCnt> { }
+    #endregion
+
+    #region UsrPPRIGID
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PPRIGID (Amount in eaches)")]
+
+    public virtual Decimal? UsrPPRIGID { get; set; }
+    public abstract class usrPPRIGID : PX.Data.BQL.BqlDecimal.Field<usrPPRIGID> { }
+    #endregion
+    #region UsrPPRIGIDCnt
+    [PXDBInt]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PPRIGID (Count)")]
+
+    public virtual Int32? UsrPPRIGIDCnt { get; set; }
+    public abstract class usrPPRIGIDCnt : PX.Data.BQL.BqlInt.Field<usrPPRIGIDCnt> { }
+    #endregion
+
+    #region UsrPAPCORR
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PAPCORR (Amount in eaches)")]
+
+    public virtual Decimal? UsrPAPCORR { get; set; }
+    public abstract class usrPAPCORR : PX.Data.BQL.BqlDecimal.Field<usrPAPCORR> { }
+    #endregion
+
+    #region UsrPAPBRD
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PAPBRD (Amount in eaches)")]
+
+    public virtual Decimal? UsrPAPBRD { get; set; }
+    public abstract class usrPAPBRD : PX.Data.BQL.BqlDecimal.Field<usrPAPBRD> { }
+    #endregion
+
+    #region UsrPAPWHT
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PAPWHT (Amount in eaches)")]
+
+    public virtual Decimal? UsrPAPWHT { get; set; }
+    public abstract class usrPAPWHT : PX.Data.BQL.BqlDecimal.Field<usrPAPWHT> { }
+    #endregion
+
+    #region UsrEPSFOAM
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="EPSFOAM (Amount in eaches)")]
+
+    public virtual Decimal? UsrEPSFOAM { get; set; }
+    public abstract class usrEPSFOAM : PX.Data.BQL.BqlDecimal.Field<usrEPSFOAM> { }
+    #endregion
+    #region UsrLDPEFOAM
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEFOAM (Amount in eaches)")]
+
+    public virtual Decimal? UsrLDPEFOAM { get; set; }
+    public abstract class usrLDPEFOAM : PX.Data.BQL.BqlDecimal.Field<usrLDPEFOAM> { }
+    #endregion
+
+    #region UsrLDPEFOAMCnt
+    [PXDBInt]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="LDPEFOAM (Count)")]
+
+    public virtual Int32? UsrLDPEFOAMCnt { get; set; }
+    public abstract class usrLDPEFOAMCnt : PX.Data.BQL.BqlInt.Field<usrLDPEFOAMCnt> { }
+    #endregion
+    #region UsrEPSFOAMCnt
+    [PXDBInt]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="EPSFOAM (Count)")]
+
+    public virtual Int32? UsrEPSFOAMCnt { get; set; }
+    public abstract class usrEPSFOAMCnt : PX.Data.BQL.BqlInt.Field<usrEPSFOAMCnt> { }
+    #endregion
+
+    #region UsrPAPKRAFT
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PAPKRAFT (Amount in eaches)")]
+
+    public virtual Decimal? UsrPAPKRAFT { get; set; }
+    public abstract class usrPAPKRAFT : PX.Data.BQL.BqlDecimal.Field<usrPAPKRAFT> { }
+    #endregion
+
+    #region UsrPAPFORMS
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="PAPFORMS (Amount in eaches)")]
+
+    public virtual Decimal? UsrPAPFORMS { get; set; }
+    public abstract class usrPAPFORMS : PX.Data.BQL.BqlDecimal.Field<usrPAPFORMS> { }
+    #endregion
+
+    #region UsrWOOD
+    [PXDBDecimal(9)]
+    [PXDefault(0, PersistingCheck = PXPersistingCheck.Nothing)]
+    [PXUIField(DisplayName="WOOD (Amount in eaches)")]
+
+    public virtual Decimal? UsrWOOD { get; set; }
+    public abstract class usrWOOD : PX.Data.BQL.BqlDecimal.Field<usrWOOD> { }
+    #endregion
+  }
+}]]></CDATA>
+</Graph>
