@@ -44,7 +44,11 @@ WITH
 Tenants AS (
     SELECT
         CompanyID,
-        CompanyCD      -- Human-readable company code (optional, useful for debugging)
+        CASE CompanyID
+            WHEN 10 THEN 'US'
+            WHEN 6  THEN 'UK'
+            WHEN 8  THEN 'MX'
+        END AS TenantCode
     FROM [dbo].[Company]
     WHERE CompanyID IN (6, 8, 10)
 ),
@@ -94,10 +98,11 @@ CustomerBase AS (
 CustomerBalanceCTE AS (
     SELECT
         cb.CompanyID,
-        cb.CustomerID,                      -- FK join key → Customer.AcctCD
-        cb.CurrentBal,
+        cb.CustomerID,                      -- FK join key → Customer.ACcd
+        min(cb.CurrentBal) as "CurrentBal",
         CAST (null AS DECIMAL(16,2)) AS BalanceRemainingCreditLimit  -- Remaining Credit → Remaining_Credit__c (stubbed)
     FROM [dbo].[ARBalances] cb
+    group by cb.CompanyID, cb.CustomerID 
 ),
 
 -- ----------------------------------------------------------------
@@ -174,7 +179,7 @@ SELECT
     CAST (CONCAT(t.CompanyID, '|', c.AcctCD) AS NVARCHAR(50))              AS ExternalKey,
 
     t.CompanyID                                      AS CompanyID,
-    t.CompanyCD                                      AS CompanyCode,
+    t.TenantCode                                      AS TenantCode,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Account_Number__c  (External ID)
