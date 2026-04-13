@@ -66,7 +66,7 @@ CustomerBase AS (
         ba.NoteID,                          -- FK → CSAnswers.RefNoteID
         c.CustomerClassID,                  -- ACU Customer Class        → ACU_CUSTOMER_CLASS__c
         c.CreditLimit,                      -- ACU Customer Credit Limit → ACU_CREDIT_LIMIT__c
-        NULL AS RemainingCreditLimit,       -- ACU Credit Available      → ACU_CREDIT_REMAIN__c (stubbed)
+        CAST(NULL AS NVARCHAR(50)) AS RemainingCreditLimit,       -- ACU Credit Available      → ACU_CREDIT_REMAIN__c (stubbed)
         c.CreditRule,                       -- ACU Customer Credit Rule  → Acu_Customer_Credit_Rule__c
         c.TermsID,                          -- ACU Customer Credit Terms → ACU_CREDIT_TERMS__c
         ba.Status,                          -- ACU Customer Status       → ACU_CUSTOMER_STATUS__c
@@ -96,7 +96,7 @@ CustomerBalanceCTE AS (
         cb.CompanyID,
         cb.CustomerID,                      -- FK join key → Customer.AcctCD
         cb.CurrentBal,
-        null AS BalanceRemainingCreditLimit  -- Remaining Credit → Remaining_Credit__c (stubbed)
+        CAST (null AS DECIMAL(16,2)) AS BalanceRemainingCreditLimit  -- Remaining Credit → Remaining_Credit__c (stubbed)
     FROM [dbo].[ARBalances] cb
 ),
 
@@ -153,7 +153,7 @@ CustomerAttributes AS (
         MAX(CASE WHEN ca.AttributeID = 'PROGROUP'  THEN ca.Value END)                    AS AttributePROGROUP,
         MAX(CASE WHEN ca.AttributeID = 'BILLING'   THEN ca.Value END)                    AS AttributeBILLING,
         MAX(CASE WHEN ca.AttributeID = 'SOREPFIRM' THEN ca.Value END)                    AS AttributeSOREPFIRM,
-        MAX(CASE WHEN ca.AttributeID = 'AREXPDATE' THEN TRY_CAST(ca.Value AS DATE) END)  AS AttributeARExPDATE
+        MAX(CASE WHEN ca.AttributeID = 'AREXPDATE' THEN ca.Value END)              AS AttributeARExPDATE
     FROM [dbo].[CSAnswers] ca
     WHERE ca.AttributeID IN ('PROGROUP', 'BILLING', 'SOREPFIRM', 'AREXPDATE')
     GROUP BY
@@ -171,7 +171,7 @@ SELECT
     --   Maps to Account_Number__c (External ID, Unique) in SFDC.
     --   Use this as the upsert key in your integration layer.
     -- ----------------------------------------------------------
-    CONCAT(t.CompanyID, '|', c.AcctCD)              AS ExternalKey,
+    CAST (CONCAT(t.CompanyID, '|', c.AcctCD) AS NVARCHAR(50))              AS ExternalKey,
 
     t.CompanyID                                      AS CompanyID,
     t.CompanyCD                                      AS CompanyCode,

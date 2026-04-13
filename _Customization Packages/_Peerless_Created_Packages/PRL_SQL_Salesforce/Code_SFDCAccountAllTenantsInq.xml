@@ -1,0 +1,68 @@
+﻿<Graph ClassName="SFDCAccountAllTenantsInq" Source="#CDATA" IsNew="True" FileType="NewGraph">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+ 
+namespace PRLSFDCSync
+{
+    /// <summary>
+    /// Read-only graph for vw_SFDC_Account_Acumatica_AllTenants.
+    /// Exposes the SFDC Account sync view across all tenants
+    /// (CompanyID 6, 8, 10) for Generic Inquiry and export scenarios.
+    ///
+    /// No insert, update, or delete operations are permitted.
+    /// All data filtering for end-user GIs is handled at the GI level.
+    /// Cross-tenant data is handled at the SQL view level — the DAC
+    /// intentionally omits CompanyID to prevent Acumatica's framework
+    /// from injecting a single-tenant filter.
+    /// </summary>
+    public class SFDCAccountAllTenantsInq : PXGraph<SFDCAccountAllTenantsInq>
+    {
+        #region Data View
+        /// <summary>
+        /// Primary data view — all accounts across all synced tenants.
+        /// Ordered by CompanyCode then Account Number for consistent
+        /// GI display across tenants.
+        /// </summary>
+        public PXSelectOrderBy<
+            vw_SFDC_Account_Acumatica_AllTenants,
+            OrderBy<
+                Asc<vw_SFDC_Account_Acumatica_AllTenants.companyCode,
+                Asc<vw_SFDC_Account_Acumatica_AllTenants.account_Number__c>>>>
+            AccountSyncRecords;
+        #endregion
+ 
+        #region Constructor
+        public SFDCAccountAllTenantsInq()
+        {
+            // Entire view is read-only — disable all cache operations
+            AccountSyncRecords.Cache.AllowInsert = false;
+            AccountSyncRecords.Cache.AllowUpdate = false;
+            AccountSyncRecords.Cache.AllowDelete = false;
+        }
+        #endregion
+ 
+        #region Action: Export to Salesforce (placeholder)
+        /// <summary>
+        /// Placeholder action for future Salesforce export trigger.
+        /// Wire this to your integration layer when ready.
+        /// The action is defined here so it appears in the GI toolbar
+        /// and can be mapped to a workflow step later.
+        /// </summary>
+        public PXAction<vw_SFDC_Account_Acumatica_AllTenants> ExportToSalesforce;
+ 
+        [PXButton(CommitChanges = false)]
+        [PXUIField(DisplayName = "Export to Salesforce",
+                   MapEnableRights = PXCacheRights.Select,
+                   MapViewRights   = PXCacheRights.Select)]
+        protected virtual System.Collections.IEnumerable exportToSalesforce(PXAdapter adapter)
+        {
+            // TODO: Implement Salesforce push logic here.
+            // Iterate AccountSyncRecords and call your integration
+            // layer with each record's ExternalKey.
+            // ExternalKey maps to Account_Number__c (External ID) in SFDC.
+            throw new PXException("Export to Salesforce is not yet implemented.");
+        }
+        #endregion
+    }
+}]]></CDATA>
+</Graph>
