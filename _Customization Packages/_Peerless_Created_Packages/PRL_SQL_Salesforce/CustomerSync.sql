@@ -178,7 +178,7 @@ SELECT
     -- ----------------------------------------------------------
     CAST (CONCAT(t.CompanyID, '|', c.AcctCD) AS NVARCHAR(50))              AS ExternalKey,
 
-    t.CompanyID                                      AS CompanyID,
+    t.CompanyID                                      AS CompanyID,     -- <---*****DZ Comment out later******
     t.TenantCode                                      AS TenantCode,
 
     -- ----------------------------------------------------------
@@ -220,14 +220,15 @@ SELECT
     --   Source: Customer.CreditLimit
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
-    CAST(c.CreditLimit AS DECIMAL(16, 2))            AS ACU_CREDIT_LIMIT__c,
-
+    --CAST(c.CreditLimit AS DECIMAL(16, 2))            AS ACU_CREDIT_LIMIT__c,
+    c.CreditLimit                                      AS ACU_CREDIT_LIMIT__c,
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CREDIT_REMAIN__c  (Credit Available)
     --   Source: Customer.RemainingCreditLimit (currently NULL/stubbed)
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
-    CAST(c.CreditLimit - cb.CurrentBal AS DECIMAL(16, 2))            AS ACU_CREDIT_REMAIN__c,
+    --CAST(c.CreditLimit - cb.CurrentBal AS DECIMAL(16, 2))            AS ACU_CREDIT_REMAIN__c,
+    c.CreditLimit - cb.CurrentBal                                    AS ACU_CREDIT_REMAIN__c,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Acu_Customer_Credit_Rule__c
@@ -248,8 +249,8 @@ SELECT
     --   Source: ARBalances.BalanceRemainingCreditLimit (currently NULL/stubbed)
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
-    CAST(cb.BalanceRemainingCreditLimit AS DECIMAL(16, 2)) AS Remaining_Credit__c,
-
+    --CAST(cb.BalanceRemainingCreditLimit AS DECIMAL(16, 2)) AS Remaining_Credit__c,
+    cb.BalanceRemainingCreditLimit                         AS Remaining_Credit__c,
     -- ----------------------------------------------------------
     -- SFDC SALESPERSON ROLE FIELDS
     --   Source: SalespersonRoles (pivoted from CustSalesPeople
