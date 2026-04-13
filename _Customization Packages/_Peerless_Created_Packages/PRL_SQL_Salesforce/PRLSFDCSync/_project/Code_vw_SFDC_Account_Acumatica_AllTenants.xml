@@ -1,0 +1,222 @@
+﻿<Graph ClassName="vw_SFDC_Account_Acumatica_AllTenants" Source="#CDATA" IsNew="True" FileType="NewDac">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+
+namespace PRLSFDCSync
+{
+	[Serializable]
+	[PXCacheName("vw_SFDC_Account_Acumatica_AllTenants")]
+	public class vw_SFDC_Account_Acumatica_AllTenants : PXBqlTable, IBqlTable
+	{
+		#region ExternalKey
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "External Key")]
+		public virtual string ExternalKey { get; set; }
+		public abstract class externalKey : PX.Data.BQL.BqlString.Field<externalKey> { }
+		#endregion
+
+		#region TenantCode
+		[PXDBString(2, InputMask = "")]
+		[PXUIField(DisplayName = "Tenant Code")]
+		public virtual string TenantCode { get; set; }
+		public abstract class tenantCode : PX.Data.BQL.BqlString.Field<tenantCode> { }
+		#endregion
+
+		#region Account_Number__c
+		[PXDBString(30, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Account_ Number__c")]
+		public virtual string Account_Number__c { get; set; }
+		public abstract class account_Number__c : PX.Data.BQL.BqlString.Field<account_Number__c> { }
+		#endregion
+
+		#region Name
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Name")]
+		public virtual string Name { get; set; }
+		public abstract class name : PX.Data.BQL.BqlString.Field<name> { }
+		#endregion
+
+		#region Acu_customer_class__c
+		[PXDBString(10, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_customer_class__c")]
+		public virtual string Acu_customer_class__c { get; set; }
+		public abstract class acu_customer_class__c : PX.Data.BQL.BqlString.Field<acu_customer_class__c> { }
+		#endregion
+
+		#region Acu_customer_status__c
+		[PXDBString(1, IsFixed = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_customer_status__c")]
+		public virtual string Acu_customer_status__c { get; set; }
+		public abstract class acu_customer_status__c : PX.Data.BQL.BqlString.Field<acu_customer_status__c> { }
+		#endregion
+
+		#region Acu_tier__c
+		[PXDBString(30, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_tier__c")]
+		public virtual string Acu_tier__c { get; set; }
+		public abstract class acu_tier__c : PX.Data.BQL.BqlString.Field<acu_tier__c> { }
+		#endregion
+
+		#region Acu_credit_limit__c
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Acu_credit_limit__c")]
+		public virtual Decimal? Acu_credit_limit__c { get; set; }
+		public abstract class acu_credit_limit__c : PX.Data.BQL.BqlDecimal.Field<acu_credit_limit__c> { }
+		#endregion
+
+		#region Acu_credit_remain__c
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Acu_credit_remain__c")]
+		public virtual Decimal? Acu_credit_remain__c { get; set; }
+		public abstract class acu_credit_remain__c : PX.Data.BQL.BqlDecimal.Field<acu_credit_remain__c> { }
+		#endregion
+
+		#region Acu_Customer_Credit_Rule__c
+		[PXDBString(1, IsFixed = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_ Customer_ Credit_ Rule__c")]
+		public virtual string Acu_Customer_Credit_Rule__c { get; set; }
+		public abstract class acu_Customer_Credit_Rule__c : PX.Data.BQL.BqlString.Field<acu_Customer_Credit_Rule__c> { }
+		#endregion
+
+		#region Acu_credit_terms__c
+		[PXDBString(10, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_credit_terms__c")]
+		public virtual string Acu_credit_terms__c { get; set; }
+		public abstract class acu_credit_terms__c : PX.Data.BQL.BqlString.Field<acu_credit_terms__c> { }
+		#endregion
+
+		#region Remaining_Credit__c
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Remaining_ Credit__c")]
+		public virtual Decimal? Remaining_Credit__c { get; set; }
+		public abstract class remaining_Credit__c : PX.Data.BQL.BqlDecimal.Field<remaining_Credit__c> { }
+		#endregion
+
+		#region Acu_account_owner__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_account_owner__c")]
+		public virtual string Acu_account_owner__c { get; set; }
+		public abstract class acu_account_owner__c : PX.Data.BQL.BqlString.Field<acu_account_owner__c> { }
+		#endregion
+
+		#region Acu_Customer_Coordinator__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_ Customer_ Coordinator__c")]
+		public virtual string Acu_Customer_Coordinator__c { get; set; }
+		public abstract class acu_Customer_Coordinator__c : PX.Data.BQL.BqlString.Field<acu_Customer_Coordinator__c> { }
+		#endregion
+
+		#region ACU_Customer_Key_Director__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "ACU_ Customer_ Key_ Director__c")]
+		public virtual string ACU_Customer_Key_Director__c { get; set; }
+		public abstract class aCU_Customer_Key_Director__c : PX.Data.BQL.BqlString.Field<aCU_Customer_Key_Director__c> { }
+		#endregion
+
+		#region ACU_Customer_Key_Manager__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "ACU_ Customer_ Key_ Manager__c")]
+		public virtual string ACU_Customer_Key_Manager__c { get; set; }
+		public abstract class aCU_Customer_Key_Manager__c : PX.Data.BQL.BqlString.Field<aCU_Customer_Key_Manager__c> { }
+		#endregion
+
+		#region Acu_Customer_Sales_Operations__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_ Customer_ Sales_ Operations__c")]
+		public virtual string Acu_Customer_Sales_Operations__c { get; set; }
+		public abstract class acu_Customer_Sales_Operations__c : PX.Data.BQL.BqlString.Field<acu_Customer_Sales_Operations__c> { }
+		#endregion
+
+		#region ACU_Customer_Inside_Sales_Rep__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "ACU_ Customer_ Inside_ Sales_ Rep__c")]
+		public virtual string ACU_Customer_Inside_Sales_Rep__c { get; set; }
+		public abstract class aCU_Customer_Inside_Sales_Rep__c : PX.Data.BQL.BqlString.Field<aCU_Customer_Inside_Sales_Rep__c> { }
+		#endregion
+
+		#region Acu_Customer_Commission_Receiver__c
+		[PXDBString(60, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_ Customer_ Commission_ Receiver__c")]
+		public virtual string Acu_Customer_Commission_Receiver__c { get; set; }
+		public abstract class acu_Customer_Commission_Receiver__c : PX.Data.BQL.BqlString.Field<acu_Customer_Commission_Receiver__c> { }
+		#endregion
+
+		#region Acu_customer_postype__c
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_customer_postype__c")]
+		public virtual string Acu_customer_postype__c { get; set; }
+		public abstract class acu_customer_postype__c : PX.Data.BQL.BqlString.Field<acu_customer_postype__c> { }
+		#endregion
+
+		#region Acu_pro_account_group__c
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_pro_account_group__c")]
+		public virtual string Acu_pro_account_group__c { get; set; }
+		public abstract class acu_pro_account_group__c : PX.Data.BQL.BqlString.Field<acu_pro_account_group__c> { }
+		#endregion
+
+		#region Acu_pro_account_type__c
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Acu_pro_account_type__c")]
+		public virtual string Acu_pro_account_type__c { get; set; }
+		public abstract class acu_pro_account_type__c : PX.Data.BQL.BqlString.Field<acu_pro_account_type__c> { }
+		#endregion
+
+		#region ACU_Outside_Rep_Firms
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "ACU_ Outside_ Rep_ Firms")]
+		public virtual string ACU_Outside_Rep_Firms { get; set; }
+		public abstract class aCU_Outside_Rep_Firms : PX.Data.BQL.BqlString.Field<aCU_Outside_Rep_Firms> { }
+		#endregion
+
+		#region Expired_Date__c
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Expired_ Date__c")]
+		public virtual string Expired_Date__c { get; set; }
+		public abstract class expired_Date__c : PX.Data.BQL.BqlString.Field<expired_Date__c> { }
+		#endregion
+
+		#region BillingStreet
+		[PXDBString(250, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Billing Street")]
+		public virtual string BillingStreet { get; set; }
+		public abstract class billingStreet : PX.Data.BQL.BqlString.Field<billingStreet> { }
+		#endregion
+
+		#region BillingStreet2
+		[PXDBString(250, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Billing Street2")]
+		public virtual string BillingStreet2 { get; set; }
+		public abstract class billingStreet2 : PX.Data.BQL.BqlString.Field<billingStreet2> { }
+		#endregion
+
+		#region BillingCity
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Billing City")]
+		public virtual string BillingCity { get; set; }
+		public abstract class billingCity : PX.Data.BQL.BqlString.Field<billingCity> { }
+		#endregion
+
+		#region BillingState
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Billing State")]
+		public virtual string BillingState { get; set; }
+		public abstract class billingState : PX.Data.BQL.BqlString.Field<billingState> { }
+		#endregion
+
+		#region BillingPostalCode
+		[PXDBString(20, InputMask = "")]
+		[PXUIField(DisplayName = "Billing Postal Code")]
+		public virtual string BillingPostalCode { get; set; }
+		public abstract class billingPostalCode : PX.Data.BQL.BqlString.Field<billingPostalCode> { }
+		#endregion
+
+		#region BillingCountry
+		[PXDBString(2, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Billing Country")]
+		public virtual string BillingCountry { get; set; }
+		public abstract class billingCountry : PX.Data.BQL.BqlString.Field<billingCountry> { }
+		#endregion
+	}
+}]]></CDATA>
+</Graph>
