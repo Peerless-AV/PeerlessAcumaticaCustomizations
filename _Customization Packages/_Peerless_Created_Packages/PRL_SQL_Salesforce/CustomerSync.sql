@@ -43,14 +43,14 @@ WITH
 -- ----------------------------------------------------------------
 Tenants AS (
     SELECT
-        CompanyID,
-        CASE CompanyID
-            WHEN 10 THEN 'US'
-            WHEN 6  THEN 'UK'
-            WHEN 8  THEN 'MX'
-        END AS TenantCode
+    CompanyID,
+    CASE CompanyCD
+        WHEN 'Peerless-AV'     THEN 'US'
+        WHEN 'Peerless-AV LTD' THEN 'UK'
+        WHEN 'Peerless-AV MX'  THEN 'MX'
+    END AS TenantCode
     FROM [dbo].[Company]
-    WHERE CompanyID IN (6, 8, 10)
+    WHERE CompanyCD IN ('Peerless-AV', 'Peerless-AV LTD', 'Peerless-AV MX')
 ),
 
 -- ----------------------------------------------------------------
