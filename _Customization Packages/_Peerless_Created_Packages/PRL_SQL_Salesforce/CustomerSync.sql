@@ -185,7 +185,7 @@ SELECT
     -- SFDC FIELD: Account_Number__c  (External ID)
     --   Source: BAccount.AcctCD
     -- ----------------------------------------------------------
-    c.AcctCD                                         AS Account_Number__c,
+    c.AcctCD                                         AS AccountNumberc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Name
@@ -199,36 +199,36 @@ SELECT
     --   Picklist: APAC, BUSDV, CASH, DEFAULT, DIST, HOUSE,
     --             ICMX, ICUK, INTRL, MAHALO, PRO, RET, SAMPLE
     -- ----------------------------------------------------------
-    c.CustomerClassID                                AS ACU_CUSTOMER_CLASS__c,
+    c.CustomerClassID                                AS ACUCUSTOMERCLASSc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CUSTOMER_STATUS__c
     --   Source: BAccount.Status
     --   Picklist: Active, On Hold, Credit Hold, One-Time, Inactive
     -- ----------------------------------------------------------
-    c.Status                                         AS ACU_CUSTOMER_STATUS__c,
+    c.Status                                         AS ACUCUSTOMERSTATUSc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_TIER__c
     --   Source: Customer.usrTier
     --   Picklist: Diamond, Elite, Standard
     -- ----------------------------------------------------------
-    c.usrTier                                        AS ACU_TIER__c,
+    c.usrTier                                        AS ACUTIERc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CREDIT_LIMIT__c
     --   Source: Customer.CreditLimit
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
-    --CAST(c.CreditLimit AS DECIMAL(16, 2))            AS ACU_CREDIT_LIMIT__c,
-    c.CreditLimit                                      AS ACU_CREDIT_LIMIT__c,
+    --CAST(c.CreditLimit AS DECIMAL(16, 2))            AS ACUCREDITLIMITc,
+    c.CreditLimit                                      AS ACUCREDITLIMITc,
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CREDIT_REMAIN__c  (Credit Available)
     --   Source: Customer.RemainingCreditLimit (currently NULL/stubbed)
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
     --CAST(c.CreditLimit - cb.CurrentBal AS DECIMAL(16, 2))            AS ACU_CREDIT_REMAIN__c,
-    c.CreditLimit - cb.CurrentBal                                    AS ACU_CREDIT_REMAIN__c,
+    c.CreditLimit - cb.CurrentBal                                    AS ACUCREDITREMAINc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Acu_Customer_Credit_Rule__c
@@ -236,13 +236,13 @@ SELECT
     --   Picklist: Days Past Due, Credit Limit,
     --             Limit and Days Past Due, Disabled
     -- ----------------------------------------------------------
-    c.CreditRule                                     AS Acu_Customer_Credit_Rule__c,
+    c.CreditRule                                     AS AcuCustomerCreditRulec,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CREDIT_TERMS__c
     --   Source: Customer.TermsID
     -- ----------------------------------------------------------
-    c.TermsID                                        AS ACU_CREDIT_TERMS__c,
+    c.TermsID                                        AS ACUCREDITTERMSc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Remaining_Credit__c
@@ -250,7 +250,7 @@ SELECT
     --   Type: Number(16,2)
     -- ----------------------------------------------------------
     --CAST(cb.BalanceRemainingCreditLimit AS DECIMAL(16, 2)) AS Remaining_Credit__c,
-    cb.BalanceRemainingCreditLimit                         AS Remaining_Credit__c,
+    cb.BalanceRemainingCreditLimit                         AS RemainingCreditc,
     -- ----------------------------------------------------------
     -- SFDC SALESPERSON ROLE FIELDS
     --   Source: SalespersonRoles (pivoted from CustSalesPeople
@@ -258,19 +258,19 @@ SELECT
     --   NOTE: Commission Receiver code 'CR' needs confirmation
     --         against live CustSalesPeople data.
     -- ----------------------------------------------------------
-    sg.AccountOwner                                  AS ACU_ACCOUNT_OWNER__c,
-    sg.Coordinator                                   AS Acu_Customer_Coordinator__c,
-    sg.KeyDirector                                   AS ACU_Customer_Key_Director__c,
-    sg.KeyManager                                    AS ACU_Customer_Key_Manager__c,
-    sg.SalesOperations                               AS Acu_Customer_Sales_Operations__c,
-    sg.InsideSales                                   AS ACU_Customer_Inside_Sales_Rep__c,
-    sg.CommissionReceiver                            AS Acu_Customer_Commission_Receiver__c,
+    sg.AccountOwner                                  AS ACUACCOUNTOWNERc,
+    sg.Coordinator                                   AS AcuCustomerCoordinatorc,
+    sg.KeyDirector                                   AS ACUCustomerKeyDirectorc,
+    sg.KeyManager                                    AS ACUCustomerKeyManagerc,
+    sg.SalesOperations                               AS AcuCustomerSalesOperationsc,
+    sg.InsideSales                                   AS ACUCustomerInsideSalesRepc,
+    sg.CommissionReceiver                            AS AcuCustomerCommissionReceiverc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_CUSTOMER_POSTYPE__c  (DIST Account Type)
     --   Source: CSAnswers.AttributePROGROUP
     -- ----------------------------------------------------------
-    ca.AttributePROGROUP                             AS ACU_CUSTOMER_POSTYPE__c,
+    ca.AttributePROGROUP                             AS ACUCUSTOMERPOSTYPEc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_PRO_ACCOUNT_GROUP__c
@@ -278,28 +278,28 @@ SELECT
     --   Picklist: Dealer / Integrator, Distributor, End User,
     --             Original Equipment Manufacturer, Reseller
     -- ----------------------------------------------------------
-    ca.AttributePROGROUP                             AS ACU_PRO_ACCOUNT_GROUP__c,
+    ca.AttributePROGROUP                             AS ACUPROACCOUNTGROUPc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_PRO_ACCOUNT_TYPE__c
     --   Source: CSAnswers.AttributeBILLING
     --   Picklist: Bill To, Ship To, POS Bill To, POS Ship To
     -- ----------------------------------------------------------
-    ca.AttributeBILLING                              AS ACU_PRO_ACCOUNT_TYPE__c,
+    ca.AttributeBILLING                              AS ACUPROACCOUNTTYPEc,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: ACU_Outside_Rep_Firms
     --   Source: CSAnswers.AttributeSOREPFIRM
     --   Type: Long Text Area
     -- ----------------------------------------------------------
-    ca.AttributeSOREPFIRM                            AS ACU_Outside_Rep_Firms,
+    ca.AttributeSOREPFIRM                            AS ACUOutsideRepFirms,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: Expired_Date__c
     --   Source: CSAnswers.AttributeARExPDATE
     --   Type: Date
     -- ----------------------------------------------------------
-    ca.AttributeARExPDATE                            AS Expired_Date__c,
+    ca.AttributeARExPDATE                            AS ExpiredDatec,
 
     -- ----------------------------------------------------------
     -- SFDC FIELD: BillingAddress (compound address object)
