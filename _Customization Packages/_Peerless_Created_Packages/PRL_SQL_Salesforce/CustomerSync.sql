@@ -51,6 +51,7 @@ Tenants AS (
     END AS TenantCode
     FROM [dbo].[Company]
     WHERE CompanyCD IN ('Peerless-AV', 'Peerless-AV LTD', 'Peerless-AV MX')
+    AND CompanyID > 0
 ),
 
 -- ----------------------------------------------------------------

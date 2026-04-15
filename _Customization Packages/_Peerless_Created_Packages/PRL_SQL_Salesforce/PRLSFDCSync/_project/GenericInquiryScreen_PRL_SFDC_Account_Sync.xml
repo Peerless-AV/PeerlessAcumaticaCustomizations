@@ -171,36 +171,36 @@
             <GIDesign>
                 <row DesignID="830ee39c-715f-447d-bf2b-86d3fcd29004" Name="PRL_SFDC_Account_Sync" FilterColCount="3" PageSize="0" ExportTop="0" NewRecordCreationEnabled="0" MassDeleteEnabled="0" AutoConfirmDelete="0" MassRecordsUpdateEnabled="0" MassActionsOnRecordsEnabled="0" ExposeViaOData="0" ExposeViaMobile="0" ShowDeletedRecords="0" ShowArchivedRecords="0" NotesAndFilesTable="$&lt;None&gt;" MLDetectionEnabled="0" SkipEmptyGroups="0">
                     <GITable Alias="vwSFDCAccountAcumaticaAllTenants" Name="PRLSFDCSync.vw_SFDC_Account_Acumatica_AllTenants" Type="0">
-                        <GIResult LineNbr="31" SortOrder="30" IsActive="1" Field="remaining_Credit__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="213047c8-7ac6-4da4-9fbe-ffded5f95338" />
-                        <GIResult LineNbr="30" SortOrder="29" IsActive="1" Field="name" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="d8b91798-cc19-4836-a59a-a50e987276a8" />
-                        <GIResult LineNbr="29" SortOrder="28" IsActive="1" Field="externalKey" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3640d68d-f2fe-4058-9ebf-0804dd2e6bf8" />
-                        <GIResult LineNbr="28" SortOrder="27" IsActive="1" Field="expired_Date__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="bc62898e-ee1a-4754-90de-8ac89ef71596" />
-                        <GIResult LineNbr="27" SortOrder="26" IsActive="1" Field="companyCode" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="89f4bc81-9dbb-4830-98df-fd145f924c82" />
-                        <GIResult LineNbr="26" SortOrder="25" IsActive="1" Field="billingStreet2" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="ea38f99a-ac04-4dd5-9d9a-abc1b0fe2aa1" />
-                        <GIResult LineNbr="25" SortOrder="24" IsActive="1" Field="billingStreet" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="8f3cc9c3-b909-4e60-ad3d-05554beb94ae" />
-                        <GIResult LineNbr="24" SortOrder="23" IsActive="1" Field="billingState" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="ccc0b9db-6852-4f97-b608-eec8514efc0d" />
-                        <GIResult LineNbr="23" SortOrder="22" IsActive="1" Field="billingPostalCode" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="474fdc24-93bb-40c4-bcf9-07b70c960927" />
-                        <GIResult LineNbr="22" SortOrder="21" IsActive="1" Field="billingCountry" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="fb656ec0-176f-4ad9-b512-91599bd4e4cb" />
-                        <GIResult LineNbr="21" SortOrder="20" IsActive="1" Field="billingCity" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="0b73430e-7687-4e34-a26e-a47e7c3b72d7" />
-                        <GIResult LineNbr="20" SortOrder="19" IsActive="1" Field="acu_tier__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="32ba6e53-ac24-45b8-b070-91a5983dea74" />
-                        <GIResult LineNbr="19" SortOrder="18" IsActive="1" Field="acu_pro_account_type__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="2d07afbc-2da0-490d-ba58-10afb3f13280" />
-                        <GIResult LineNbr="18" SortOrder="17" IsActive="1" Field="acu_pro_account_group__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="82f9abf8-2631-4281-a588-96bbf347a3c3" />
-                        <GIResult LineNbr="17" SortOrder="16" IsActive="1" Field="aCU_Outside_Rep_Firms" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3b57a4c0-2318-4f7c-9e97-f905add9fcc6" />
-                        <GIResult LineNbr="16" SortOrder="15" IsActive="1" Field="acu_customer_status__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="4d53aa5f-5245-4e6b-86c1-1fd16a86863e" />
-                        <GIResult LineNbr="15" SortOrder="14" IsActive="1" Field="acu_Customer_Sales_Operations__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="f74daecd-3d7e-46d7-ac05-b9fa3b31f68c" />
-                        <GIResult LineNbr="14" SortOrder="13" IsActive="1" Field="acu_customer_postype__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="773b2b5b-9904-46d6-a0be-d1ccb4d1a97c" />
-                        <GIResult LineNbr="13" SortOrder="12" IsActive="1" Field="aCU_Customer_Key_Manager__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="a1116e71-6b98-4957-b656-6bee91f4771f" />
-                        <GIResult LineNbr="12" SortOrder="11" IsActive="1" Field="aCU_Customer_Key_Director__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="7f1707b9-ff4b-4639-96ce-42a90e56771d" />
-                        <GIResult LineNbr="11" SortOrder="10" IsActive="1" Field="aCU_Customer_Inside_Sales_Rep__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="7f0acc11-651c-4162-b5bc-f506072cfaf4" />
-                        <GIResult LineNbr="10" SortOrder="9" IsActive="1" Field="acu_Customer_Credit_Rule__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="893be183-acca-414e-bbb5-577e574671ec" />
-                        <GIResult LineNbr="9" SortOrder="8" IsActive="1" Field="acu_Customer_Coordinator__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3e1ffc08-e1a9-4272-a1db-8ddac11904da" />
-                        <GIResult LineNbr="8" SortOrder="7" IsActive="1" Field="acu_Customer_Commission_Receiver__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="f94643c3-49cb-47e5-abdf-b65a47a5b1ad" />
-                        <GIResult LineNbr="7" SortOrder="6" IsActive="1" Field="acu_customer_class__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="b101d585-cb71-4fbe-af6a-55031ae945a8" />
-                        <GIResult LineNbr="6" SortOrder="5" IsActive="1" Field="acu_credit_terms__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="ee9d3231-ec0f-404d-8e1c-5c56db78d1dd" />
-                        <GIResult LineNbr="5" SortOrder="4" IsActive="1" Field="acu_credit_remain__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="29d6cecb-54dd-4734-a26a-1f7d16a0977e" />
-                        <GIResult LineNbr="4" SortOrder="3" IsActive="1" Field="acu_credit_limit__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="08e58061-ccbb-4fef-a5c1-f4c115a1c6a1" />
-                        <GIResult LineNbr="3" SortOrder="2" IsActive="1" Field="acu_account_owner__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="98ac7165-8e4b-47aa-89a1-0f134acb480f" />
-                        <GIResult LineNbr="2" SortOrder="1" IsActive="1" Field="account_Number__c" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="93cd7fdb-031f-439a-9584-490122cf2619" />
+                        <GIResult LineNbr="31" SortOrder="30" IsActive="1" Field="tenantCode" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="022dfde8-6773-4a60-b403-96ab4a30c6d8" />
+                        <GIResult LineNbr="30" SortOrder="29" IsActive="1" Field="remainingCreditc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="aa46883d-c50f-479d-8458-00db653ad5dd" />
+                        <GIResult LineNbr="29" SortOrder="28" IsActive="1" Field="name" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="35c15c20-b5a1-42eb-bae5-27a4e29df67f" />
+                        <GIResult LineNbr="28" SortOrder="27" IsActive="1" Field="externalKey" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="23459765-bc4f-490d-803e-af5ba895bcaf" />
+                        <GIResult LineNbr="27" SortOrder="26" IsActive="1" Field="expiredDatec" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="b425006c-217f-4452-a893-467467760660" />
+                        <GIResult LineNbr="26" SortOrder="25" IsActive="1" Field="billingStreet2" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="624cf296-5f1f-43bd-b3f7-5efc8604e638" />
+                        <GIResult LineNbr="25" SortOrder="24" IsActive="1" Field="billingStreet" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="c2f91ed5-c4f9-4ca1-8eb8-48ac04527a56" />
+                        <GIResult LineNbr="24" SortOrder="23" IsActive="1" Field="billingState" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="25ef6a6d-ca00-4e56-bc5f-7d724a9c4de6" />
+                        <GIResult LineNbr="23" SortOrder="22" IsActive="1" Field="billingPostalCode" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="02490262-0eff-441e-a6d0-c5e72bd05432" />
+                        <GIResult LineNbr="22" SortOrder="21" IsActive="1" Field="billingCountry" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="c6a7106e-af42-491c-943b-e37d315d27f0" />
+                        <GIResult LineNbr="21" SortOrder="20" IsActive="1" Field="billingCity" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="da839d6e-0f77-4ea3-931a-1e2ec4f8d568" />
+                        <GIResult LineNbr="20" SortOrder="19" IsActive="1" Field="acutierc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="9c04fb63-0db4-4a6b-b15f-18ac295967f6" />
+                        <GIResult LineNbr="19" SortOrder="18" IsActive="1" Field="acuproaccounttypec" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="eb3dfd1a-d937-4941-a841-ac118ff72de7" />
+                        <GIResult LineNbr="18" SortOrder="17" IsActive="1" Field="acuproaccountgroupc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="c1ac46b8-9c0a-433e-96fe-6300d2021eef" />
+                        <GIResult LineNbr="17" SortOrder="16" IsActive="1" Field="aCUOutsideRepFirms" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="b2a71ba0-30a7-419f-9d70-175e0501bc68" />
+                        <GIResult LineNbr="16" SortOrder="15" IsActive="1" Field="acucustomerstatusc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="dee5af3e-3dc4-4c1f-812d-9e249f5ea38a" />
+                        <GIResult LineNbr="15" SortOrder="14" IsActive="1" Field="acuCustomerSalesOperationsc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="36ab0b2a-f8bf-4f56-99a0-961447ab6f1a" />
+                        <GIResult LineNbr="14" SortOrder="13" IsActive="1" Field="acucustomerpostypec" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="d7adae72-41a8-4ce8-a55c-b4aba3c491e5" />
+                        <GIResult LineNbr="13" SortOrder="12" IsActive="1" Field="aCUCustomerKeyManagerc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="c3df3d50-c09e-4f23-905d-fff4607feab9" />
+                        <GIResult LineNbr="12" SortOrder="11" IsActive="1" Field="aCUCustomerKeyDirectorc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="1c04dde8-682e-4bbf-b2c9-0f79239a32dc" />
+                        <GIResult LineNbr="11" SortOrder="10" IsActive="1" Field="aCUCustomerInsideSalesRepc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="238bbd3d-9fcc-46c7-904f-e1f774a5ee1c" />
+                        <GIResult LineNbr="10" SortOrder="9" IsActive="1" Field="acuCustomerCreditRulec" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="f29f9007-bb09-45b5-97a2-76b7d7024749" />
+                        <GIResult LineNbr="9" SortOrder="8" IsActive="1" Field="acuCustomerCoordinatorc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="320409da-5afa-4037-86b9-03515fe95e5c" />
+                        <GIResult LineNbr="8" SortOrder="7" IsActive="1" Field="acuCustomerCommissionReceiverc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="1bb78668-f290-4a98-88e2-0b2bef794128" />
+                        <GIResult LineNbr="7" SortOrder="6" IsActive="1" Field="acucustomerclassc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="62ec64b6-fef2-4d04-823f-e669f408ef42" />
+                        <GIResult LineNbr="6" SortOrder="5" IsActive="1" Field="acucredittermsc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="3d8e24cd-dcf0-4c15-9651-801a666edd88" />
+                        <GIResult LineNbr="5" SortOrder="4" IsActive="1" Field="acucreditremainc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="6e738a55-75c7-45d4-af22-26cb06457400" />
+                        <GIResult LineNbr="4" SortOrder="3" IsActive="1" Field="acucreditlimitc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="13fbb27d-b855-4e60-811d-f30e92831fc0" />
+                        <GIResult LineNbr="3" SortOrder="2" IsActive="1" Field="acuaccountownerc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="1477af84-3c79-4a46-90d8-95babb0948b7" />
+                        <GIResult LineNbr="2" SortOrder="1" IsActive="1" Field="accountNumberc" IsVisible="1" DefaultNav="1" QuickFilter="0" FastFilter="0" RowID="a087bfdd-0bc4-4663-8499-182ce1e26f18" />
                     </GITable>
                 </row>
             </GIDesign>
