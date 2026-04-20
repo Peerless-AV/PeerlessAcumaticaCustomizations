@@ -1,0 +1,47 @@
+﻿<Graph ClassName="CBIZSalesOrdersSummaryView" Source="#CDATA" IsNew="True" FileType="NewDac">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+
+namespace CBIZSalesOrdersSummaryView
+{
+  [Serializable]
+  [PXCacheName("CBIZSalesOrdersSummaryView")]
+  public class CBIZSalesOrdersSummaryView : PXBqlTable, IBqlTable
+  {
+    #region ShipmentDate
+    [PXDBDate(IsKey = true)]
+    [PXUIField(DisplayName = "Shipment Date")]
+    public virtual DateTime? ShipmentDate { get; set; }
+    public abstract class shipmentDate : PX.Data.BQL.BqlDateTime.Field<shipmentDate> { }
+    #endregion
+
+    #region NewOrderCount
+    [PXDBInt()]
+    [PXUIField(DisplayName = "New Order Count")]
+    public virtual int? NewOrderCount { get; set; }
+    public abstract class newOrderCount : PX.Data.BQL.BqlInt.Field<newOrderCount> { }
+    #endregion
+
+    #region OpenOrderTotal
+    [PXDBDecimal()]
+    [PXUIField(DisplayName = "Open Order Total")]
+    public virtual Decimal? OpenOrderTotal { get; set; }
+    public abstract class openOrderTotal : PX.Data.BQL.BqlDecimal.Field<openOrderTotal> { }
+    #endregion
+
+    #region NewOrderTotal
+    [PXDBDecimal()]
+    [PXUIField(DisplayName = "New Order Total")]
+    public virtual Decimal? NewOrderTotal { get; set; }
+    public abstract class newOrderTotal : PX.Data.BQL.BqlDecimal.Field<newOrderTotal> { }
+    #endregion
+
+    #region CancelledOrderTotal
+    [PXDBDecimal()]
+    [PXUIField(DisplayName = "Cancelled Order Total")]
+    public virtual Decimal? CancelledOrderTotal { get; set; }
+    public abstract class cancelledOrderTotal : PX.Data.BQL.BqlDecimal.Field<cancelledOrderTotal> { }
+    #endregion
+  }
+}]]></CDATA>
+</Graph>
