@@ -154,14 +154,12 @@
       <n>PaymentMethod</n>
       <Nullable>True</Nullable>
       <Prompt>Payment Method</Prompt>
-      <ViewName>=Report.GetFieldSchema('APPayment.PaymentMethodID')</ViewName>
     </ReportParameter>
     <ReportParameter>
       <ColumnSpan>2</ColumnSpan>
       <n>CashAccount</n>
       <Nullable>True</Nullable>
       <Prompt>Cash Account</Prompt>
-      <ViewName>=Report.GetFieldSchema('APPayment.CashAccountID')</ViewName>
     </ReportParameter>
 <ReportParameter>
       <ColumnSpan>2</ColumnSpan>
