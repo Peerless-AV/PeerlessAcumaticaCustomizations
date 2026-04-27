@@ -91,7 +91,7 @@
     <FilterExp>
       <CloseBraces>1</CloseBraces>
       <Condition>IsNull</Condition>
-      <DataField>@PaymentMethod</DataField>
+      <DataField>APPayment.PaymentMethodID</DataField>
     </FilterExp>
     <FilterExp>
       <DataField>APPayment.CashAccountID</DataField>
@@ -102,7 +102,7 @@
     <FilterExp>
       <CloseBraces>1</CloseBraces>
       <Condition>IsNull</Condition>
-      <DataField>@CashAccount</DataField>
+      <DataField>APPayment.CashAccountID</DataField>
     </FilterExp>
   </Filters>
   <GridSize>4px, 4px</GridSize>
@@ -149,19 +149,7 @@
       <Prompt>Vendor</Prompt>
       <ViewName>=Report.GetFieldSchema('VendorReportParameters.VendorID')</ViewName>
     </ReportParameter>
-        <ReportParameter>
-      <ColumnSpan>2</ColumnSpan>
-      <n>PaymentMethod</n>
-      <Nullable>True</Nullable>
-      <Prompt>Payment Method</Prompt>
-    </ReportParameter>
     <ReportParameter>
-      <ColumnSpan>2</ColumnSpan>
-      <n>CashAccount</n>
-      <Nullable>True</Nullable>
-      <Prompt>Cash Account</Prompt>
-    </ReportParameter>
-<ReportParameter>
       <ColumnSpan>2</ColumnSpan>
       <DefaultValue>=Report.GetDefExt('Batch.DateEntered')</DefaultValue>
       <Name>AgeDate</Name>
@@ -172,6 +160,20 @@
       <DefaultValue>PPM</DefaultValue>
       <Name>Prepayment</Name>
       <Visible>False</Visible>
+    </ReportParameter>
+    <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <n>PaymentMethod</n>
+      <Nullable>True</Nullable>
+      <Prompt>Payment Method</Prompt>
+      <ViewName>=Report.GetFieldSchema('APPayment.PaymentMethodID')</ViewName>
+    </ReportParameter>
+    <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <n>CashAccount</n>
+      <Nullable>True</Nullable>
+      <Prompt>Cash Account</Prompt>
+      <ViewName>=Report.GetFieldSchema('CashAccount.CashAccountCD')</ViewName>
     </ReportParameter>
   </Parameters>
   <Relations>
