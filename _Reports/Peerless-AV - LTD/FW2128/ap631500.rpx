@@ -82,6 +82,28 @@
       <Condition>IsNotNull</Condition>
       <DataField>APPayment.RefNbr</DataField>
     </FilterExp>
+    <FilterExp>
+      <DataField>APPayment.PaymentMethodID</DataField>
+      <OpenBraces>1</OpenBraces>
+      <Operator>Or</Operator>
+      <Value>@PaymentMethodID</Value>
+    </FilterExp>
+    <FilterExp>
+      <CloseBraces>1</CloseBraces>
+      <Condition>IsNull</Condition>
+      <DataField>@PaymentMethodID</DataField>
+    </FilterExp>
+    <FilterExp>
+      <DataField>APPayment.CashAccountID</DataField>
+      <OpenBraces>1</OpenBraces>
+      <Operator>Or</Operator>
+      <Value>@CashAccountID</Value>
+    </FilterExp>
+    <FilterExp>
+      <CloseBraces>1</CloseBraces>
+      <Condition>IsNull</Condition>
+      <DataField>@CashAccountID</DataField>
+    </FilterExp>
   </Filters>
   <GridSize>4px, 4px</GridSize>
   <PageSettings>
@@ -127,7 +149,21 @@
       <Prompt>Vendor</Prompt>
       <ViewName>=Report.GetFieldSchema('VendorReportParameters.VendorID')</ViewName>
     </ReportParameter>
+        <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <n>PaymentMethodID</n>
+      <Nullable>True</Nullable>
+      <Prompt>Payment Method</Prompt>
+      <ViewName>=Report.GetFieldSchema('APPayment.PaymentMethodID')</ViewName>
+    </ReportParameter>
     <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <n>CashAccountID</n>
+      <Nullable>True</Nullable>
+      <Prompt>Cash Account</Prompt>
+      <ViewName>=Report.GetFieldSchema('APPayment.CashAccountID')</ViewName>
+    </ReportParameter>
+<ReportParameter>
       <ColumnSpan>2</ColumnSpan>
       <DefaultValue>=Report.GetDefExt('Batch.DateEntered')</DefaultValue>
       <Name>AgeDate</Name>
