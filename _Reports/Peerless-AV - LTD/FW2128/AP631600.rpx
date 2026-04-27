@@ -91,7 +91,7 @@
     <FilterExp>
       <CloseBraces>1</CloseBraces>
       <Condition>IsNull</Condition>
-      <DataField>@PaymentMethod</DataField>
+      <DataField>APPayment.PaymentMethodID</DataField>
     </FilterExp>
     <FilterExp>
       <DataField>APPayment.CashAccountID</DataField>
@@ -102,7 +102,7 @@
     <FilterExp>
       <CloseBraces>1</CloseBraces>
       <Condition>IsNull</Condition>
-      <DataField>@CashAccount</DataField>
+      <DataField>APPayment.CashAccountID</DataField>
     </FilterExp>
   </Filters>
   <GridSize>4px, 4px</GridSize>
@@ -149,19 +149,7 @@
       <Prompt>Vendor</Prompt>
       <ViewName>=Report.GetFieldSchema('VendorReportParameters.VendorID')</ViewName>
     </ReportParameter>
-        <ReportParameter>
-      <ColumnSpan>2</ColumnSpan>
-      <n>PaymentMethod</n>
-      <Nullable>True</Nullable>
-      <Prompt>Payment Method</Prompt>
-    </ReportParameter>
     <ReportParameter>
-      <ColumnSpan>2</ColumnSpan>
-      <n>CashAccount</n>
-      <Nullable>True</Nullable>
-      <Prompt>Cash Account</Prompt>
-    </ReportParameter>
-<ReportParameter>
       <ColumnSpan>2</ColumnSpan>
       <DefaultValue>=Report.GetDefExt('RowBatch.DateEntered')</DefaultValue>
       <Name>AgeDate</Name>
@@ -172,6 +160,20 @@
       <DefaultValue>PPM</DefaultValue>
       <Name>Prepayment</Name>
       <Visible>False</Visible>
+    </ReportParameter>
+    <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <Name>PaymentMethod</Name>
+      <Nullable>True</Nullable>
+      <Prompt>Payment Method</Prompt>
+      <ViewName>=Report.GetFieldSchema('APPayment.PaymentMethodID')</ViewName>
+    </ReportParameter>
+    <ReportParameter>
+      <ColumnSpan>2</ColumnSpan>
+      <Name>CashAccount</Name>
+      <Nullable>True</Nullable>
+      <Prompt>Cash Account</Prompt>
+      <ViewName>=Report.GetFieldSchema('CashAccount.CashAccountCD')</ViewName>
     </ReportParameter>
   </Parameters>
   <Relations>
@@ -254,6 +256,16 @@
         </RelationRow>
       </Links>
       <ParentName>APRegister</ParentName>
+    </ReportRelation>
+    <ReportRelation>
+      <ChildName>CashAccount</ChildName>
+      <Links>
+        <RelationRow>
+          <ChildField>CashAccountID</ChildField>
+          <ParentField>CashAccountID</ParentField>
+        </RelationRow>
+      </Links>
+      <ParentName>APPayment</ParentName>
     </ReportRelation>
   </Relations>
   <SchemaUrl>https://peerless-av.acumatica.com/</SchemaUrl>
@@ -1897,6 +1909,222 @@
         <ReportField Name="tstamp"></ReportField>
       </Fields>
       <FullName>PX.Objects.GL.Branch</FullName>
+    </ReportTable>
+    <ReportTable Name="CashAccount">
+      <Fields>
+        <ReportField Name="AccountID"></ReportField>
+        <ReportField Name="AccountID_Account_description"></ReportField>
+        <ReportField Name="AccountID_description"></ReportField>
+        <ReportField Name="AccountID_Segment1"></ReportField>
+        <ReportField Name="AcctSettingsAllowed">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="Active">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="AllowMatchingCreditMemo">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="AllowMatchingDebitAdjustment">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="AllowOverrideCury">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="AllowOverrideRate">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="AmountWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="AveragePaymentDelay">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="BaseCuryID"></ReportField>
+        <ReportField Name="BranchID"></ReportField>
+        <ReportField Name="BranchID_Branch_acctName"></ReportField>
+        <ReportField Name="BranchID_description"></ReportField>
+        <ReportField Name="BranchID_Segment1"></ReportField>
+        <ReportField Name="CashAccountCD"></ReportField>
+        <ReportField Name="CashAccountCD_Segment1"></ReportField>
+        <ReportField Name="CashAccountID">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="ClearingAccount">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="CreatedByID"></ReportField>
+        <ReportField Name="CreatedByID_Creator_displayName"></ReportField>
+        <ReportField Name="CreatedByID_Creator_Username"></ReportField>
+        <ReportField Name="CreatedByID_description"></ReportField>
+        <ReportField Name="CreatedByScreenID"></ReportField>
+        <ReportField Name="CreatedDateTime">
+          <DataType>DateTime</DataType>
+        </ReportField>
+        <ReportField Name="CreatedDateTime_Day"></ReportField>
+        <ReportField Name="CreatedDateTime_Hour"></ReportField>
+        <ReportField Name="CreatedDateTime_Month"></ReportField>
+        <ReportField Name="CreatedDateTime_Quarter"></ReportField>
+        <ReportField Name="CuryDiffThreshold">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="CuryID"></ReportField>
+        <ReportField Name="CuryRateTypeID"></ReportField>
+        <ReportField Name="DateComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="DateCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="DateMeanOffset">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="DateSigma">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="DaysAfterInvoiceDueDate">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="DaysBeforeInvoiceDiscountDate">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="DaysBeforeInvoiceDueDate">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="Descr"></ReportField>
+        <ReportField Name="DisbursementTranDaysAfter">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="DisbursementTranDaysBefore">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="EmptyRefNbrMatching">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="ExpenseReceiptAmountComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="ExpenseReceiptDateComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="ExpenseReceiptRefNbrComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="ExtRefNbr"></ReportField>
+        <ReportField Name="InvoiceDateComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceDateCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceDateSigma">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceFilterByCashAccount">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceFilterByDate">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="InvoicePayeeComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoicePayeeCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceRefNbrComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="InvoiceRefNbrCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="LastModifiedByID"></ReportField>
+        <ReportField Name="LastModifiedByID_description"></ReportField>
+        <ReportField Name="LastModifiedByID_Modifier_displayName"></ReportField>
+        <ReportField Name="LastModifiedByID_Modifier_Username"></ReportField>
+        <ReportField Name="LastModifiedByScreenID"></ReportField>
+        <ReportField Name="LastModifiedDateTime">
+          <DataType>DateTime</DataType>
+        </ReportField>
+        <ReportField Name="LastModifiedDateTime_Day"></ReportField>
+        <ReportField Name="LastModifiedDateTime_Hour"></ReportField>
+        <ReportField Name="LastModifiedDateTime_Month"></ReportField>
+        <ReportField Name="LastModifiedDateTime_Quarter"></ReportField>
+        <ReportField Name="MatchSettingsPerAccount">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="MatchThreshold">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="MatchToBatch">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="NoteActivity"></ReportField>
+        <ReportField Name="NoteFiles"></ReportField>
+        <ReportField Name="NoteID">
+          <DataType>Object</DataType>
+        </ReportField>
+        <ReportField Name="NoteImages"></ReportField>
+        <ReportField Name="NoteText"></ReportField>
+        <ReportField Name="PayeeComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="PayeeCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="PTInstancesAllowed">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="RatioInRelevanceCalculationLabel"></ReportField>
+        <ReportField Name="ReceiptTranDaysAfter">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="ReceiptTranDaysBefore">
+          <DataType>Int32</DataType>
+        </ReportField>
+        <ReportField Name="Reconcile">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="ReconNumberingID"></ReportField>
+        <ReportField Name="ReconNumberingID_description"></ReportField>
+        <ReportField Name="ReconNumberingID_Numbering_descr"></ReportField>
+        <ReportField Name="ReferenceID"></ReportField>
+        <ReportField Name="ReferenceID_BAccountR_acctName"></ReportField>
+        <ReportField Name="ReferenceID_description"></ReportField>
+        <ReportField Name="ReferenceID_Segment1"></ReportField>
+        <ReportField Name="ReferenceID_Vendor_acctName"></ReportField>
+        <ReportField Name="RefNbrComparePercent">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="RefNbrCompareWeight">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="RelativeMatchThreshold">
+          <DataType>Decimal</DataType>
+        </ReportField>
+        <ReportField Name="RestrictVisibilityWithBranch">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="Selected">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="Signature"></ReportField>
+        <ReportField Name="SignatureDescr"></ReportField>
+        <ReportField Name="SkipVoided">
+          <DataType>Boolean</DataType>
+        </ReportField>
+        <ReportField Name="StatementImportTypeName"></ReportField>
+        <ReportField Name="SubID"></ReportField>
+        <ReportField Name="SubID_description"></ReportField>
+        <ReportField Name="SubID_Segment1"></ReportField>
+        <ReportField Name="SubID_Segment2"></ReportField>
+        <ReportField Name="SubID_Sub_description"></ReportField>
+        <ReportField Name="tstamp"></ReportField>
+        <ReportField Name="UseForCorpCard">
+          <DataType>Boolean</DataType>
+        </ReportField>
+      </Fields>
+      <FullName>PX.Objects.CA.CashAccount</FullName>
     </ReportTable>
   </Tables>
   <Version>20211215</Version>
