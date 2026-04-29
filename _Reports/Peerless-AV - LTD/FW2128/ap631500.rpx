@@ -163,14 +163,14 @@
     </ReportParameter>
     <ReportParameter>
       <ColumnSpan>2</ColumnSpan>
-      <n>PaymentMethod</n>
+      <Name>PaymentMethod</Name>
       <Nullable>True</Nullable>
       <Prompt>Payment Method</Prompt>
       <ViewName>=Report.GetFieldSchema('APPayment.PaymentMethodID')</ViewName>
     </ReportParameter>
     <ReportParameter>
       <ColumnSpan>2</ColumnSpan>
-      <n>CashAccount</n>
+      <Name>CashAccount</Name>
       <Nullable>True</Nullable>
       <Prompt>Cash Account</Prompt>
       <ViewName>=Report.GetFieldSchema('CashAccount.CashAccountCD')</ViewName>
