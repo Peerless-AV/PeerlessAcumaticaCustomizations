@@ -1,6 +1,6 @@
-# 📦 Package Release Document (PRD #2)
+  # 📦 Package Release Document (PRD #2)
 **Date Created:** 2026-03-26  
-**Last Updated:** 2026-04-14 08:03 CDT
+**Last Updated:** 2026-04-24 08:59 CDT
 
 ### Acumatica 2024 R2 — Deployment Release Notes
 
@@ -9,27 +9,27 @@
 ## 1. Release Overview
 - **Release Version Targeted:** Acumatica 2024 R2 (24.210.0019)
 - **Build Number:** 3-26-2026
-- **Deployment Date:**
-- **Deployed By:**
-- **Related Work Items / Tickets:**
+- **Deployment Date:** 2026-04-23
+- **Deployed By:** Paul Braden
+- **Related Work Items / Tickets:** Mexico Invoicing and Stamping
 
 ---
 
 ## 2. Included Packages  
 *(All packages now marked deployed in PROD)*
 
-| #  | Package Name                         | Notes                                           | DZ Personal     | TestBTG        | QA | PROD |
-|----|--------------------------------------|-------------------------------------------------|-----------------|----------------|----|------|
-| 1  | CBIZ.ShippingInst[011]               | Replaced by 12                                  |                 |                |    |      |
-| 2  | InterastarDD                         | Received from Interastar to correct reports     | ✔️              | ✔️ Installed    |    |      |
-| 3  | CloudInfoFE                          | New version of Cloud Info                       | ✔️              | ✔️ Installed    |    |      |
-| 4  | CBIZ.ShippingInst[012]               |                                                 |                 | ✔️ Installed    |    |      |
-| 5  | CBIZ.EDISoLineCustomFields           |                                                 |                 | ✔️ Installed    |    |      |
-| 6  | SOAttributesCbiz[008]                |                                                 |                 | ✔️ Installed    |    |      |
-| 7  | InterastarCEMT v.242.2026.0325.0     |                                                 |                 | ✔️ Installed    |    |      |
-| 8  | InterastarVistapreviaFactura         | This package to be removed                      |                 | Removed        |    |      |
-| 9  | InterastarSEARS2 v.231.2025.0210.0   | Package being removed                           |                 | Removed        |    |      |
-| 10 | CBIZ.EPR3                             |                                                 | ✔️ Installed    |                |    |      |
+| #  | Package Name                         | Notes                                           | DZ Personal     | TestBTG        | QA           | PROD         |
+|----|--------------------------------------|-------------------------------------------------|-----------------|----------------|--------------|--------------|
+| 1  | CBIZ.ShippingInst[011]               | Replaced by 12                                  |                 |                | ✔️ Installed | ✔️ Installed |
+| 2  | InterastarDD                         | Received from Interastar to correct reports     | ✔️              | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 3  | CloudInfoFE                          | New version of Cloud Info                       | ✔️              | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 4  | CBIZ.ShippingInst[012]               |                                                 |                 | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 5  | CBIZ.EDISoLineCustomFields           |                                                 |                 | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 6  | SOAttributesCbiz[008]                |                                                 |                 | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 7  | InterastarCEMT v.242.2026.0325.0     |                                                 |                 | ✔️ Installed    | ✔️ Installed | ✔️ Installed |
+| 8  | InterastarVistapreviaFactura         | This package to be removed                      |                 | Removed        | Removed      | Removed      |
+| 9  | InterastarSEARS2 v.231.2025.0210.0   | Package being removed                           |                 | Removed        | Removed      | Removed      |
+| 10 | CBIZ.EPR3                             |                                                 | ✔️ Installed    |                | ✔️ Installed | ✔️ Installed |
 
 ---
 
@@ -94,10 +94,10 @@
 
 ## 7. Issues, Deltas, or Anomalies
 
-| # | Issue / Observation | Impact | Resolution / Next Steps |
-|---|---------------------|--------|--------------------------|
-| 1 |                     |        |                          |
-| 2 |                     |        |                          |
+| # | Issue / Observation                       | Impact        | Resolution / Next Steps                                                                 |
+|---|-------------------------------------------|---------------|------------------------------------------------------------------------------------------|
+| 1 | Duplicate Sales Order address fields appear | Low Priority | Wait for final confirmation of stamping, then review previous fix for this issue.        |
+| 2 |                                           |               |                                                                                          |
 
 ---
 
@@ -118,6 +118,7 @@
   4. Deploy remaining Interastar packages (excluding the ones being removed).
 - **2026-04-07 10:02 CDT** — Paul & Dan beginning deployment of packages to TESTBTG. All tenants (non-MX packages) first.
 - **2026-04-14 08:03 CDT** — New InterestarDD and EPR package added to PRD. Today Paul and Dan will deploy to TESTBTG using the full process of deploying all non-Interastar packages and CloudInfo to all tenants, then laying down MX in the proper order. Once complete, a new TESTBTG can be tested.
+- **2026-04-24 08:59 CDT** — Production deployment last night (4-23-2026) completed and verified by 12:30 AM.
 
 ---
 
