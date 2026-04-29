@@ -1,0 +1,6 @@
+﻿<Table TableName="BAccount">
+    <Column TableName="BAccount" ColumnName="UsrDBNo" ColumnType="string" AllowNull="True" MaxLength="20" DecimalPrecision="2" DecimalLength="20" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="BAccount" ColumnName="UsrDBComment" ColumnType="string" AllowNull="True" MaxLength="240" DecimalPrecision="2" DecimalLength="240" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="BAccount" ColumnName="UsrCredAnalyst" ColumnType="int" AllowNull="True" MaxLength="25" DecimalPrecision="2" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="BAccount" ColumnName="UsrSFAcctID" ColumnType="string" AllowNull="True" MaxLength="20" DecimalPrecision="2" DecimalLength="20" IsNewColumn="True" IsUnicode="True" />
+</Table>

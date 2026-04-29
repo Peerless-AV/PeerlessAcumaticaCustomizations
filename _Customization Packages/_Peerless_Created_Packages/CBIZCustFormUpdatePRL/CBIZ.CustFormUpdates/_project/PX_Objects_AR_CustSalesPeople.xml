@@ -1,0 +1,7 @@
+﻿<DAC type="PX.Objects.AR.CustSalesPeople">
+    <Field FieldName="UsrSalespersonType" TypeName="int" MapDbTable="CustSalesPeople" TextAttributes="#CDATA" StorageName="AddColumn">
+        <CDATA name="TextAttributes"><![CDATA[[PXDBInt]
+[PXIntList(new int[] {0, 1}, new string[] {"Account Owner", "Coordinator"})]
+[PXUIField(DisplayName="Salesperson Group")]]]></CDATA>
+    </Field>
+</DAC>

@@ -1,0 +1,22 @@
+﻿<DAC type="PX.Objects.CR.BAccount">
+    <Field FieldName="UsrDBNo" TypeName="string" MapDbTable="BAccount" TextAttributes="#CDATA" StorageName="AddColumn">
+        <CDATA name="TextAttributes"><![CDATA[[PXDBString(20)]
+[PXUIField(DisplayName="D&B No")]
+]]></CDATA>
+    </Field>
+    <Field FieldName="UsrDBComment" TypeName="string" MapDbTable="BAccount" TextAttributes="#CDATA" StorageName="AddColumn">
+        <CDATA name="TextAttributes"><![CDATA[[PXDBString(240)]
+[PXUIField(DisplayName="D&B Comment")]
+]]></CDATA>
+    </Field>
+    <Field FieldName="UsrCredAnalyst" TypeName="int" MapDbTable="BAccount" TextAttributes="#CDATA" StorageName="AddColumn">
+        <CDATA name="TextAttributes"><![CDATA[[PXDBInt]
+[PXIntList(new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, new string[] {"CA1 - Accounts A thru I", "CA2 - Accounts J thru Z", "EP - Elite Partner", "MA - Manager","UKCA1 - Lesley Stern","UKCA2 - Victoria Carroll","UKCA3 - Vera Kuchlin","UKCA4 - Gemma Trainor","UKFD1 - Doug Stokoe","UKFD2 - Temp"})]
+[PXUIField(DisplayName="Credit Analyst")]]]></CDATA>
+    </Field>
+    <Field FieldName="UsrSFAcctID" TypeName="string" MapDbTable="BAccount" TextAttributes="#CDATA" StorageName="AddColumn">
+        <CDATA name="TextAttributes"><![CDATA[[PXDBString(20)]
+[PXUIField(DisplayName="Salesforce Acct ID")]
+]]></CDATA>
+    </Field>
+</DAC>

@@ -1,0 +1,199 @@
+﻿<Automation screen="AR303000">
+    <Actions ScreenID="AR303000">
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="CreateContact" ActionType="G" After="Last" PlacementInCategory="0" DisableCondition="265bbf07-dacf-04b5-e0f0-0975a17de89e" BatchMode="False" MenuFolderType="CustomerManagementID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="CreateContactToolBar" ActionType="G" After="CreateContact" PlacementInCategory="0" DisableCondition="265bbf07-dacf-04b5-e0f0-0975a17de89e" BatchMode="False" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="newInvoiceMemo" ActionType="G" After="CreateContactToolBar" PlacementInCategory="0" DisableCondition="46265231-ac30-7562-5544-95a66a407233" BatchMode="False" MenuFolderType="DocumentProcessingID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="newSalesOrder" ActionType="G" After="newInvoiceMemo" PlacementInCategory="0" DisableCondition="bfc7631a-456b-8112-b329-465b531150b9" BatchMode="False" MenuFolderType="DocumentProcessingID" WindowMode="S" HideCondition="bc9558ff-4764-08d0-9d5c-864a64d157e8" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="newPayment" ActionType="G" After="newSalesOrder" PlacementInCategory="0" DisableCondition="0cbd0094-a563-bd07-3b0f-c5913a2c7e3e" BatchMode="False" MenuFolderType="DocumentProcessingID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="writeOffBalance" ActionType="G" After="newPayment" PlacementInCategory="0" DisableCondition="c7df157b-ff22-fe03-47ba-8030b83420d0" BatchMode="False" MenuFolderType="DocumentProcessingID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="generateOnDemandStatement" ActionType="G" After="writeOffBalance" PlacementInCategory="0" DisableCondition="e549b89a-51ab-50fd-8216-164c3266c5f6" BatchMode="False" MenuFolderType="StatementsID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="regenerateLastStatement" ActionType="G" After="generateOnDemandStatement" PlacementInCategory="0" DisableCondition="194bc302-168a-e49d-f4ee-2835e7aeb2d4" BatchMode="False" MenuFolderType="StatementsID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewBusnessAccount" ActionType="G" After="regenerateLastStatement" PlacementInCategory="0" DisableCondition="55d534b4-de7f-f9e7-a7a7-62efad8ffb34" BatchMode="False" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewVendor" ActionType="G" After="viewBusnessAccount" PlacementInCategory="0" BatchMode="False" MenuFolderType="OtherID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="ValidateAddresses" ActionType="G" After="viewVendor" PlacementInCategory="0" BatchMode="False" MenuFolderType="OtherID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="ChangeID" ActionType="G" After="ValidateAddresses" PlacementInCategory="0" AfterInMenu="CreateContact" BatchMode="False" MenuFolderType="OtherID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewRestrictionGroups" ActionType="G" After="ChangeID" PlacementInCategory="0" BatchMode="False" MenuFolderType="OtherID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="extendToVendor" ActionType="G" After="viewRestrictionGroups" PlacementInCategory="0" BatchMode="False" MenuFolderType="CustomerManagementID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="customerDocuments" ActionType="G" After="extendToVendor" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="statementForCustomer" ActionType="G" After="customerDocuments" PlacementInCategory="0" BatchMode="False" MenuFolderType="StatementsID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="salesPrice" ActionType="G" After="statementForCustomer" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="aRBalanceByCustomer" ActionType="G" After="salesPrice" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="aRRegister" ActionType="G" After="aRBalanceByCustomer" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="customerHistory" ActionType="G" After="aRRegister" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="aRAgedPastDue" ActionType="G" After="customerHistory" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="aRAgedOutstanding" ActionType="G" After="aRAgedPastDue" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="customerDetails" ActionType="G" After="aRAgedOutstanding" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="customerStatement" ActionType="G" After="customerDetails" PlacementInCategory="0" BatchMode="False" MenuFolderType="StatementsID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="openMultipleStaffMemberBoard" ActionType="G" After="customerStatement" PlacementInCategory="0" DisableCondition="2bdb2ea7-213d-0e99-32e3-cd8660ad1299" BatchMode="False" MenuFolderType="ServicesID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="openSingleStaffMemberBoard" ActionType="G" After="openMultipleStaffMemberBoard" PlacementInCategory="0" AfterInMenu="openMultipleStaffMemberBoard" DisableCondition="f862d359-926a-5cc6-8fa9-f61999d116bc" BatchMode="False" MenuFolderType="ServicesID" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewServiceOrderHistory" ActionType="G" After="openSingleStaffMemberBoard" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewAppointmentHistory" ActionType="G" After="viewServiceOrderHistory" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewEquipmentSummary" ActionType="G" After="viewAppointmentHistory" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="viewContractScheduleSummary" ActionType="G" After="viewEquipmentSummary" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Action IsActive="True" ActionName="AROpenDocByCust" ActionType="R" PlacementInCategory="0" DestinationScreenID="AR634000" DisplayName="AR Open Docs By Customer" MenuFolderType="Report" IsTopLevel="True" WindowMode="W" MapEnableRights="1" ExposedToMobile="False" IsLockedOnToolbar="False">
+            <Param IsActive="True" Value="[AcctCD]" ActionName="AROpenDocByCust" Name="CustomerID" FromSchema="False" />
+            <StateActionFields />
+            <StateActionParams />
+            <NextActions />
+            <ActionSequenceFormFieldValues />
+        </Action>
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Actions" CategoryName="Action" Placement="0" LineNbr="0" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Customer Management" CategoryName="CustomerManagementID" Placement="0" After="Action" LineNbr="1" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Document Processing" CategoryName="DocumentProcessingID" Placement="0" After="CustomerManagementID" LineNbr="2" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Statements" CategoryName="StatementsID" Placement="0" After="DocumentProcessingID" LineNbr="3" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Services" CategoryName="ServicesID" Placement="0" After="StatementsID" LineNbr="4" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Other" CategoryName="OtherID" Placement="0" After="ServicesID" LineNbr="5" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Inquiries" CategoryName="Inquiry" Placement="0" After="OtherID" LineNbr="6" />
+        <Category IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" DisplayName="Reports" CategoryName="Report" Placement="0" After="Inquiry" LineNbr="7" />
+    </Actions>
+</Automation>
