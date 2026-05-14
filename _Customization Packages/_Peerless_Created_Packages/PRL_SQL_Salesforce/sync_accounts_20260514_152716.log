@@ -1,0 +1,14 @@
+2026-05-14 15:27:16,998  INFO      ============================================================
+2026-05-14 15:27:16,999  INFO        Acumatica -> Salesforce Account Sync
+2026-05-14 15:27:16,999  INFO        Environment : DEV
+2026-05-14 15:27:17,000  INFO        Test Mode   : True
+2026-05-14 15:27:17,000  INFO        Log File    : sync_accounts_20260514_152716.log
+2026-05-14 15:27:17,000  INFO      ============================================================
+2026-05-14 15:27:17,000  INFO      TEST_MODE enabled — filtering to AccountNumberc = ANV254900
+2026-05-14 15:27:17,001  INFO      Fetching Acumatica records from: http://localhost/2024r2dev/odata/peerless-av/PRL_SFDC_Account_Sync
+2026-05-14 15:27:17,491  INFO      Acumatica returned 1 record(s)
+2026-05-14 15:27:18,430  INFO      Connected to Salesforce: peerlessav.my.salesforce.com
+2026-05-14 15:27:19,928  INFO        [UPDATED] AccountNumberc=ANV254900 | SF Id=001PW00000sT8b1YAC | Fields=['Name', 'ACU_CUSTOMER_CLASS__c', 'ACU_CUSTOMER_STATUS__c', 'ACU_TIER__c', 'ACU_CREDIT_LIMIT__c', 'ACU_CREDIT_REMAIN__c', 'Acu_Customer_Credit_Rule__c', 'ACU_CREDIT_TERMS__c', 'ACU_PRO_ACCOUNT_TYPE__c', 'BillingStreet', 'BillingCity', 'BillingState', 'BillingPostalCode', 'BillingCountry']
+2026-05-14 15:27:19,929  INFO      ============================================================
+2026-05-14 15:27:19,929  INFO        Sync complete — Updated: 1 | Skipped: 0 | Errors: 0
+2026-05-14 15:27:19,929  INFO      ============================================================

@@ -1,0 +1,13 @@
+2026-05-14 15:19:09,598  INFO      ============================================================
+2026-05-14 15:19:09,602  INFO        Environment : DEV
+2026-05-14 15:19:09,602  INFO        Test Mode   : True
+2026-05-14 15:19:09,602  INFO        Log File    : sync_accounts_20260514_151909.log
+2026-05-14 15:19:09,602  INFO      ============================================================
+2026-05-14 15:19:09,602  INFO      TEST_MODE enabled — filtering to AcctCD = ANV254900
+2026-05-14 15:19:09,602  INFO      Fetching Acumatica records from: http://localhost/2024r2dev/odata/peerless-av/PRL_SFDC_Account_Sync
+2026-05-14 15:19:09,813  ERROR     Acumatica HTTP error: 500 Server Error: Internal Server Error for url: http://localhost/2024r2dev/odata/peerless-av/PRL_SFDC_Account_Sync?%24format=json&%24filter=AcctCD+eq+%27ANV254900%27 — {
+  "odata.error":{
+    "code":"","message":{
+      "lang":"en-US","value":"An error has occurred."
+    },"innererror":{
+      "message":"Could not find a property named 'AcctCD' on type 'PX.Data.PRL_SFDC_Account_Sync'.","type":"Microsoft.Data.OData.ODataException","stacktrace":"   at Microsoft

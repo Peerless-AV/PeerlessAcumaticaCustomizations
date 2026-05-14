@@ -1,0 +1,14 @@
+2026-05-14 15:30:36,940  INFO      ============================================================
+2026-05-14 15:30:36,940  INFO        Acumatica -> Salesforce Account Sync
+2026-05-14 15:30:36,941  INFO        Environment : DEV
+2026-05-14 15:30:36,941  INFO        Test Mode   : True
+2026-05-14 15:30:36,941  INFO        Log File    : sync_accounts_20260514_153036.log
+2026-05-14 15:30:36,941  INFO      ============================================================
+2026-05-14 15:30:36,941  INFO      TEST_MODE enabled — filtering to AccountNumberc = 3DP388070
+2026-05-14 15:30:36,942  INFO      Fetching Acumatica records from: http://localhost/2024r2dev/odata/peerless-av/PRL_SFDC_Account_Sync
+2026-05-14 15:30:37,118  INFO      Acumatica returned 1 record(s)
+2026-05-14 15:30:38,158  INFO      Connected to Salesforce: peerlessav.my.salesforce.com
+2026-05-14 15:30:38,939  WARNING     [SKIP] No SF Account found for AccountNumberc=3DP388070
+2026-05-14 15:30:38,939  INFO      ============================================================
+2026-05-14 15:30:38,939  INFO        Sync complete — Updated: 0 | Skipped: 1 | Errors: 0
+2026-05-14 15:30:38,939  INFO      ============================================================
