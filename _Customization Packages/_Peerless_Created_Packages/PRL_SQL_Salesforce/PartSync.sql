@@ -19,7 +19,7 @@ Tenants AS (
 ),
 
 -- ----------------------------------------------------------------
--- 2. One CTE per tenant
+-- 2. US tenant
 -- ----------------------------------------------------------------
 US AS (
     SELECT
@@ -32,35 +32,107 @@ US AS (
                                 AS IsActive,
         i.ItemStatus            AS SalesPartStatusc,
         CASE WHEN i.UsrAuthorization = 1 THEN 'True' ELSE 'False' END
-                                AS ACUAuthorizationRequiredc
+                                AS ACUAuthorizationRequiredc,
+        CASE RTRIM(ic.ItemClassCD)
+            WHEN 'BPE  STAND'              THEN 'KIOSK'
+            WHEN 'KIOSKCUSTM'              THEN 'KIOSK'
+            WHEN 'KIOSKSTAND'              THEN 'KIOSK'
+            WHEN 'KIOSKSTANDINDOR'         THEN 'KIOSK'
+            WHEN 'KIOSKSTANDINDORGROUN'    THEN 'KIOSK'
+            WHEN 'KIOSKSTANDINDORWALL'     THEN 'KIOSK'
+            WHEN 'KIOSKSTANDOUTDR'         THEN 'KIOSK'
+            WHEN 'KIOSKSTANDOUTDRGROUN'    THEN 'KIOSK'
+            WHEN 'VLTA'                    THEN 'KIOSK'
+            WHEN 'VLTA CUSTM'              THEN 'KIOSK'
+            WHEN 'VLTA STAND'              THEN 'KIOSK'
+            WHEN 'DS   CUSTM'              THEN 'LED'
+            WHEN 'DS   STAND'              THEN 'LED'
+            WHEN 'LED'                     THEN 'LED'
+            WHEN 'LED  CUSTM'              THEN 'LED'
+            WHEN 'LED  CUSTMACC'           THEN 'LED'
+            WHEN 'LED  CUSTMDED'           THEN 'LED'
+            WHEN 'LED  CUSTMLEDF'          THEN 'LED'
+            WHEN 'LED  CUSTMLEDFS'         THEN 'LED'
+            WHEN 'LED  CUSTMSUBF'          THEN 'LED'
+            WHEN 'LED  CUSTMTK'            THEN 'LED'
+            WHEN 'LED  CUSTMUNV'           THEN 'LED'
+            WHEN 'LED  STAND'              THEN 'LED'
+            WHEN 'LED  STANDACC'           THEN 'LED'
+            WHEN 'LED  STANDACC  LED'      THEN 'LED'
+            WHEN 'LED  STANDACC  LEDTK'    THEN 'LED'
+            WHEN 'LED  STANDDED'           THEN 'LED'
+            WHEN 'LED  STANDLEDF'          THEN 'LED'
+            WHEN 'LED  STANDLEDFS'         THEN 'LED'
+            WHEN 'LED  STANDSUBF'          THEN 'LED'
+            WHEN 'LED  STANDTK'            THEN 'LED'
+            WHEN 'LED  STANDUNV'           THEN 'LED'
+            WHEN 'DVLED'                   THEN 'DVLED'
+            WHEN 'DVLEDCUSTM     MAHLO'    THEN 'DVLED'
+            WHEN 'ET   STAND'              THEN 'TV'
+            WHEN 'ET   STANDNEPTN'         THEN 'TV'
+            WHEN 'ET   STANDULTVW'         THEN 'TV'
+            WHEN 'ET   STANDXTRME'         THEN 'TV'
+            WHEN 'FPSS'                    THEN 'MOUNT'
+            WHEN 'FPSS CUSTM'              THEN 'MOUNT'
+            WHEN 'FPSS STAND'              THEN 'MOUNT'
+            WHEN 'FPSS STANDETAIL'         THEN 'MOUNT'
+            WHEN 'FPSS STANDPMNT'          THEN 'MOUNT'
+            WHEN 'FPSS STANDSMRT'          THEN 'MOUNT'
+            WHEN 'FPSS STANDSMRXT'         THEN 'MOUNT'
+            WHEN 'FPSS STANDTRVUE'         THEN 'MOUNT'
+            WHEN 'HOSP CUSTM'              THEN 'MOUNT'
+            WHEN 'HOSP STAND'              THEN 'MOUNT'
+            WHEN 'PSS'                     THEN 'MOUNT'
+            WHEN 'PSS  CUSTM'              THEN 'MOUNT'
+            WHEN 'PSS  STAND'              THEN 'MOUNT'
+            WHEN 'PSS  STANDPJF2'          THEN 'MOUNT'
+            WHEN 'PSS  STANDPJR'           THEN 'MOUNT'
+            WHEN 'PSS  STANDPRG'           THEN 'MOUNT'
+            WHEN 'PSS  STANDPRGS'          THEN 'MOUNT'
+            ELSE NULL
+        END                     AS CategoryC
     FROM [dbo].[InventoryItem] i
-    JOIN Tenants t ON t.CompanyID = i.CompanyID
+    JOIN [dbo].[INItemClass] ic ON ic.ItemClassID = i.ItemClassID
+                                AND ic.CompanyID   = i.CompanyID
+    JOIN Tenants t              ON t.CompanyID     = i.CompanyID
     WHERE t.TenantCode = 'US'
     AND i.DeletedDatabaseRecord = 0
 ),
 
+-- ----------------------------------------------------------------
+-- 3. UK tenant — CategoryC placeholder pending UK mapping
+-- ----------------------------------------------------------------
 UK AS (
     SELECT
         RTRIM(i.InventoryCD)    AS InventoryCD,
-        i.Descr                 AS UKDescriptionc
+        i.Descr                 AS UKDescriptionc,
+        CAST(NULL AS NVARCHAR(50)) AS CategoryC  -- UK mapping TBD
     FROM [dbo].[InventoryItem] i
-    JOIN Tenants t ON t.CompanyID = i.CompanyID
+    JOIN [dbo].[INItemClass] ic ON ic.ItemClassID = i.ItemClassID
+                                AND ic.CompanyID   = i.CompanyID
+    JOIN Tenants t              ON t.CompanyID     = i.CompanyID
     WHERE t.TenantCode = 'UK'
     AND i.DeletedDatabaseRecord = 0
 ),
 
+-- ----------------------------------------------------------------
+-- 4. MX tenant — CategoryC placeholder pending MX mapping
+-- ----------------------------------------------------------------
 MX AS (
     SELECT
         RTRIM(i.InventoryCD)    AS InventoryCD,
-        i.Descr                 AS MXDescriptionc
+        i.Descr                 AS MXDescriptionc,
+        CAST(NULL AS NVARCHAR(50)) AS CategoryC  -- MX mapping TBD
     FROM [dbo].[InventoryItem] i
-    JOIN Tenants t ON t.CompanyID = i.CompanyID
+    JOIN [dbo].[INItemClass] ic ON ic.ItemClassID = i.ItemClassID
+                                AND ic.CompanyID   = i.CompanyID
+    JOIN Tenants t              ON t.CompanyID     = i.CompanyID
     WHERE t.TenantCode = 'MX'
     AND i.DeletedDatabaseRecord = 0
 )
 
 -- ----------------------------------------------------------------
--- 3. Pivot to one row per part
+-- 5. Pivot to one row per part
 -- ----------------------------------------------------------------
 SELECT
     -- Identity
@@ -83,7 +155,10 @@ SELECT
     us.SalesPartStatusc,
     us.IsActive,
     us.QuantityUnitOfMeasure,
-    us.ACUAuthorizationRequiredc
+    us.ACUAuthorizationRequiredc,
+
+    -- Category — US first, fall back to UK then MX
+    COALESCE(us.CategoryC, uk.CategoryC, mx.CategoryC)             AS CategoryC
 
     -- Pending / To Be Added
     -- USProductFamilyc / Family        (source TBD)
