@@ -59,17 +59,17 @@ These are the cross-tenant joined fields. Acumatica source will be per-tenant qu
 
 | Salesforce Field                | Sample Data              | Acumatica Field / Source | Notes                          |
 |---------------------------------|--------------------------|--------------------------|--------------------------------|
-| `Part_Number__c`                | `LEDUNVS-4X3`            |                          |                                |
-| `Do_Not_Use__c`                 | `False`                  |                          |                                |
-| `ACU_Item_Status__c`            | *(empty)*                | `InventoryItem.ItemStatus` | Direct map — AC, NS, NP, NR, IN, DE |
-| `ACU_PMPLCM__c`                 | *(empty)*                |                          |                                |
+| `Part_Number__c`                | `LEDUNVS-4X3`            | `InventoryItem.InventoryCD`      | RTRIM applied — same as Name/ProductCode |
+| `Do_Not_Use__c`                 | `False`                  |                                  |                                |
+| `ACU_Item_Status__c`            | *(empty)*                | `InventoryItem.ItemStatus`       | Direct map — AC, NS, NP, NR, IN, DE |
+| `ACU_PMPLCM__c`                 | *(empty)*                |                                  | Attribute join TBD             |
 | `ACU_Authorization_Required__c` | `False`                  | `InventoryItem.UsrAuthorization` | `1` = True, NULL or `0` = False |
-| `Sales_Part_Status__c`          | `No Request`             | `InventoryItem.ItemStatus` | Direct map — no interpretation |
-| `Special_Note__c`               | *(empty)*                |                          |                                |
-| `MOQ__c`                        | *(empty)*                |                          | Minimum Order Quantity?        |
-| `Price_Group__c`                | `a1T2K000003aiHZUAY`     |                          | SFDC lookup ID                 |
-| `Category__c`                   | *(empty)*                |                          |                                |
-| `ID_18_Ch__c`                   | `01tPW00000IHUnJYAX`     |                          | 18-char SFDC ID — likely SKIP  |
+| `Sales_Part_Status__c`          | `No Request`             | `InventoryItem.ItemStatus`       | Direct map — no interpretation |
+| `Special_Note__c`               | *(empty)*                |                                  |                                |
+| `MOQ__c`                        | *(empty)*                |                                  | Minimum Order Quantity — TBD   |
+| `Price_Group__c`                | `a1T2K000003aiHZUAY`     |                                  | SFDC lookup ID — TBD           |
+| `Category__c`                   | `DVLED`                  | `INItemClass.ItemClassCD`        | CASE translation via join — US first, fallback UK then MX. Values: DVLED, LED, MOUNT, KIOSK, TV, NULL |
+| `ID_18_Ch__c`                   | `01tPW00000IHUnJYAX`     | SKIP                             | 18-char SFDC ID — no Acu equivalent |
 
 ---
 
@@ -179,3 +179,5 @@ These are managed entirely within Salesforce and have no Acumatica equivalent.
 | 2026-05-14 | BTG IT   | Initial draft — SFDC fields catalogued, Acumatica columns pending |
 | 2026-05-15 | BTG IT   | Confirmed: IsActive, ACUItemStatusc, SalesPartStatusc, ACUAuthorizationRequiredc |
 | 2026-05-15 | BTG IT   | Section 1 filled in — Name, ProductCode, Description, SKU, QuantityUnitOfMeasure confirmed; Type and CurrencyIsoCode marked SKIP |
+| 2026-05-15 | BTG IT   | Section 2 descriptions confirmed via three-tenant pivot view |
+| 2026-05-15 | BTG IT   | Category__c confirmed — INItemClass join with CASE translation; Part_Number__c confirmed; ID_18_Ch__c marked SKIP |
