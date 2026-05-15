@@ -19,7 +19,7 @@ Tenants AS (
 ),
 
 -- ----------------------------------------------------------------
--- 2. One CTE per tenant pulling confirmed fields only
+-- 2. One CTE per tenant
 -- ----------------------------------------------------------------
 US AS (
     SELECT
@@ -27,7 +27,12 @@ US AS (
         i.InventoryID,
         i.Descr                 AS USDescriptionc,
         i.ItemStatus            AS ACUItemStatusc,
-        i.SalesUnit             AS QuantityUnitOfMeasure
+        i.SalesUnit             AS QuantityUnitOfMeasure,
+        CASE WHEN i.ItemStatus IN ('AC', 'NP', 'NR') THEN 'True' ELSE 'False' END
+                                AS IsActive,
+        i.ItemStatus            AS SalesPartStatusc,
+        CASE WHEN i.UsrAuthorization = 1 THEN 'True' ELSE 'False' END
+                                AS ACUAuthorizationRequiredc
     FROM [dbo].[InventoryItem] i
     JOIN Tenants t ON t.CompanyID = i.CompanyID
     WHERE t.TenantCode = 'US'
@@ -55,17 +60,15 @@ MX AS (
 )
 
 -- ----------------------------------------------------------------
--- 3. Pivot to one row per part, tenants joined by InventoryCD
---    COALESCE on InventoryCD handles parts that exist in UK or MX
---    but not in US
+-- 3. Pivot to one row per part
 -- ----------------------------------------------------------------
 SELECT
-    -- Identity / composite key
+    -- Identity
     CAST(
         COALESCE(us.InventoryCD, uk.InventoryCD, mx.InventoryCD)
     AS NVARCHAR(100))                                               AS ExternalKey,
 
-    -- Part number (same value, three SFDC targets)
+    -- Part number (three SFDC targets, same value)
     COALESCE(us.InventoryCD, uk.InventoryCD, mx.InventoryCD)       AS PartNumberc,
     COALESCE(us.InventoryCD, uk.InventoryCD, mx.InventoryCD)       AS ProductCode,
     COALESCE(us.InventoryCD, uk.InventoryCD, mx.InventoryCD)       AS Name,
@@ -75,19 +78,19 @@ SELECT
     uk.UKDescriptionc,
     mx.MXDescriptionc,
 
-    -- US-sourced fields (authoritative for global fields)
+    -- US-sourced global fields
     us.ACUItemStatusc,
-    us.QuantityUnitOfMeasure
+    us.SalesPartStatusc,
+    us.IsActive,
+    us.QuantityUnitOfMeasure,
+    us.ACUAuthorizationRequiredc
 
     -- Pending / To Be Added
-    -- ACUAuthorizationRequiredc        (source TBD)
     -- USProductFamilyc / Family        (source TBD)
     -- UKProductFamilyc                 (UK join TBD)
     -- MXProductFamilyc                 (MX join TBD)
     -- ACUPMPLCMc                       (attribute join TBD)
     -- MOQc                             (source TBD)
-    -- IsActive                         (source TBD)
-    -- SalesPartStatusc                 (source TBD)
 
 FROM US us
 FULL OUTER JOIN UK uk ON uk.InventoryCD = us.InventoryCD
