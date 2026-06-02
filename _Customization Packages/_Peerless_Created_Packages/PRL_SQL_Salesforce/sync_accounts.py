@@ -52,7 +52,7 @@ log = logging.getLogger(__name__)
 # -------------------------------------------------------
 load_dotenv()
 
-ENV = os.getenv("ACU_ENV", "dev").strip().lower()
+ENV = os.getenv("ACU_ENV", "prod").strip().lower()
 
 BASE_URL_MAP = {
     "dev":  os.getenv("ACU_BASE_URL_DEV"),
