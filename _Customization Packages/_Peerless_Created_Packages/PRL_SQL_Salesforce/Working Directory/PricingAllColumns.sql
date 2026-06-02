@@ -65,4 +65,4 @@ JOIN ARSalesPrice  ON  InventoryItem.InventoryID      = ARSalesPrice.InventoryID
                              AND C.EffectiveDate          <= GETDATE())
 WHERE TSPriceGroup.PriceGroupCode IN ('CORE','ET','KIOSK','DS','E-TAIL','RETAIL','SHADE','HOSP','NEPTUNE')
   AND InventoryItem.CompanyID   = '10'
-  AND InventoryItem.InventoryCD = 'NT553'
+  --AND InventoryItem.InventoryCD = 'NT553'
