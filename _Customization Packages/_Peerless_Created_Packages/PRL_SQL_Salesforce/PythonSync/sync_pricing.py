@@ -159,24 +159,41 @@ def build_price_list_map(sf):
     return m
 
 
+def chunked_query(sf, soql_template, values, chunk_size=200):
+    """
+    Splits a large IN-clause query into chunks to avoid SOQL URI length limits.
+    soql_template must contain exactly one {} placeholder for the IN list.
+    Returns a flat list of all records across all chunks.
+    """
+    records = []
+    for i in range(0, len(values), chunk_size):
+        chunk   = values[i:i + chunk_size]
+        in_list = "\', \'".join(chunk)
+        result  = sf.query_all(soql_template.format(in_list))
+        records.extend(result["records"])
+    return records
+
+
 def build_product_map(sf, inventory_cds):
     """Returns {Part_Number__c: Id} for matched Product2 records."""
-    id_list = "', '".join(inventory_cds)
-    result  = sf.query_all(
-        f"SELECT Id, Part_Number__c FROM Product2 WHERE Part_Number__c IN ('{id_list}')"
+    records = chunked_query(
+        sf,
+        "SELECT Id, Part_Number__c FROM Product2 WHERE Part_Number__c IN (\'{}\')",
+        list(inventory_cds)
     )
-    m = {r["Part_Number__c"]: r["Id"] for r in result["records"]}
+    m = {r["Part_Number__c"]: r["Id"] for r in records}
     print(f"  Products matched: {len(m)} of {len(inventory_cds)} unique SKUs")
     return m
 
 
 def build_account_map(sf, acct_cds):
     """Returns {Account_Number__c: Id} for matched Account records."""
-    id_list = "', '".join(acct_cds)
-    result  = sf.query_all(
-        f"SELECT Id, Account_Number__c FROM Account WHERE Account_Number__c IN ('{id_list}')"
+    records = chunked_query(
+        sf,
+        "SELECT Id, Account_Number__c FROM Account WHERE Account_Number__c IN (\'{}\')",
+        list(acct_cds)
     )
-    m = {r["Account_Number__c"]: r["Id"] for r in result["records"]}
+    m = {r["Account_Number__c"]: r["Id"] for r in records}
     print(f"  Accounts matched: {len(m)} of {len(acct_cds)} unique account CDs")
     return m
 
