@@ -20,7 +20,7 @@ Script will prompt for confirmation before any live writes.
 
 Author:   BTG IT / Peerless-AV
 Created:  2026-05-28
-Updated:  2026-05-28
+Updated:  2026-06-02
 """
 
 import os
@@ -28,7 +28,7 @@ import sys
 import requests
 import pandas as pd
 from dotenv import load_dotenv
-from simple_salesforce import Salesforce
+from simple_salesforce import Salesforce, SalesforceAuthenticationFailed
 from datetime import datetime
 
 load_dotenv()
@@ -51,55 +51,94 @@ PRICE_CLASS_COLUMNS = [
 ]
 
 # ── Acumatica OData config ────────────────────────────────────────────────────
-ACU_BASE_URL  = os.getenv("ACU_BASE_URL")   # e.g. https://your-instance.acumatica.com
-ACU_COMPANY   = os.getenv("ACU_COMPANY")    # e.g. Peerless-AV
-ACU_USERNAME  = os.getenv("ACU_USERNAME")
-ACU_PASSWORD  = os.getenv("ACU_PASSWORD")
+# Environment is controlled by ACU_ENV in .env: dev | test | qa | prod
+ENV = os.getenv("ACU_ENV", "prod").strip().lower()
 
-ODATA_BASE    = f"{ACU_BASE_URL}/ODatav4/{ACU_COMPANY}"
+BASE_URL_MAP = {
+    "dev":  os.getenv("ACU_BASE_URL_DEV"),
+    "test": os.getenv("ACU_BASE_URL_TEST"),
+    "qa":   os.getenv("ACU_BASE_URL_QA"),
+    "prod": os.getenv("ACU_BASE_URL_PROD"),
+}
+
+ACU_BASE_URL = BASE_URL_MAP.get(ENV)
+ACU_USERNAME = os.getenv("ACU_USERNAME")
+ACU_PASSWORD = os.getenv("ACU_PASSWORD")
+
+# ── Salesforce config ─────────────────────────────────────────────────────────
+SF_USERNAME       = os.getenv("SF_USERNAME")
+SF_PASSWORD       = os.getenv("SF_PASSWORD")
+SF_SECURITY_TOKEN = os.getenv("SF_SECURITY_TOKEN", "")
+SF_DOMAIN         = os.getenv("SF_DOMAIN", "login")
+
+# ── Pre-flight checks ─────────────────────────────────────────────────────────
+def preflight():
+    errors = []
+    if not ACU_BASE_URL:
+        errors.append(f"  - ACU_BASE_URL_{ENV.upper()} is not set in .env")
+    if not ACU_USERNAME:
+        errors.append("  - ACU_USERNAME is not set in .env")
+    if not ACU_PASSWORD:
+        errors.append("  - ACU_PASSWORD is not set in .env")
+    if not SF_USERNAME:
+        errors.append("  - SF_USERNAME is not set in .env")
+    if not SF_PASSWORD:
+        errors.append("  - SF_PASSWORD is not set in .env")
+    if errors:
+        print("PREFLIGHT FAILED. Fix the following before running:")
+        for e in errors:
+            print(e)
+        sys.exit(1)
 
 # ── Salesforce connection ─────────────────────────────────────────────────────
-sf = Salesforce(
-    username=os.getenv("SF_USERNAME"),
-    password=os.getenv("SF_PASSWORD"),
-    security_token=os.getenv("SF_SECURITY_TOKEN"),
-    domain=os.getenv("SF_DOMAIN", "login")
-)
-SF_USER = os.getenv("SF_USERNAME")
-print(f"Salesforce connected: {sf.sf_instance}")
+def connect_salesforce():
+    try:
+        sf = Salesforce(
+            username=SF_USERNAME,
+            password=SF_PASSWORD,
+            security_token=SF_SECURITY_TOKEN,
+            domain=SF_DOMAIN
+        )
+        print(f"Salesforce connected: {sf.sf_instance}")
+        return sf
+    except SalesforceAuthenticationFailed as e:
+        print(f"Salesforce authentication failed: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Salesforce connection error: {e}")
+        sys.exit(1)
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Acumatica OData helper
+# Acumatica OData fetch — Basic Auth, matches sync_accounts.py pattern
 # ─────────────────────────────────────────────────────────────────────────────
-def acu_login():
-    """Log in to Acumatica and return an authenticated session."""
-    session = requests.Session()
-    resp = session.post(
-        f"{ACU_BASE_URL}/entity/auth/login",
-        json={
-            "name":     ACU_USERNAME,
-            "password": ACU_PASSWORD,
-            "company":  ACU_COMPANY
-        }
-    )
-    resp.raise_for_status()
-    print(f"Acumatica connected: {ACU_BASE_URL}")
-    return session
-
-
-def acu_fetch_view(session, view_name):
+def acu_fetch_view(view_name):
     """
-    Fetch all rows from an Acumatica OData v4 view.
+    Fetch all rows from an Acumatica OData view using Basic Auth.
     Pages through @odata.nextLink automatically.
     Returns a list of dicts.
     """
-    url    = f"{ODATA_BASE}/{view_name}"
+    url    = f"{ACU_BASE_URL}/{view_name}"
     rows   = []
     params = {"$format": "json"}
 
+    print(f"  Fetching {view_name} from: {url}")
+
     while url:
-        resp = session.get(url, params=params)
-        resp.raise_for_status()
+        try:
+            resp = requests.get(
+                url,
+                params=params,
+                auth=(ACU_USERNAME, ACU_PASSWORD),
+                timeout=60
+            )
+            resp.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            print(f"  Acumatica HTTP error fetching {view_name}: {e} — {resp.text[:300]}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"  Acumatica fetch error for {view_name}: {e}")
+            sys.exit(1)
+
         data   = resp.json()
         rows  += data.get("value", [])
         url    = data.get("@odata.nextLink")
@@ -112,7 +151,7 @@ def acu_fetch_view(session, view_name):
 # ─────────────────────────────────────────────────────────────────────────────
 # Salesforce lookup helpers
 # ─────────────────────────────────────────────────────────────────────────────
-def build_price_list_map():
+def build_price_list_map(sf):
     """Returns {Name: Id} for all Price_List__c records."""
     result = sf.query_all("SELECT Id, Name FROM Price_List__c")
     m = {r["Name"]: r["Id"] for r in result["records"]}
@@ -120,7 +159,7 @@ def build_price_list_map():
     return m
 
 
-def build_product_map(inventory_cds):
+def build_product_map(sf, inventory_cds):
     """Returns {Part_Number__c: Id} for matched Product2 records."""
     id_list = "', '".join(inventory_cds)
     result  = sf.query_all(
@@ -131,7 +170,7 @@ def build_product_map(inventory_cds):
     return m
 
 
-def build_account_map(acct_cds):
+def build_account_map(sf, acct_cds):
     """Returns {Account_Number__c: Id} for matched Account records."""
     id_list = "', '".join(acct_cds)
     result  = sf.query_all(
@@ -142,7 +181,7 @@ def build_account_map(acct_cds):
     return m
 
 
-def build_ple_map():
+def build_ple_map(sf):
     """Returns {Product_Price_List_Combo__c: {id, current_price}} for all Price_List_Entry__c."""
     result = sf.query_all(
         "SELECT Id, Product_Price_List_Combo__c, Price_List_Price__c FROM Price_List_Entry__c"
@@ -159,7 +198,7 @@ def build_ple_map():
     return m
 
 
-def build_contract_map():
+def build_contract_map(sf):
     """
     Returns {Contract_Pricing_Combo__c: {id, current_price}} for all Contract_Pricing__c.
     Combo key: {AcctCD} - {InventoryCD} - {PriceClass}
@@ -193,9 +232,8 @@ def process_price_list_entries(acu_rows, price_list_map, product_map, ple_map):
     update_batch  = []
 
     for r in acu_rows:
-        inventory_cd = str(r.get("InventoryCD", "")).strip()
-        currency     = "USD"   # All-columns view is CompanyID 10 (US) only
-
+        inventory_cd  = str(r.get("InventoryCD", "")).strip()
+        currency      = "USD"   # All-columns view is US tenant only
         product_sf_id = product_map.get(inventory_cd)
 
         for col_name, price_code in PRICE_CLASS_COLUMNS:
@@ -288,20 +326,20 @@ def process_contract_pricing(acu_rows, product_map, account_map, contract_map):
         elif existing:
             action = "UPDATE"
             update_batch.append({
-                "Id":               existing["id"],
+                "Id":                existing["id"],
                 "Contract_Price__c": new_price
             })
         else:
             action = "INSERT"
             insert_batch.append({
                 # ── Update these field API names to match your Contract_Pricing__c schema ──
-                "Account__c":                 account_sf_id,
-                "Product__c":                 product_sf_id,
-                "Contract_Price__c":          new_price,
-                "Price_Class__c":             price_class,
-                "CurrencyIsoCode":            currency,
-                "Contract_Pricing_Combo__c":  combo_key,
-                "Active__c":                  True
+                "Account__c":                account_sf_id,
+                "Product__c":                product_sf_id,
+                "Contract_Price__c":         new_price,
+                "Price_Class__c":            price_class,
+                "CurrencyIsoCode":           currency,
+                "Contract_Pricing_Combo__c": combo_key,
+                "Active__c":                 True
             })
 
         rows.append({
@@ -324,7 +362,7 @@ def process_contract_pricing(acu_rows, product_map, account_map, contract_map):
 # ─────────────────────────────────────────────────────────────────────────────
 # Bulk write helper
 # ─────────────────────────────────────────────────────────────────────────────
-def bulk_write(sf_object, insert_batch, update_batch, df_log):
+def bulk_write(sf, sf_object, insert_batch, update_batch, df_log):
     """Executes bulk inserts and updates; writes results back into df_log."""
     success_inserts = 0
     success_updates = 0
@@ -334,8 +372,8 @@ def bulk_write(sf_object, insert_batch, update_batch, df_log):
 
     if insert_batch:
         print(f"\n  Bulk INSERT {sf_object} ({len(insert_batch)} records)...")
-        results   = getattr(sf.bulk, sf_object).insert(insert_batch, batch_size=200)
-        idx_list  = obj_rows[obj_rows["Action"] == "INSERT"].index.tolist()
+        results  = getattr(sf.bulk, sf_object).insert(insert_batch, batch_size=200)
+        idx_list = obj_rows[obj_rows["Action"] == "INSERT"].index.tolist()
         for i, result in enumerate(results):
             idx = idx_list[i]
             if result.get("success"):
@@ -350,8 +388,8 @@ def bulk_write(sf_object, insert_batch, update_batch, df_log):
 
     if update_batch:
         print(f"\n  Bulk UPDATE {sf_object} ({len(update_batch)} records)...")
-        results   = getattr(sf.bulk, sf_object).update(update_batch, batch_size=200)
-        idx_list  = obj_rows[obj_rows["Action"] == "UPDATE"].index.tolist()
+        results  = getattr(sf.bulk, sf_object).update(update_batch, batch_size=200)
+        idx_list = obj_rows[obj_rows["Action"] == "UPDATE"].index.tolist()
         for i, result in enumerate(results):
             idx = idx_list[i]
             if result.get("success"):
@@ -370,21 +408,22 @@ def bulk_write(sf_object, insert_batch, update_batch, df_log):
 # ─────────────────────────────────────────────────────────────────────────────
 # MD report writer
 # ─────────────────────────────────────────────────────────────────────────────
-def write_md(md_file, mode_label, df_log, csv_file, summary_rows):
+def write_md(sf, md_file, mode_label, df_log, csv_file, summary_rows):
     with open(md_file, "w") as f:
         f.write("# Pricing Sync Report\n\n")
         f.write("## Run Metadata\n\n")
         f.write("| Field | Value |\n|---|---|\n")
         f.write(f"| Script | `{SCRIPT_NAME}` |\n")
         f.write(f"| Run Timestamp | {RUN_TIME.strftime('%Y-%m-%d %H:%M:%S')} |\n")
+        f.write(f"| ACU Environment | `{ENV.upper()}` |\n")
         f.write(f"| SF Instance | `{sf.sf_instance}` |\n")
-        f.write(f"| SF User | `{SF_USER}` |\n")
+        f.write(f"| SF User | `{SF_USERNAME}` |\n")
         f.write(f"| Mode | **{mode_label}** |\n\n")
 
         f.write("## Summary\n\n")
         f.write("| Object | Action | Count |\n|---|---|---|\n")
-        for label, count in summary_rows:
-            f.write(f"| {label} | {count} |\n")
+        for obj, label, count in summary_rows:
+            f.write(f"| {obj} | {label} | {count} |\n")
         f.write(f"\nFull row-by-row log: `{csv_file}`\n\n")
 
         skips = df_log[df_log["Action"] == "SKIP"]
@@ -408,33 +447,42 @@ def write_md(md_file, mode_label, df_log, csv_file, summary_rows):
 # Main
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
-    # ── 1. Pull data from Acumatica ───────────────────────────────────────────
-    print("\nConnecting to Acumatica...")
-    session = acu_login()
+    print("=" * 60)
+    print("  Acumatica -> Salesforce Pricing Sync")
+    print(f"  Environment : {ENV.upper()}")
+    print(f"  Dry Run     : {DRY_RUN}")
+    print("=" * 60)
 
-    print("\nFetching view data...")
-    all_columns_rows  = acu_fetch_view(session, "vw_Prl_Pricing_All_Columns")
-    account_price_rows = acu_fetch_view(session, "vw_PRL_Account_Pricing")
+    # ── 0. Pre-flight ─────────────────────────────────────────────────────────
+    preflight()
 
-    # ── 2. Build Salesforce lookup maps ───────────────────────────────────────
+    # ── 1. Connect to Salesforce ──────────────────────────────────────────────
+    sf = connect_salesforce()
+
+    # ── 2. Pull data from Acumatica ───────────────────────────────────────────
+    print("\nFetching Acumatica view data...")
+    all_columns_rows   = acu_fetch_view("vw_Prl_Pricing_All_Columns")
+    account_price_rows = acu_fetch_view("vw_PRL_Account_Pricing")
+
+    # ── 3. Build Salesforce lookup maps ───────────────────────────────────────
     print("\nBuilding Salesforce lookup maps...")
-    price_list_map = build_price_list_map()
+    price_list_map = build_price_list_map(sf)
 
     all_inventory_cds = list({
         str(r.get("InventoryCD", "")).strip() for r in all_columns_rows
     } | {
         str(r.get("PartNumber", "")).strip() for r in account_price_rows
     })
-    product_map = build_product_map(all_inventory_cds)
+    product_map = build_product_map(sf, all_inventory_cds)
 
     all_acct_cds = list({
         str(r.get("Customer", "")).strip() for r in account_price_rows
     })
-    account_map  = build_account_map(all_acct_cds)
-    ple_map      = build_ple_map()
-    contract_map = build_contract_map()
+    account_map  = build_account_map(sf, all_acct_cds)
+    ple_map      = build_ple_map(sf)
+    contract_map = build_contract_map(sf)
 
-    # ── 3. Build record sets ──────────────────────────────────────────────────
+    # ── 4. Build record sets ──────────────────────────────────────────────────
     print("\nBuilding Price_List_Entry__c records...")
     ple_rows, ple_inserts, ple_updates = process_price_list_entries(
         all_columns_rows, price_list_map, product_map, ple_map
@@ -448,7 +496,7 @@ def main():
     all_rows = ple_rows + cp_rows
     df_log   = pd.DataFrame(all_rows)
 
-    # ── 4. Summary counts ─────────────────────────────────────────────────────
+    # ── 5. Summary counts ─────────────────────────────────────────────────────
     def counts(obj):
         sub = df_log[df_log["Object"] == obj]
         return (
@@ -457,11 +505,11 @@ def main():
             (sub["Action"] == "SKIP").sum(),
         )
 
-    ple_i, ple_u, ple_s   = counts("Price_List_Entry__c")
-    cp_i,  cp_u,  cp_s    = counts("Contract_Pricing__c")
-    total_skips            = ple_s + cp_s
+    ple_i, ple_u, ple_s = counts("Price_List_Entry__c")
+    cp_i,  cp_u,  cp_s  = counts("Contract_Pricing__c")
+    total_skips          = ple_s + cp_s
 
-    # ── 5. Console preview ────────────────────────────────────────────────────
+    # ── 6. Console preview ────────────────────────────────────────────────────
     print(f"\nPreview (first 10 actionable rows):")
     for _, r in df_log[df_log["Action"] != "SKIP"].head(10).iterrows():
         print(f"  [{r['Action']}]  {r['Object']}  {r['ComboKey']}  |  {r['CurrentPrice']} → {r['NewPrice']}")
@@ -471,25 +519,24 @@ def main():
         for _, r in df_log[df_log["Action"] == "SKIP"].iterrows():
             print(f"  {r['Object']}  {r['ComboKey']}  |  {r['FailureReason']}")
 
-    # ── 6. CSV output ─────────────────────────────────────────────────────────
+    # ── 7. CSV output ─────────────────────────────────────────────────────────
     csv_file = f"sync_pricing_{TIMESTAMP}.csv"
     df_log.to_csv(csv_file, index=False)
     print(f"\nCSV log : {csv_file}")
 
-    md_file = f"sync_pricing_{TIMESTAMP}.md"
-
+    md_file      = f"sync_pricing_{TIMESTAMP}.md"
     summary_rows = [
-        ("Price_List_Entry__c", "Would INSERT" if DRY_RUN else "Inserted",  ple_i),
-        ("Price_List_Entry__c", "Would UPDATE" if DRY_RUN else "Updated",   ple_u),
-        ("Price_List_Entry__c", "Skipped",                                  ple_s),
-        ("Contract_Pricing__c", "Would INSERT" if DRY_RUN else "Inserted",  cp_i),
-        ("Contract_Pricing__c", "Would UPDATE" if DRY_RUN else "Updated",   cp_u),
-        ("Contract_Pricing__c", "Skipped",                                  cp_s),
+        ("Price_List_Entry__c", "Would INSERT" if DRY_RUN else "Inserted", ple_i),
+        ("Price_List_Entry__c", "Would UPDATE" if DRY_RUN else "Updated",  ple_u),
+        ("Price_List_Entry__c", "Skipped",                                 ple_s),
+        ("Contract_Pricing__c", "Would INSERT" if DRY_RUN else "Inserted", cp_i),
+        ("Contract_Pricing__c", "Would UPDATE" if DRY_RUN else "Updated",  cp_u),
+        ("Contract_Pricing__c", "Skipped",                                 cp_s),
     ]
 
-    # ── 7. Dry run exit ───────────────────────────────────────────────────────
+    # ── 8. Dry run exit ───────────────────────────────────────────────────────
     if DRY_RUN:
-        write_md(md_file, "DRY RUN — no records were written", df_log, csv_file, summary_rows)
+        write_md(sf, md_file, "DRY RUN — no records were written", df_log, csv_file, summary_rows)
         print(f"MD log  : {md_file}")
         print(f"\n{'='*60}")
         print(f"DRY RUN COMPLETE — no records were written")
@@ -498,7 +545,7 @@ def main():
         print(f"  Contract_Pricing__c  →  INSERT: {cp_i}   UPDATE: {cp_u}   SKIP: {cp_s}")
         sys.exit(0)
 
-    # ── 8. Live run confirmation ──────────────────────────────────────────────
+    # ── 9. Live run confirmation ──────────────────────────────────────────────
     total_inserts = ple_i + cp_i
     total_updates = ple_u + cp_u
     confirm = input(
@@ -509,26 +556,26 @@ def main():
         print("Aborted — no records written.")
         sys.exit(0)
 
-    # ── 9. Bulk writes ────────────────────────────────────────────────────────
-    ple_si, ple_su, ple_err = bulk_write("Price_List_Entry__c", ple_inserts, ple_updates, df_log)
-    cp_si,  cp_su,  cp_err  = bulk_write("Contract_Pricing__c", cp_inserts,  cp_updates,  df_log)
+    # ── 10. Bulk writes ───────────────────────────────────────────────────────
+    ple_si, ple_su, ple_err = bulk_write(sf, "Price_List_Entry__c", ple_inserts, ple_updates, df_log)
+    cp_si,  cp_su,  cp_err  = bulk_write(sf, "Contract_Pricing__c", cp_inserts,  cp_updates,  df_log)
 
     total_errors = ple_err + cp_err
 
-    # Rewrite CSV with SF results
+    # Rewrite CSV with SF results populated
     df_log.to_csv(csv_file, index=False)
 
     live_summary = [
-        ("Price_List_Entry__c", "Inserted",  ple_si),
-        ("Price_List_Entry__c", "Updated",   ple_su),
-        ("Price_List_Entry__c", "Skipped",   ple_s),
-        ("Price_List_Entry__c", "Errors",    ple_err),
-        ("Contract_Pricing__c", "Inserted",  cp_si),
-        ("Contract_Pricing__c", "Updated",   cp_su),
-        ("Contract_Pricing__c", "Skipped",   cp_s),
-        ("Contract_Pricing__c", "Errors",    cp_err),
+        ("Price_List_Entry__c", "Inserted", ple_si),
+        ("Price_List_Entry__c", "Updated",  ple_su),
+        ("Price_List_Entry__c", "Skipped",  ple_s),
+        ("Price_List_Entry__c", "Errors",   ple_err),
+        ("Contract_Pricing__c", "Inserted", cp_si),
+        ("Contract_Pricing__c", "Updated",  cp_su),
+        ("Contract_Pricing__c", "Skipped",  cp_s),
+        ("Contract_Pricing__c", "Errors",   cp_err),
     ]
-    write_md(md_file, "LIVE RUN — records written to Salesforce", df_log, csv_file, live_summary)
+    write_md(sf, md_file, "LIVE RUN — records written to Salesforce", df_log, csv_file, live_summary)
 
     print(f"\n{'='*60}")
     print(f"LIVE RUN COMPLETE")

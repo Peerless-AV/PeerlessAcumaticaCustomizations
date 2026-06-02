@@ -1,0 +1,25 @@
+# -------------------------------------------------------
+# Acumatica to Salesforce Sync - Environment Config
+# Copy this file to .env and replace all placeholder values
+# NEVER commit .env to source control
+# -------------------------------------------------------
+
+# --- ENVIRONMENT SWITCH ---
+# Options: dev | test | qa | prod
+ACU_ENV=dev
+
+# --- ACUMATICA BASE URLS (OData) ---
+ACU_BASE_URL_DEV=http://localhost/2024r2dev/odata/peerless-av
+ACU_BASE_URL_TEST=https://testbtg.peerless-avbtg.com/2024testbtg/odata/peerless-av
+ACU_BASE_URL_QA=https://acumatica.peerless-avbtg.com/2024r2QA/odata/peerless-av
+ACU_BASE_URL_PROD=https://peerless-av.acumatica.com/odata/peerless-av
+
+# --- ACUMATICA CREDENTIALS ---
+ACU_USERNAME=****************
+ACU_PASSWORD=***************
+
+# --- Salesforce ---
+SF_USERNAME=**********************
+SF_PASSWORD=**********************
+SF_SECURITY_TOKEN=
+SF_DOMAIN=login
