@@ -11,7 +11,7 @@
  *              ExpirationDate filter updated to allow future maintenance via view refresh.    *
  *                                                                                              *
  ***********************************************************************************************/
-CREATE VIEW [dbo].[vw_PRL_Account_Pricing] AS
+CREATE or ALTER VIEW [dbo].[vw_PRL_Account_Pricing] AS
 
 -- ── Part 1: Class-based pricing (TSCustomerPriceGroup) ───────────────────────────────────────
 SELECT
@@ -252,5 +252,8 @@ JOIN [dbo].[ARSalesPrice]  ON  ARSalesPrice.CompanyID          = BAccount.Compan
                                      AND Z.CustomerID  = ARSalesPrice.CustomerID
                                      AND Z.EffectiveDate <= GETDATE()
                                )
-WHERE BAccount.CompanyID = 10
+WHERE BAccount.CompanyID = (
+          SELECT CompanyID FROM [dbo].[Company]
+          WHERE CompanyCD = 'Peerless-AV' and CompanyID > 0
+      )
   AND (ARSalesPrice.ExpirationDate >= GETDATE() OR ARSalesPrice.ExpirationDate IS NULL)
