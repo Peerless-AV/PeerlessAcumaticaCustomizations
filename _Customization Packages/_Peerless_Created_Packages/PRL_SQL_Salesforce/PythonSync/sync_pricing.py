@@ -4,7 +4,7 @@ Peerless-AV | BTG IT
 
 Pulls pricing data from Acumatica OData views and upserts records to Salesforce:
   - vw_Prl_Pricing_All_Columns  → Price_List_Entry__c  (one row per part, pivoted by price class)
-  - vw_PRL_Account_Pricing      → Contract_Pricing__c  (one row per account/part/price class)
+  - vw_PRL_Account_Pricing      → SBQQ__ContractedPrice__c  (Customer Pricing rows only)
 
 Lookups resolved at runtime from Salesforce:
   - Price_List__c  (keyed on Name = CustPriceClassID code)
@@ -217,23 +217,20 @@ def build_ple_map(sf):
 
 def build_contract_map(sf):
     """
-    Returns {Contract_Pricing_Combo__c: {id, current_price}} for all Contract_Pricing__c.
-    Combo key: {AcctCD} - {InventoryCD} - {PriceClass}
-    Update the field names below to match your actual Contract_Pricing__c API names.
+    Returns {{AcctCD}-{InventoryCD}: {id, current_price}} for all SBQQ__ContractedPrice__c.
+    Combo key built in-memory from Account_Number__c + Part_Number__c lookups.
+    Requires a reverse lookup pass after fetching all records.
     """
     result = sf.query_all(
-        "SELECT Id, Contract_Pricing_Combo__c, Contract_Price__c FROM Contract_Pricing__c"
+        "SELECT Id, SBQQ__Account__c, SBQQ__Product__c, SBQQ__Price__c "
+        "FROM SBQQ__ContractedPrice__c "
+        "WHERE IsDeleted = false"
     )
-    m = {
-        r["Contract_Pricing_Combo__c"]: {
-            "id":            r["Id"],
-            "current_price": r["Contract_Price__c"]
-        }
-        for r in result["records"]
-        if r["Contract_Pricing_Combo__c"]
-    }
-    print(f"  Existing Contract_Pricing__c records: {len(m)}")
-    return m
+    # Build a map keyed on SF ID pair — resolved to combo key after account/product maps are built
+    # Returns raw records for post-processing in main()
+    records = result["records"]
+    print(f"  Existing SBQQ__ContractedPrice__c records: {len(records)}")
+    return records
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -305,12 +302,41 @@ def process_price_list_entries(acu_rows, price_list_map, product_map, ple_map):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Phase B: Contract_Pricing__c from vw_PRL_Account_Pricing
+# Phase B: SBQQ__ContractedPrice__c from vw_PRL_Account_Pricing
 # ─────────────────────────────────────────────────────────────────────────────
+def build_contract_combo_map(sf_records, account_map, product_map):
+    """
+    Resolves raw SBQQ__ContractedPrice__c SF records into an in-memory combo map.
+    Builds reverse lookups from SF ID back to AcctCD / InventoryCD using the
+    account_map and product_map (inverted), then keys on {AcctCD}-{InventoryCD}.
+    """
+    # Invert the lookup maps: SF ID → code
+    acct_id_to_cd    = {v: k for k, v in account_map.items()}
+    product_id_to_cd = {v: k for k, v in product_map.items()}
+
+    m = {}
+    for r in sf_records:
+        acct_sf_id    = r.get("SBQQ__Account__c")
+        product_sf_id = r.get("SBQQ__Product__c")
+        if not acct_sf_id or not product_sf_id:
+            continue
+        acct_cd    = acct_id_to_cd.get(acct_sf_id)
+        product_cd = product_id_to_cd.get(product_sf_id)
+        if not acct_cd or not product_cd:
+            continue
+        combo_key = f"{acct_cd}-{product_cd}"
+        m[combo_key] = {
+            "id":            r["Id"],
+            "current_price": r.get("SBQQ__Price__c")
+        }
+    print(f"  Resolved SBQQ__ContractedPrice__c combo map: {len(m)} entries")
+    return m
+
+
 def process_contract_pricing(acu_rows, product_map, account_map, contract_map):
     """
-    Maps account pricing view rows to Contract_Pricing__c upserts.
-    Update the SF field API names below to match your actual object schema.
+    Maps account pricing view rows (Customer Pricing only) to
+    SBQQ__ContractedPrice__c upserts.
     Returns (rows_log, insert_batch, update_batch).
     """
     rows          = []
@@ -318,19 +344,25 @@ def process_contract_pricing(acu_rows, product_map, account_map, contract_map):
     update_batch  = []
 
     for r in acu_rows:
-        inventory_cd  = str(r.get("PartNumber", "")).strip()
-        acct_cd       = str(r.get("Customer", "")).strip()
-        price_class   = str(r.get("CustomerPriceClass", "")).strip()
-        new_price     = r.get("Price")
-        currency      = "USD"
+        # Only process customer-specific pricing rows
+        price_class = str(r.get("CustomerPriceClass", "")).strip()
+        if price_class != "Customer Pricing":
+            continue
+
+        inventory_cd   = str(r.get("PartNumber", "")).strip()
+        acct_cd        = str(r.get("Customer", "")).strip()
+        new_price      = r.get("Price")
+        effective_date = r.get("EffectiveDate")
+        expiry_date    = r.get("ExpirationDate")
+        currency       = "USD"
 
         if new_price is None:
             continue
 
-        combo_key      = f"{acct_cd} - {inventory_cd} - {price_class}"
-        product_sf_id  = product_map.get(inventory_cd)
-        account_sf_id  = account_map.get(acct_cd)
-        existing       = contract_map.get(combo_key)
+        combo_key     = f"{acct_cd}-{inventory_cd}"
+        product_sf_id = product_map.get(inventory_cd)
+        account_sf_id = account_map.get(acct_cd)
+        existing      = contract_map.get(combo_key)
 
         failures = []
         if not product_sf_id:
@@ -343,24 +375,24 @@ def process_contract_pricing(acu_rows, product_map, account_map, contract_map):
         elif existing:
             action = "UPDATE"
             update_batch.append({
-                "Id":                existing["id"],
-                "Contract_Price__c": new_price
+                "Id":                    existing["id"],
+                "SBQQ__Price__c":        new_price,
+                "SBQQ__EffectiveDate__c": effective_date,
+                "SBQQ__ExpirationDate__c": expiry_date
             })
         else:
             action = "INSERT"
             insert_batch.append({
-                # ── Update these field API names to match your Contract_Pricing__c schema ──
-                "Account__c":                account_sf_id,
-                "Product__c":                product_sf_id,
-                "Contract_Price__c":         new_price,
-                "Price_Class__c":            price_class,
-                "CurrencyIsoCode":           currency,
-                "Contract_Pricing_Combo__c": combo_key,
-                "Active__c":                 True
+                "SBQQ__Account__c":        account_sf_id,
+                "SBQQ__Product__c":        product_sf_id,
+                "SBQQ__Price__c":          new_price,
+                "SBQQ__EffectiveDate__c":  effective_date,
+                "SBQQ__ExpirationDate__c": expiry_date,
+                "CurrencyIsoCode":         currency
             })
 
         rows.append({
-            "Object":           "Contract_Pricing__c",
+            "Object":           "SBQQ__ContractedPrice__c",
             "ComboKey":         combo_key,
             "PriceListSFID":    "",
             "ProductSFID":      product_sf_id or "MISSING",
@@ -496,8 +528,9 @@ def main():
         str(r.get("Customer", "")).strip() for r in account_price_rows
     })
     account_map  = build_account_map(sf, all_acct_cds)
-    ple_map      = build_ple_map(sf)
-    contract_map = build_contract_map(sf)
+    ple_map           = build_ple_map(sf)
+    contract_raw      = build_contract_map(sf)
+    contract_map      = build_contract_combo_map(contract_raw, account_map, product_map)
 
     # ── 4. Build record sets ──────────────────────────────────────────────────
     print("\nBuilding Price_List_Entry__c records...")
@@ -505,7 +538,7 @@ def main():
         all_columns_rows, price_list_map, product_map, ple_map
     )
 
-    print("Building Contract_Pricing__c records...")
+    print("Building SBQQ__ContractedPrice__c records...")
     cp_rows, cp_inserts, cp_updates = process_contract_pricing(
         account_price_rows, product_map, account_map, contract_map
     )
@@ -523,7 +556,7 @@ def main():
         )
 
     ple_i, ple_u, ple_s = counts("Price_List_Entry__c")
-    cp_i,  cp_u,  cp_s  = counts("Contract_Pricing__c")
+    cp_i,  cp_u,  cp_s  = counts("SBQQ__ContractedPrice__c")
     total_skips          = ple_s + cp_s
 
     # ── 6. Console preview ────────────────────────────────────────────────────
@@ -546,9 +579,9 @@ def main():
         ("Price_List_Entry__c", "Would INSERT" if DRY_RUN else "Inserted", ple_i),
         ("Price_List_Entry__c", "Would UPDATE" if DRY_RUN else "Updated",  ple_u),
         ("Price_List_Entry__c", "Skipped",                                 ple_s),
-        ("Contract_Pricing__c", "Would INSERT" if DRY_RUN else "Inserted", cp_i),
-        ("Contract_Pricing__c", "Would UPDATE" if DRY_RUN else "Updated",  cp_u),
-        ("Contract_Pricing__c", "Skipped",                                 cp_s),
+        ("SBQQ__ContractedPrice__c", "Would INSERT" if DRY_RUN else "Inserted", cp_i),
+        ("SBQQ__ContractedPrice__c", "Would UPDATE" if DRY_RUN else "Updated",  cp_u),
+        ("SBQQ__ContractedPrice__c", "Skipped",                                 cp_s),
     ]
 
     # ── 8. Dry run exit ───────────────────────────────────────────────────────
@@ -559,7 +592,7 @@ def main():
         print(f"DRY RUN COMPLETE — no records were written")
         print(f"{'='*60}")
         print(f"  Price_List_Entry__c  →  INSERT: {ple_i}  UPDATE: {ple_u}  SKIP: {ple_s}")
-        print(f"  Contract_Pricing__c  →  INSERT: {cp_i}   UPDATE: {cp_u}   SKIP: {cp_s}")
+        print(f"  SBQQ__ContractedPrice__c  →  INSERT: {cp_i}   UPDATE: {cp_u}   SKIP: {cp_s}")
         sys.exit(0)
 
     # ── 9. Live run confirmation ──────────────────────────────────────────────
@@ -567,15 +600,15 @@ def main():
     total_updates = ple_u + cp_u
     confirm = input(
         f"\nType YES to apply {total_inserts} insert(s) and {total_updates} update(s) "
-        f"across Price_List_Entry__c and Contract_Pricing__c: "
+        f"across Price_List_Entry__c and SBQQ__ContractedPrice__c: "
     ).strip()
     if confirm != "YES":
         print("Aborted — no records written.")
         sys.exit(0)
 
     # ── 10. Bulk writes ───────────────────────────────────────────────────────
-    ple_si, ple_su, ple_err = bulk_write(sf, "Price_List_Entry__c", ple_inserts, ple_updates, df_log)
-    cp_si,  cp_su,  cp_err  = bulk_write(sf, "Contract_Pricing__c", cp_inserts,  cp_updates,  df_log)
+    ple_si, ple_su, ple_err = bulk_write(sf, "Price_List_Entry__c",       ple_inserts, ple_updates, df_log)
+    cp_si,  cp_su,  cp_err  = bulk_write(sf, "SBQQ__ContractedPrice__c",  cp_inserts,  cp_updates,  df_log)
 
     total_errors = ple_err + cp_err
 
@@ -587,10 +620,10 @@ def main():
         ("Price_List_Entry__c", "Updated",  ple_su),
         ("Price_List_Entry__c", "Skipped",  ple_s),
         ("Price_List_Entry__c", "Errors",   ple_err),
-        ("Contract_Pricing__c", "Inserted", cp_si),
-        ("Contract_Pricing__c", "Updated",  cp_su),
-        ("Contract_Pricing__c", "Skipped",  cp_s),
-        ("Contract_Pricing__c", "Errors",   cp_err),
+        ("SBQQ__ContractedPrice__c", "Inserted", cp_si),
+        ("SBQQ__ContractedPrice__c", "Updated",  cp_su),
+        ("SBQQ__ContractedPrice__c", "Skipped",  cp_s),
+        ("SBQQ__ContractedPrice__c", "Errors",   cp_err),
     ]
     write_md(sf, md_file, "LIVE RUN — records written to Salesforce", df_log, csv_file, live_summary)
 
@@ -598,7 +631,7 @@ def main():
     print(f"LIVE RUN COMPLETE")
     print(f"{'='*60}")
     print(f"  Price_List_Entry__c  →  Inserted: {ple_si}  Updated: {ple_su}  Skipped: {ple_s}  Errors: {ple_err}")
-    print(f"  Contract_Pricing__c  →  Inserted: {cp_si}   Updated: {cp_su}   Skipped: {cp_s}   Errors: {cp_err}")
+    print(f"  SBQQ__ContractedPrice__c  →  Inserted: {cp_si}   Updated: {cp_su}   Skipped: {cp_s}   Errors: {cp_err}")
     print(f"\nCSV log : {csv_file}")
     print(f"MD log  : {md_file}")
 
