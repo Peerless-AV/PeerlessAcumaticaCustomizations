@@ -239,6 +239,7 @@ def build_contract_map(sf):
 def process_price_list_entries(acu_rows, price_list_map, product_map, ple_map):
     """
     Unpivots the wide pricing view into one row per (InventoryCD, PriceClass).
+    Price_List__c Name is built as {PriceGroupCode}{PriceClassCode} (e.g. COREDEAL, ETDIST).
     Returns (rows_log, insert_batch, update_batch).
     """
     rows          = []
@@ -246,22 +247,25 @@ def process_price_list_entries(acu_rows, price_list_map, product_map, ple_map):
     update_batch  = []
 
     for r in acu_rows:
-        inventory_cd  = str(r.get("InventoryCD", "")).strip()
-        currency      = "USD"   # All-columns view is US tenant only
-        product_sf_id = product_map.get(inventory_cd)
+        inventory_cd   = str(r.get("InventoryCD", "")).strip()
+        price_group    = str(r.get("PriceGroupCode", "")).strip()
+        currency       = "USD"   # All-columns view is US tenant only
+        product_sf_id  = product_map.get(inventory_cd)
 
         for col_name, price_code in PRICE_CLASS_COLUMNS:
             new_price = r.get(col_name)
             if new_price is None:
                 continue   # price class not populated for this part — skip
 
-            combo_key     = f"{inventory_cd} - {price_code} - {currency}"
-            pl_sf_id      = price_list_map.get(price_code)
-            existing      = ple_map.get(combo_key)
+            # Price_List__c Name = PriceGroupCode + PriceClassCode (e.g. COREDEAL, ETDIST)
+            pl_name   = f"{price_group}{price_code}"
+            combo_key = f"{inventory_cd} - {pl_name} - {currency}"
+            pl_sf_id  = price_list_map.get(pl_name)
+            existing  = ple_map.get(combo_key)
 
             failures = []
             if not pl_sf_id:
-                failures.append(f"Price List '{price_code}' not found in Price_List__c")
+                failures.append(f"Price List '{pl_name}' not found in Price_List__c")
             if not product_sf_id:
                 failures.append(f"InventoryCD '{inventory_cd}' not found in Product2.Part_Number__c")
 
