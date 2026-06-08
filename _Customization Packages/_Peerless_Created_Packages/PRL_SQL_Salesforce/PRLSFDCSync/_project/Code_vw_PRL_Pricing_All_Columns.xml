@@ -1,0 +1,96 @@
+﻿<Graph ClassName="vw_PRL_Pricing_All_Columns" Source="#CDATA" IsNew="True" FileType="NewDac">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+
+namespace PRLSFDCSync
+{
+	[Serializable]
+	[PXCacheName("vw_PRL_Pricing_All_Columns")]
+	public class vw_PRL_Pricing_All_Columns : PXBqlTable, IBqlTable
+	{
+		#region InventoryCD
+		[PXDBString(30, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Inventory CD")]
+		public virtual string InventoryCD { get; set; }
+		public abstract class inventoryCD : PX.Data.BQL.BqlString.Field<inventoryCD> { }
+		#endregion
+
+		#region InventoryID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Inventory ID")]
+		public virtual int? InventoryID { get; set; }
+		public abstract class inventoryID : PX.Data.BQL.BqlInt.Field<inventoryID> { }
+		#endregion
+
+		#region Descr
+		[PXDBString(256, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Descr")]
+		public virtual string Descr { get; set; }
+		public abstract class descr : PX.Data.BQL.BqlString.Field<descr> { }
+		#endregion
+
+		#region BasePrice
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Base Price")]
+		public virtual Decimal? BasePrice { get; set; }
+		public abstract class basePrice : PX.Data.BQL.BqlDecimal.Field<basePrice> { }
+		#endregion
+
+		#region CountryOfOrigin
+		[PXDBString(2, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Country Of Origin")]
+		public virtual string CountryOfOrigin { get; set; }
+		public abstract class countryOfOrigin : PX.Data.BQL.BqlString.Field<countryOfOrigin> { }
+		#endregion
+
+		#region PriceGroupCode
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Price Group Code")]
+		public virtual string PriceGroupCode { get; set; }
+		public abstract class priceGroupCode : PX.Data.BQL.BqlString.Field<priceGroupCode> { }
+		#endregion
+
+		#region Dealer
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Dealer")]
+		public virtual Decimal? Dealer { get; set; }
+		public abstract class dealer : PX.Data.BQL.BqlDecimal.Field<dealer> { }
+		#endregion
+
+		#region Part
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Part")]
+		public virtual Decimal? Part { get; set; }
+		public abstract class part : PX.Data.BQL.BqlDecimal.Field<part> { }
+		#endregion
+
+		#region Dist
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Dist")]
+		public virtual Decimal? Dist { get; set; }
+		public abstract class dist : PX.Data.BQL.BqlDecimal.Field<dist> { }
+		#endregion
+
+		#region Spec
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Spec")]
+		public virtual Decimal? Spec { get; set; }
+		public abstract class spec : PX.Data.BQL.BqlDecimal.Field<spec> { }
+		#endregion
+
+		#region Dealci
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Dealci")]
+		public virtual Decimal? Dealci { get; set; }
+		public abstract class dealci : PX.Data.BQL.BqlDecimal.Field<dealci> { }
+		#endregion
+
+		#region Distci
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Distci")]
+		public virtual Decimal? Distci { get; set; }
+		public abstract class distci : PX.Data.BQL.BqlDecimal.Field<distci> { }
+		#endregion
+	}
+}]]></CDATA>
+</Graph>
