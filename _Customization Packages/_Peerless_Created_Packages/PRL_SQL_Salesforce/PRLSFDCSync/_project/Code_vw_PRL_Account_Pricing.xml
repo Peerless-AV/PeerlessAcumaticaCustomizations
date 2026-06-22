@@ -1,0 +1,159 @@
+﻿<Graph ClassName="vw_PRL_Account_Pricing" Source="#CDATA" IsNew="True" FileType="NewDac">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+
+namespace PRLSFDCSync
+{
+	[Serializable]
+	[PXCacheName("vw_PRL_Account_Pricing")]
+	public class vw_PRL_Account_Pricing : PXBqlTable, IBqlTable
+	{
+		#region CustomerName
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Customer Name")]
+		public virtual string CustomerName { get; set; }
+		public abstract class customerName : PX.Data.BQL.BqlString.Field<customerName> { }
+		#endregion
+
+		#region Customer
+		[PXDBString(30, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Customer")]
+		public virtual string Customer { get; set; }
+		public abstract class customer : PX.Data.BQL.BqlString.Field<customer> { }
+		#endregion
+
+		#region CustomerPriceClass
+		[PXDBString(200, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Customer Price Class")]
+		public virtual string CustomerPriceClass { get; set; }
+		public abstract class customerPriceClass : PX.Data.BQL.BqlString.Field<customerPriceClass> { }
+		#endregion
+
+		#region PartNumber
+		[PXDBString(30, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Part Number")]
+		public virtual string PartNumber { get; set; }
+		public abstract class partNumber : PX.Data.BQL.BqlString.Field<partNumber> { }
+		#endregion
+
+		#region Description
+		[PXDBString(256, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Description")]
+		public virtual string Description { get; set; }
+		public abstract class description : PX.Data.BQL.BqlString.Field<description> { }
+		#endregion
+
+		#region ProductGroup
+		[PXDBString(200, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Product Group")]
+		public virtual string ProductGroup { get; set; }
+		public abstract class productGroup : PX.Data.BQL.BqlString.Field<productGroup> { }
+		#endregion
+
+		#region PriceGroup
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Price Group")]
+		public virtual string PriceGroup { get; set; }
+		public abstract class priceGroup : PX.Data.BQL.BqlString.Field<priceGroup> { }
+		#endregion
+
+		#region Price
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Price")]
+		public virtual Decimal? Price { get; set; }
+		public abstract class price : PX.Data.BQL.BqlDecimal.Field<price> { }
+		#endregion
+
+		#region ItemStatus
+		[PXDBString(50, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Item Status")]
+		public virtual string ItemStatus { get; set; }
+		public abstract class itemStatus : PX.Data.BQL.BqlString.Field<itemStatus> { }
+		#endregion
+
+		#region ExpirationDate
+		[PXDBDate()]
+		[PXUIField(DisplayName = "Expiration Date")]
+		public virtual DateTime? ExpirationDate { get; set; }
+		public abstract class expirationDate : PX.Data.BQL.BqlDateTime.Field<expirationDate> { }
+		#endregion
+
+		#region Mapca
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Mapca")]
+		public virtual Decimal? Mapca { get; set; }
+		public abstract class mapca : PX.Data.BQL.BqlDecimal.Field<mapca> { }
+		#endregion
+
+		#region Mapna
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Mapna")]
+		public virtual Decimal? Mapna { get; set; }
+		public abstract class mapna : PX.Data.BQL.BqlDecimal.Field<mapna> { }
+		#endregion
+
+		#region BasePrice
+		[PXDBDecimal()]
+		[PXUIField(DisplayName = "Base Price")]
+		public virtual Decimal? BasePrice { get; set; }
+		public abstract class basePrice : PX.Data.BQL.BqlDecimal.Field<basePrice> { }
+		#endregion
+
+		#region EffectiveDate
+		[PXDBDate()]
+		[PXUIField(DisplayName = "Effective Date")]
+		public virtual DateTime? EffectiveDate { get; set; }
+		public abstract class effectiveDate : PX.Data.BQL.BqlDateTime.Field<effectiveDate> { }
+		#endregion
+
+		#region UniversalProductCode
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Universal Product Code")]
+		public virtual string UniversalProductCode { get; set; }
+		public abstract class universalProductCode : PX.Data.BQL.BqlString.Field<universalProductCode> { }
+		#endregion
+
+		#region CountryOfOrigin
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Country Of Origin")]
+		public virtual string CountryOfOrigin { get; set; }
+		public abstract class countryOfOrigin : PX.Data.BQL.BqlString.Field<countryOfOrigin> { }
+		#endregion
+
+		#region LengthIn
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Length In")]
+		public virtual string LengthIn { get; set; }
+		public abstract class lengthIn : PX.Data.BQL.BqlString.Field<lengthIn> { }
+		#endregion
+
+		#region WidthIn
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Width In")]
+		public virtual string WidthIn { get; set; }
+		public abstract class widthIn : PX.Data.BQL.BqlString.Field<widthIn> { }
+		#endregion
+
+		#region HeightIn
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Height In")]
+		public virtual string HeightIn { get; set; }
+		public abstract class heightIn : PX.Data.BQL.BqlString.Field<heightIn> { }
+		#endregion
+
+		#region ShipWeightLb
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Ship Weight Lb")]
+		public virtual string ShipWeightLb { get; set; }
+		public abstract class shipWeightLb : PX.Data.BQL.BqlString.Field<shipWeightLb> { }
+		#endregion
+
+		#region ReturnableCancellable
+		[PXDBString(255, IsUnicode = true, InputMask = "")]
+		[PXUIField(DisplayName = "Returnable Cancellable")]
+		public virtual string ReturnableCancellable { get; set; }
+		public abstract class returnableCancellable : PX.Data.BQL.BqlString.Field<returnableCancellable> { }
+		#endregion
+	}
+}]]></CDATA>
+</Graph>
