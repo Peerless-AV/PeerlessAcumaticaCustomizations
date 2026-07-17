@@ -1,13 +1,14 @@
-# 📦 Package Release Document (PRD #5)
-**Date Created:** 2026-05-21  
-**Last Updated:** 2026-06-08 10:38 CDT
+# 📦 Package Release Document (PRD #6)
+**Title:** Acumatica 2026 R1 Upgrade  
+**Date Created:** 2026-07-17  
+**Last Updated:** 2026-07-17 07:08 CDT
 
-### Acumatica 2024 R2 — Deployment Release Notes
+### Acumatica 2026 R1 — Deployment Release Notes
 
 ---
 
 ## 1. Release Overview
-- **Release Version Targeted:** Acumatica 2024 R2 (24.210.0019)
+- **Release Version Targeted:** Acumatica 2026 R1 (26.101.0225)
 - **Build Number:**  
 - **Deployment Date:**  
 - **Deployed By:**  
@@ -17,12 +18,11 @@
 
 ## 2. Included Packages
 
-| #  | Package Name                         | Notes                          | DZ Personal     | TestBTG | QA | PROD |
-|----|--------------------------------------|--------------------------------|-----------------|---------|----|------|
-| 1  | CBIZ.PL.RadleyPickingHistory[001]    |                                |                 |         |    |      |
-| 2  | CBIZ.ShippingInst[013]               |                                |                 |         |    |      |
-| 3  | SOAttributesCBIZ[009]                | Only deploy to portal          | ✔️ Installed     |         |    |      |
-| 4  | PRLSFDCSync                          |                                |                 |         |    |      |
+| #  | Package Name | Notes | DZ Personal | TestBTG | QA | PROD |
+|----|--------------|--------|-------------|---------|----|------|
+| 1  |              |        |             |         |    |      |
+| 2  |              |        |             |         |    |      |
+| 3  |              |        |             |         |    |      |
 
 ---
 
@@ -38,7 +38,7 @@
 -  
 
 ### 3.4 UI / Screen Changes
-- CustForm Update added two names to Credit Analysts. INC‑2636
+-  
 
 ### 3.5 Integration Changes
 -  
@@ -60,12 +60,9 @@
 
 ## 5. Deployment Steps Executed
 
-1.  
-2.  
-3.  
-4.  
-5.  
-6.  
+1. Backup of PROD SQL requested and received Tuesday, July 14  
+2. SQL Backup restored to TESTBTG Thursday, July 16  
+3. 2024R2 TESTBTG refreshed and confirmed Friday, July 17  
 
 ---
 
@@ -78,7 +75,7 @@
 -  
 
 ### 6.3 Data Validation
--  
+- In each tenant, the new GIs need to be published to the UI and made ODBC GIs.
 
 ---
 
@@ -96,3 +93,25 @@
 ---
 
 ## 9. Notes for Next Release
+
+- **2026-07-17 07:03 CDT** — PRD #6 created for Acumatica 2026 R1 upgrade cycle.  
+- **2026-07-17 07:08 CDT** — Database restored, working on refresh of application prior to 2024 sign‑off.
+
+---
+
+## 10. Attachments / Artifacts
+
+### Screenshots
+-  
+
+### Exported Packages
+-  
+
+### SQL Scripts
+-  
+
+### Logs
+-  
+
+### Before/After Comparisons
+-  
