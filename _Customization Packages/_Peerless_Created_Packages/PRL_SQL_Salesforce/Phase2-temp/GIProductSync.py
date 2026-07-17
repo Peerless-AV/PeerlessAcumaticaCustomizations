@@ -19,7 +19,7 @@ load_dotenv()
 # ----------------------------------------------------------------
 # Config
 # ----------------------------------------------------------------
-DRY_RUN     = True   # Set to False to write to Salesforce
+DRY_RUN     = False   # Set to False to write to Salesforce
 TEST_MODE   = False  # Set to True to limit to TEST_PART_NUMBER only
 TEST_PART   = "LEDUNVS-4X3"
 
@@ -181,24 +181,38 @@ def build_sf_product_map(sf):
     result  = sf.query_all(
         "SELECT Id, ProductCode, Name, Description, IsActive, "
         "QuantityUnitOfMeasure, StockKeepingUnit, "
-        "US_Description__c, US_Price_Group_Name__c, "
+        "US_Description__c, Price_Group__c, "
         "ACU_Item_Status__c, ACU_PMPLCM__c, "
         "Sales_Part_Status__c, ACU_Authorization_Required__c, "
         "Category__c, Part_Number__c "
         "FROM Product2"
     )
     product_map = {
-        r["ProductCode"]: r
+        r["Part_Number__c"]: r
         for r in result["records"]
-        if r.get("ProductCode")
+        if r.get("Part_Number__c")
     }
     log.info(f"Found {len(product_map)} existing Product2 records in Salesforce.")
     return product_map
 
 # ----------------------------------------------------------------
+# Build Price Group name → SFDC Id map
+# ----------------------------------------------------------------
+def build_price_group_map(sf):
+    log.info("Querying Salesforce Sales_Price_Group__c records...")
+    result = sf.query_all("SELECT Id, Name FROM Sales_Price_Group__c")
+    pg_map = {
+        r["Name"]: r["Id"]
+        for r in result["records"]
+        if r.get("Name")
+    }
+    log.info(f"Found {len(pg_map)} price group records.")
+    return pg_map
+
+# ----------------------------------------------------------------
 # Transform one Acumatica record → Salesforce payload
 # ----------------------------------------------------------------
-def transform(acu_record):
+def transform(acu_record, pg_map):
     part_number  = (acu_record.get("PartNumber") or "").strip()
     description  = (acu_record.get("Description") or "").strip()
     item_status  = (acu_record.get("ItemStatus") or "").strip()
@@ -210,6 +224,10 @@ def transform(acu_record):
 
     is_active    = "True" if item_status in ACTIVE_STATUSES else "False"
     category     = CATEGORY_MAP.get(item_class, None)
+    pg_id        = pg_map.get(price_group, None)
+
+    if price_group and not pg_id:
+        log.warning(f"  Part {part_number}: price group '{price_group}' not found in Salesforce — skipping US_Price_Group_Name__c")
 
     return {
         "Name"                        : part_number,
@@ -223,7 +241,7 @@ def transform(acu_record):
         "ACU_Item_Status__c"          : item_status,
         "Sales_Part_Status__c"        : item_status,
         "ACU_Authorization_Required__c": authorization == "True",
-        "US_Price_Group_Name__c"      : price_group,
+        "Price_Group__c"              : pg_id,
         "ACU_PMPLCM__c"              : plcm or None,
         "Category__c"                 : category,
     }
@@ -281,17 +299,6 @@ def write_unmatched_csv(unmatched):
     log.info(f"Unmatched item classes written: {UNMATCHED_FILE} ({len(unmatched)} records)")
 
 # ----------------------------------------------------------------
-# Batch upsert to Salesforce
-# ----------------------------------------------------------------
-def upsert_batch(sf, batch):
-    results = sf.bulk.Product2.upsert(batch, "ProductCode", batch_size=BATCH_SIZE)
-    success = sum(1 for r in results if r.get("success"))
-    errors  = [r for r in results if not r.get("success")]
-    log.info(f"  Batch upsert: {success} succeeded, {len(errors)} failed.")
-    for e in errors:
-        log.error(f"  UPSERT ERROR: {e}")
-
-# ----------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------
 def main():
@@ -310,6 +317,7 @@ def main():
     # Connect Salesforce
     sf = connect_salesforce()
     sf_map = build_sf_product_map(sf)
+    pg_map = build_price_group_map(sf)
 
     # Process
     dry_run_rows  = []
@@ -325,7 +333,7 @@ def main():
         if not part_number:
             continue
 
-        payload     = transform(acu)
+        payload     = transform(acu, pg_map)
         sf_existing = sf_map.get(part_number)
         action      = determine_action(payload, sf_existing)
 
@@ -344,7 +352,7 @@ def main():
             "ItemStatus"   : payload["ACU_Item_Status__c"],
             "SalesUnit"    : payload["QuantityUnitOfMeasure"],
             "Authorization": payload["ACU_Authorization_Required__c"],
-            "PriceGroup"   : payload["US_Price_Group_Name__c"],
+            "PriceGroup"   : payload["Price_Group__c"],
             "PLCM"         : payload["ACU_PMPLCM__c"],
             "Category"     : payload["Category__c"],
             "SF_Id"        : sf_existing["Id"] if sf_existing else "",
@@ -376,11 +384,34 @@ def main():
 
     # Live upsert
     if not DRY_RUN and to_upsert:
-        log.info(f"Upserting {len(to_upsert)} records to Salesforce...")
-        for i in range(0, len(to_upsert), BATCH_SIZE):
-            batch = to_upsert[i:i + BATCH_SIZE]
-            log.info(f"  Batch {i // BATCH_SIZE + 1}: {len(batch)} records")
-            upsert_batch(sf, batch)
+        log.info(f"Writing {len(to_upsert)} records to Salesforce...")
+
+        to_insert = [r for r in to_upsert if "Id" not in r]
+        to_update = [r for r in to_upsert if "Id" in r]
+
+        if to_insert:
+            log.info(f"Inserting {len(to_insert)} new records...")
+            for i in range(0, len(to_insert), BATCH_SIZE):
+                batch = to_insert[i:i + BATCH_SIZE]
+                log.info(f"  Insert batch {i // BATCH_SIZE + 1}: {len(batch)} records")
+                results = sf.bulk.Product2.insert(batch, batch_size=BATCH_SIZE)
+                success = sum(1 for r in results if r.get("success"))
+                errors  = [r for r in results if not r.get("success")]
+                log.info(f"    {success} succeeded, {len(errors)} failed.")
+                for e in errors:
+                    log.error(f"    INSERT ERROR: {e}")
+
+        if to_update:
+            log.info(f"Updating {len(to_update)} existing records...")
+            for i in range(0, len(to_update), BATCH_SIZE):
+                batch = to_update[i:i + BATCH_SIZE]
+                log.info(f"  Update batch {i // BATCH_SIZE + 1}: {len(batch)} records")
+                results = sf.bulk.Product2.update(batch, batch_size=BATCH_SIZE)
+                success = sum(1 for r in results if r.get("success"))
+                errors  = [r for r in results if not r.get("success")]
+                log.info(f"    {success} succeeded, {len(errors)} failed.")
+                for e in errors:
+                    log.error(f"    UPDATE ERROR: {e}")
         log.info("Upsert complete.")
     elif DRY_RUN:
         log.info("DRY RUN — no writes to Salesforce. Review CSV before setting DRY_RUN = False.")
