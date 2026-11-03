@@ -1,0 +1,19 @@
+2026-06-11 10:01:04,235 [INFO] === sync_products.py starting — DRY RUN ===
+2026-06-11 10:01:04,236 [INFO] Preflight passed.
+2026-06-11 10:01:04,238 [INFO] Fetching from Acumatica: https://peerless-av.acumatica.com/odata/peerless-av/PRL_SFDC_PART_ODATA
+2026-06-11 10:01:14,391 [INFO]   Page 1: 3045 records (total: 3045)
+2026-06-11 10:01:14,391 [INFO] Acumatica fetch complete — 3045 total records.
+2026-06-11 10:01:15,725 [INFO] Connected to Salesforce: peerlessav.my.salesforce.com
+2026-06-11 10:01:15,726 [INFO] Querying existing Salesforce Product2 records...
+2026-06-11 10:01:21,873 [INFO] Found 18429 existing Product2 records in Salesforce.
+2026-06-11 10:01:21,903 [INFO] 
+--- Summary ---
+2026-06-11 10:01:21,903 [INFO]   Total processed : 3045
+2026-06-11 10:01:21,904 [INFO]   Inserts         : 377
+2026-06-11 10:01:21,904 [INFO]   Updates         : 2668
+2026-06-11 10:01:21,904 [INFO]   No change       : 0
+2026-06-11 10:01:21,904 [INFO]   Unmatched class : 603
+2026-06-11 10:01:21,929 [INFO] Dry run CSV written: sync_products_20260611_100104.csv
+2026-06-11 10:01:21,933 [INFO] Unmatched item classes written: sync_products_unmatched_20260611_100104.csv (603 records)
+2026-06-11 10:01:21,933 [INFO] DRY RUN — no writes to Salesforce. Review CSV before setting DRY_RUN = False.
+2026-06-11 10:01:21,934 [INFO] === sync_products.py complete ===
