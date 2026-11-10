@@ -1,0 +1,143 @@
+## 📦 Package Release Document (PRD #X)
+
+**Title:** PRD - 20261103  
+**Date Created:** 11-10-2026  
+**Last Updated:** 11-10-2026
+
+#### — Deployment Release Notes
+
+### 1. Release Overview
+- **Release Version Targeted:** 2026 R 1
+- **Build Number:** 26.101.0225.3
+- **Deployment Date:** 11-18-2026 (Pending Approval)
+- **Deployed By:**
+- **Related Work Items / Tickets:**
+
+### 2. Included Packages
+
+<table>
+<tr>
+<th>#</th>
+<th>Package Name</th>
+<th>Notes</th>
+<th>DZ Personal</th>
+<th>TestBTG</th>
+<th>QA</th>
+<th>PROD</th>
+</tr>
+<tr>
+<td>1</td>
+<td>PRLStarshipEndpointGI2026R1</td>
+<td>project updated in Peerless-AV, all items refreshed and exported</td>
+<td></td>
+<td>Deployed</td>
+<td>Deployed</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>CBIZ.PLM.FINANCEAPAR2026R1[005]</td>
+<td></td>
+<td></td>
+<td>Deployed</td>
+<td>Deployed</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>CBIX.PL.LocationSort2026R1[003]</td>
+<td></td>
+<td></td>
+<td>Deployed</td>
+<td>Deployed</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>CBIZ.ShippingInst2026R1[014]</td>
+<td></td>
+<td></td>
+<td>Deployed</td>
+<td>Deployed</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>CBIZ.PLM.InventoryAndOrder2026R1[004]</td>
+<td></td>
+<td></td>
+<td>Deployed</td>
+<td>Deployed</td>
+<td></td>
+</tr>
+</table>
+
+### 3. Changes in This Release
+
+#### 3.1 Functional Changes
+
+#### 3.2 Technical Changes
+
+#### 3.3 Database / DAC Changes
+
+#### 3.4 UI / Screen Changes
+
+#### 3.5 Integration Changes
+
+### 4. Pre-Deployment Checklist
+- All packages compiled successfully
+- No schema conflicts
+- No missing DAC fields
+- Import scenarios validated
+- Generic inquiries validated
+- Dashboards validated
+- Webhooks / API endpoints tested
+- Backup taken (if PROD)
+
+### 5. Deployment Steps Executed
+
+### 6. Post-Deployment Validation
+
+#### 6.1 Functional Validation
+
+#### 6.2 Technical Validation
+
+#### 6.3 Data Validation
+
+### 7. Issues, Deltas, or Anomalies
+
+<table>
+<tr>
+<th>#</th>
+<th>Issue / Observation</th>
+<th>Impact</th>
+<th>Resolution / Next Steps</th>
+</tr>
+<tr>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+### 8. Documentation Updates Required
+
+### 9. Notes for Next Release
+
+- 2026-11-10 12:00AM* - Created PRD, prepared to release packages 4 and 5 to QA
+- 2026-11-10 12:00AM* - Refreshed PRLStarshipEndpointGI2026R1 with current Peerless-AV GI and endpoint updates. Exported and added to package deliveries.
+- 2026-11-10 12:00AM* - Deployed updated PRLStarshipEndpoint to TESTBTG. Exported packages 4 and 5 from testbtg for deployment to QA
+- 2026-11-10 12:00AM* -- Deploying packages 4, 5 and 1 to QA
+
+### 10. Attachments / Artifacts
+
+#### Screenshots
+
+#### Exported Packages
+
+#### SQL Scripts
+
+#### Logs
+
+#### Before/After Comparisons
