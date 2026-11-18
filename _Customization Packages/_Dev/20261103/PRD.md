@@ -129,6 +129,7 @@
 - 2026-11-10 12:00AM* - Refreshed PRLStarshipEndpointGI2026R1 with current Peerless-AV GI and endpoint updates. Exported and added to package deliveries.
 - 2026-11-10 12:00AM* - Deployed updated PRLStarshipEndpoint to TESTBTG. Exported packages 4 and 5 from testbtg for deployment to QA
 - 2026-11-10 12:00AM* -- Deploying packages 4, 5 and 1 to QA
+- 2026-11-10  5:05PM  -- Redeploying to QA after notice from Laura 2 packages where not providing the updates she is expecting
 
 ### 10. Attachments / Artifacts
 
