@@ -34,6 +34,13 @@ GI's are used in all departments, to analize data and create excel documents.  m
 popular ones used in work instructions should go through change control.  Not all GI's are deployed to all production tenants, so the folders are organized by
 tenants.  Peerless-AV, Peerless-AV MX and Peerless-AV LTD tenants are documented, respective TEST tenants are NOT.
 
+### Server Management Scripts
+
+PowerShell scripts for running our self-hosted Acumatica instances (the change control instances and local DEV).  Keeps the
+instances warm (IIS always-on plus a warm-up script that loads screens and caches before users do), and gives a clean stop and
+start of the app pool and SQL Server, in the right order, for updates and maintenance.  See the README.md in that folder for
+setup, usage and history.
+
 ## Package Documentation Section
 
 ### Aug 2024 Package Deployment

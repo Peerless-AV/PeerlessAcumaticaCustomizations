@@ -1,0 +1,4 @@
+# DPAPI credential files - machine/user bound, never commit
+cred-*.xml
+# Runtime logs
+*.log

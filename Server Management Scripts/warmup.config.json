@@ -1,0 +1,22 @@
+{
+  "LogPath": "C:\\AcuWarmup\\warmup.log",
+  "Instances": [
+    {
+      "Name": "2026R1DEV",
+      "BaseUrl": "http://localhost/2026R1DEV",
+      "Tenant": "US",
+      "CredentialFile": "C:\\AcuWarmup\\cred-2026R1DEV.xml",
+      "Endpoint": "Default",
+      "EndpointVersion": "24.200.001",
+      "TimeoutSec": 600,
+      "Screens": [
+        "SO301000", "SO303000", "PO301000", "IN202500", "IN202000",
+        "AR303000", "AP303000", "GL301000", "CR306000", "SM208000"
+      ],
+      "Entities": [
+        "StockItem", "NonStockItem", "Customer", "Vendor",
+        "SalesOrder", "PurchaseOrder", "Invoice", "JournalTransaction"
+      ]
+    }
+  ]
+}
